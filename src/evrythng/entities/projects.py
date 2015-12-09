@@ -1,8 +1,8 @@
-from evrythng import utils
+from evrythng import assertions, utils
 
 
-def create_project(name=None, description=None, startsAt=None, endsAt=None,
-                   tags=None, shortDomains=None, api_key=None):
+def _validate_data(kwargs):
+    """Validation that asserts that data matches the Evrythng spec."""
     datatype_specs = {
         'name': 'str',
         'description': 'str',
@@ -16,12 +16,41 @@ def create_project(name=None, description=None, startsAt=None, endsAt=None,
     readonly_fields = ('id', 'createdAt', 'updatedAt')
     writable_fields = ('description', 'startsAt', 'endsAt', 'tags')
 
+    assertions.required(kwargs, required_fields)
+    assertions.readonly(kwargs, readonly_fields)
+    assertions.no_extras(kwargs, required_fields + writable_fields)
+    assertions.datatypes(kwargs, datatype_specs)
+
+
+def create_project(name=None, description=None, startsAt=None, endsAt=None,
+                   tags=None, shortDomains=None, api_key=None):
     kwargs = locals()
     api_key = kwargs.pop('api_key')
+    _validate_data(kwargs)
+    return utils.request(
+        'POST', '/projects', data=kwargs, api_key=api_key)
 
-    utils.assert_required(kwargs, required_fields)
-    utils.assert_readonly(kwargs, readonly_fields)
-    utils.assert_no_extras(kwargs, required_fields + writable_fields)
-    utils.assert_datatypes(kwargs, datatype_specs)
 
-    # utils.request('POST', '/projects', data, api_key=api_key)
+def list_projects(api_key=None):
+    return utils.request('GET', '/projects', api_key=api_key, accept=True)
+
+
+def read_project(project_id, api_key=None):
+    url = '/projects/{}'.format(project_id)
+    return utils.request('GET', url, api_key=api_key, accept=True)
+
+
+def update_project(project_id, name=None, description=None, startsAt=None,
+                   endsAt=None, tags=None, shortDomains=None, api_key=None):
+    kwargs = locals()
+    api_key = kwargs.pop('api_key')
+    project_id = kwargs.pop('project_id')
+    _validate_data(kwargs)
+    url = '/projects/{}'.format(project_id)
+    return utils.request(
+        'PUT', url, data=kwargs, api_key=api_key, accept=True)
+
+
+def delete_project(project_id, api_key=None):
+    url = '/projects/{}'.format(project_id)
+    return utils.request('DELETE', url, api_key=api_key, accept=True)
