@@ -20,7 +20,7 @@ class InvalidDatatypeException(Exception):
 class ReadOnlyFieldWrittenToException(Exception):
 
     def __init__(self, field_name, value):
-        message = '"{}" is a read-only field and was written to: {}'.format(
+        message = '"{}" is a read-only field and was written to with "{}"'.format(
             field_name, value)
         super(ReadOnlyFieldWrittenToException, self).__init__(message)
 

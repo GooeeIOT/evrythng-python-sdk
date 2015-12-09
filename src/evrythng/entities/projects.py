@@ -14,7 +14,8 @@ def _validate_data(kwargs):
     }
     required_fields = ('name',)
     readonly_fields = ('id', 'createdAt', 'updatedAt')
-    writable_fields = ('description', 'startsAt', 'endsAt', 'tags')
+    writable_fields = ('description', 'startsAt', 'endsAt', 'tags',
+                       'shortDomains')
 
     assertions.required(kwargs, required_fields)
     assertions.readonly(kwargs, readonly_fields)

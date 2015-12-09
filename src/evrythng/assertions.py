@@ -10,16 +10,16 @@ def required(supplied_fields, required_fields):
     """Assert that all required fields are in the supplied_fields."""
     for field in required_fields:
         try:
-            assert field in locals
+            assert field in supplied_fields
         except AssertionError:
             raise RequiredFieldException(field)
 
 
 def readonly(supplied_fields, readonly_fields):
     """Assert that a read only field wasn't supplied as a field/value."""
-    for field in readonly_fields:
+    for field in supplied_fields:
         try:
-            assert field not in locals
+            assert field not in readonly_fields
         except AssertionError:
             raise ReadOnlyFieldWrittenToException(field, supplied_fields[field])
 
@@ -73,8 +73,12 @@ def datatype_list_of_str(field, value):
 
 def datatypes(supplied_fields, datatype_specs):
     """A helper for routing values to their type validators."""
-    kwargs = locals()
     for field in supplied_fields:
+        value = supplied_fields[field]
+        if value is None:
+            continue
         spec = datatype_specs[field]
-        validator = kwargs['assert_datatype_{}'.format(spec)]
+        validator = file_locals['datatype_{}'.format(spec.replace('|', '_of_'))]
         validator(field, supplied_fields[field])
+
+file_locals = locals()
