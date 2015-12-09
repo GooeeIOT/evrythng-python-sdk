@@ -9,8 +9,11 @@ class ExtraDataSubmittedException(Exception):
 class InvalidDatatypeException(Exception):
 
     def __init__(self, field_name, expected_type, received_type):
-        message = '"{}" expects a {} but recieved a {}'.format(
-            field_name, )
+        if isinstance(expected_type, tuple):
+            expected_type = ' or '.join(
+                type(expect_type) for expect_type in expected_type)
+        message = '"{}" expects a {} but received a {}'.format(
+            field_name, expected_type, received_type)
         super(InvalidDatatypeException, self).__init__(message)
 
 
