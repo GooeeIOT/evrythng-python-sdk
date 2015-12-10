@@ -45,7 +45,7 @@ def activate_user(user_id, activationCode, api_key=None):
     return utils.request('POST', url, data=data, api_key=api_key)
 
 
-def create_anonymous_user(api_key=None)
+def create_anonymous_user(api_key=None):
     return utils.request(
         'POST', '/auth/evrythng/users?anonymous=true', api_key=api_key)
 

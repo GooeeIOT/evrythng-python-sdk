@@ -116,6 +116,16 @@ def datatype_birthday(field, value, spec):
             raise InvalidDatatypeException(
                 '{}[{}]'.format(field, key), int, type(value[key]))
 
+        if key == 'month' and not (1 <= value <= 12):
+            raise InvalidValueException(
+                '{}[{}]'.format(field, key), value, '1-12')
+        elif key == 'day' and not (1 <= value <= 31):
+            raise InvalidValueException(
+                '{}[{}]'.format(field, key), value, '1-31')
+        elif key == 'year' and not (1800 <= value <= 2100):
+            raise InvalidValueException(
+                '{}[{}]'.format(field, key), value, '1800-2100')
+
 
 def datatypes(supplied_fields, datatype_specs):
     """A helper for routing values to their type validators."""
