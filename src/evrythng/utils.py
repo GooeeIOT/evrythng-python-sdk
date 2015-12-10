@@ -4,8 +4,7 @@ import requests
 
 
 def request(request_type, resource_url, data=None, api_key=None,
-            base_url='https://api.evrythng.com',
-            return_raw_request=False, accept=False):
+            base_url='https://api.evrythng.com', accept=False, debug=True):
     request_type = request_type.lower()
 
     if api_key is None:
@@ -26,9 +25,15 @@ def request(request_type, resource_url, data=None, api_key=None,
     if data:
         kwargs['json'] = data
 
+    if debug:
+        print('---')
+        print(request_type.upper(), url)
+        if data:
+            print('DATA', data)
+
     response = request_func(url, **kwargs)
 
-    if return_raw_request:
-        return response
+    if debug:
+        print('RESPONSE', response.text)
 
-    return response.json()
+    return response

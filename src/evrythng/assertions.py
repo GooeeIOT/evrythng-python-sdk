@@ -19,7 +19,7 @@ def readonly(supplied_fields, readonly_fields):
     """Assert that a read only field wasn't supplied as a field/value."""
     for field in supplied_fields:
         try:
-            assert field not in readonly_fields
+            assert field not in readonly_fields or supplied_fields[field] is None
         except AssertionError:
             raise ReadOnlyFieldWrittenToException(field, supplied_fields[field])
 
@@ -71,6 +71,11 @@ def datatype_list_of_str(field, value):
         raise InvalidDatatypeException(field, (list, tuple), type(value))
 
 
+def datatype_list_of_social_networks(field, value):
+    # TODO: figure our how to serialize this.
+    return ''
+
+
 def datatypes(supplied_fields, datatype_specs):
     """A helper for routing values to their type validators."""
     for field in supplied_fields:
@@ -80,5 +85,6 @@ def datatypes(supplied_fields, datatype_specs):
         spec = datatype_specs[field]
         validator = file_locals['datatype_{}'.format(spec.replace('|', '_of_'))]
         validator(field, supplied_fields[field])
+
 
 file_locals = locals()
