@@ -6,8 +6,8 @@ datatype_specs = {
     'description': 'str',
     'startsAt': 'time',
     'endsAt': 'time',
-    'tags': 'list|str',
-    'shortDomains': 'list|str',
+    'tags': 'list_of_str',
+    'shortDomains': 'list_of_str',
     'customFields': 'dict',
 }
 required_fields = ('name',)

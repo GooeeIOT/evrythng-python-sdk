@@ -17,6 +17,14 @@ class InvalidDatatypeException(Exception):
         super(InvalidDatatypeException, self).__init__(message)
 
 
+class InvalidValueException(Exception):
+
+    def __init__(self, field_name, value, spec_values):
+        message = '"{}" has a value of "{}" but need to be one of {}.'.format(
+            field_name, value, spec_values)
+        super(InvalidValueException, self).__init__(message)
+
+
 class ReadOnlyFieldWrittenToException(Exception):
 
     def __init__(self, field_name, value):

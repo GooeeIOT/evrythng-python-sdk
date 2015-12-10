@@ -6,8 +6,8 @@ datatype_specs = {
     'description': 'str',
     'project': 'ref',
     'defaultUrl': 'str',
-    'socialNetworks': 'list|social_networks',
-    'tags': 'list|str',
+    'socialNetworks': 'list_of_social_networks',
+    'tags': 'list_of_str',
     'customFields': 'dict',
     'appApiKey': 'str',
 }
