@@ -1,2 +1,7 @@
 *.pyc
 .idea
+
+# Sphinx documentation build directories.
+_build
+_static
+_templates
