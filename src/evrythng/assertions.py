@@ -57,17 +57,17 @@ def datatype_dict(field, value, spec):
     except AssertionError:
         raise InvalidDatatypeException(field, dict, type(value))
 
-    for i, (k, v) in enumerate(value.items()):
-        try:
-            assert isinstance(k, str)
-        except:
-            raise InvalidDatatypeException(
-                    '{}[{}].key'.format(field, i), str, type(k))
-        try:
-            assert isinstance(v, str)
-        except:
-            raise InvalidDatatypeException(
-                    '{}[{}].value'.format(field, i), str, type(v))
+    # for i, (k, v) in enumerate(value.items()):
+    #     try:
+    #         assert isinstance(k, str)
+    #     except:
+    #         raise InvalidDatatypeException(
+    #                 '{}[{}].key'.format(field, i), str, type(k))
+    #     try:
+    #         assert isinstance(v, str)
+    #     except:
+    #         raise InvalidDatatypeException(
+    #                 '{}[{}].value'.format(field, i), str, type(v))
 
 
 def datatype_list_of_str(field, value, spec):
@@ -125,6 +125,36 @@ def datatype_birthday(field, value, spec):
         elif key == 'year' and not (1800 <= value <= 2100):
             raise InvalidValueException(
                 '{}[{}]'.format(field, key), value, '1800-2100')
+
+
+def datatype_location(field, value, spec):
+    datatype_dict(field, value, spec)
+    try:
+        assert 'position' in value
+    except AssertionError:
+        raise RequiredFieldException('position')
+
+    try:
+        assert 'type' in value['position']
+    except AssertionError:
+        raise RequiredFieldException('position[type]')
+
+    try:
+        assert value['position']['type'] == 'Point'
+    except AssertionError:
+        raise RequiredFieldException('position[type] != Point')
+
+    try:
+        assert 'coordinates' in value['position']
+    except AssertionError:
+        raise RequiredFieldException('position[coordinates]')
+
+    coordinates = value['position']['coordinates']
+
+    try:
+        assert len(coordinates) == 2
+    except AssertionError:
+        raise ValueError('location[position][coordinates] must be an array of 2 floats: [float, float]')
 
 
 def datatypes(supplied_fields, datatype_specs):
