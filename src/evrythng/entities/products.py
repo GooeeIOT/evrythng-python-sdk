@@ -1,4 +1,4 @@
-from evrythng import utils
+from evrythng import assertions, utils
 from . import validate_field_specs
 
 
@@ -36,6 +36,7 @@ def list_products(api_key=None):
 
 
 def read_product(product_id, api_key=None):
+    assertions.datatype_str('product_id', product_id, None)
     url = '/products/{}'.format(product_id)
     return utils.request('GET', url, api_key=api_key)
 
@@ -52,5 +53,6 @@ def update_product(product_id, name=None, description=None, brand=None,
 
 
 def delete_product(product_id, api_key=None):
+    assertions.datatype_str('product_id', product_id, None)
     url = '/products/{}'.format(product_id)
     return utils.request('DELETE', url, api_key=api_key)

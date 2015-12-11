@@ -1,4 +1,4 @@
-from evrythng import utils
+from evrythng import assertions, utils
 from . import validate_field_specs
 
 
@@ -21,10 +21,12 @@ def update_location(thng_id, position=None, timestamp=None, api_key=None):
 
 
 def list_locations(thng_id, api_key=None):
+    assertions.datatype_str('thng_id', thng_id, None)
     url = '/thngs/{}/location'.format(thng_id)
     return utils.request('GET', url, api_key=api_key)
 
 
 def delete_location(thng_id, api_key=None):
+    assertions.datatype_str('thng_id', thng_id, None)
     url = '/thngs/{}/location'.format(thng_id)
     return utils.request('DELETE', url, api_key=api_key)

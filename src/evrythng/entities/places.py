@@ -1,4 +1,4 @@
-from evrythng import utils
+from evrythng import assertions, utils
 from . import validate_field_specs
 
 
@@ -27,6 +27,7 @@ def create_place(name, position=None, address=None, description=None,
 
 
 def read_place(place_id, api_key=None):
+    assertions.datatype_str('place_id', place_id, None)
     url = '/places/{}'.format(place_id)
     return utils.request('GET', url, api_key=api_key)
 
@@ -42,6 +43,7 @@ def update_place(place_id, name=None, position=None, address=None, description=N
 
 
 def delete_place(place_id, api_key=None):
+    assertions.datatype_str('place_id', place_id, None)
     url = '/places/{}'.format(place_id)
     return utils.request('DELETE', url, api_key=api_key)
 

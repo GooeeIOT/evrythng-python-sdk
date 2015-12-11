@@ -56,7 +56,7 @@
 <Response [200]>
 """
 
-from evrythng import utils
+from evrythng import assertions, utils
 from . import validate_field_specs
 
 
@@ -157,6 +157,7 @@ def read_project(project_id, api_key=None):
     :return A Project document.
     :rtype Response
     """
+    assertions.datatype_str('project_id', project_id, None)
     url = '/projects/{}'.format(project_id)
     return utils.request('GET', url, api_key=api_key, accept=True)
 
@@ -172,5 +173,6 @@ def delete_project(project_id, api_key=None):
     :return Blank string.
     :rtype Response
     """
+    assertions.datatype_str('project_id', project_id, None)
     url = '/projects/{}'.format(project_id)
     return utils.request('DELETE', url, api_key=api_key, accept=True)

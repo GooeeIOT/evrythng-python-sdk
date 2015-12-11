@@ -1,4 +1,4 @@
-from evrythng import utils
+from evrythng import assertions, utils
 from . import validate_field_specs
 
 
@@ -35,6 +35,7 @@ def list_thngs(api_key=None):
 
 
 def read_thng(thng_id, api_key=None):
+    assertions.datatype_str('thng_id', thng_id, None)
     url = '/thngs/{}'.format(thng_id)
     return utils.request('GET', url, api_key=api_key, accept=True)
 
@@ -52,21 +53,26 @@ def update_thng(thng_id, name, description=None, product=None, location=None,
 
 
 def delete_thng(thng_id, api_key=None):
+    assertions.datatype_str('thng_id', thng_id, None)
     url = '/thngs/{}'.format(thng_id)
     return utils.request('DELETE', url, api_key=api_key)
 
 
-def create_device_thng(thngId, thngApiKey, api_key=None):
-    data = {'thngId': thngId, 'thngApiKey': thngApiKey}
+def create_device_thng(thng_id, thngApiKey, api_key=None):
+    assertions.datatype_str('thng_id', thng_id, None)
+    assertions.datatype_str('thngApiKey', thngApiKey, None)
+    data = {'thng_id': thng_id, 'thngApiKey': thngApiKey}
     return utils.request(
         'POST', '/auth/evrythng/thngs', data=data, api_key=api_key)
 
 
 def read_device_thng(thng_id, api_key=None):
+    assertions.datatype_str('thng_id', thng_id, None)
     url = '/auth/evrythng/thngs/{}'.format(thng_id)
     return utils.request('GET', url, api_key=api_key)
 
 
 def delete_device_thng(thng_id, api_key=None):
+    assertions.datatype_str('thng_id', thng_id, None)
     url = '/auth/evrythng/thngs/{}'.format(thng_id)
     return utils.request('DELETE', url, api_key=api_key)

@@ -1,4 +1,4 @@
-from evrythng import utils
+from evrythng import assertions, utils
 from . import validate_field_specs
 
 
@@ -36,10 +36,13 @@ def create_action(type_, thng=None, product=None, collection=None,
 
 
 def list_actions(type_, api_key=None):
+    assertions.datatype_str('type_', type_, None)
     url = '/actions/{}'.format(type_)
     return utils.request('GET', url, api_key=api_key)
 
 
 def read_action(type_, action_id, api_key=None):
+    assertions.datatype_str('type_', type_, None)
+    assertions.datatype_str('action_id', action_id, None)
     url = '/actions/{}/{}'.format(type_, action_id)
     return utils.request('GET', url, api_key=api_key)
