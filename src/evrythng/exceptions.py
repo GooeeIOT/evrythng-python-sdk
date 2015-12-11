@@ -19,9 +19,9 @@ class InvalidDatatypeException(Exception):
 
 class InvalidValueException(Exception):
 
-    def __init__(self, field_name, value, spec_values):
+    def __init__(self, field_name, value, good_values):
         message = '"{}" has a value of "{}" but need to be one of {}.'.format(
-            field_name, value, spec_values)
+            field_name, value, good_values)
         super(InvalidValueException, self).__init__(message)
 
 

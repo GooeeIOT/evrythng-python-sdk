@@ -183,8 +183,3 @@ def delete_project(project_id, api_key=None):
     assertions.datatype_str('project_id', project_id)
     url = '/projects/{}'.format(project_id)
     return utils.request('DELETE', url, api_key=api_key, accept=True)
-
-
-if __name__ == '__main__':
-    import doctest
-    doctest.testmod()

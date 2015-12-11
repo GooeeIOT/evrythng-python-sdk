@@ -204,13 +204,24 @@ def datatype_address(field, value):
             raise ExtraDataSubmittedException(field, key)
 
     # Make sure all values are str.
-    for k, v in value.iteritems():
+    for k, v in value.items():
         if not isinstance(v, str):
             raise InvalidDatatypeException('{}[{}]'.format(field, v))
 
 
 def datatype_geojson(field, value):
     pass
+
+
+def datatype_ref(field, value):
+    # TODO: does this need to be more strict?
+    # import re
+    # uuid4hex = re.compile('[0-9a-f]{32}\Z', re.I)
+    # try:
+    #     assert uuid4hex.match(value)
+    # except:
+    #     raise InvalidValueException(field, value, 'UUID')
+    datatype_str(field, value)
 
 
 def datatypes(supplied_fields, datatype_specs):
