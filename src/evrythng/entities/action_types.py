@@ -1,30 +1,18 @@
 from evrythng import assertions, utils
-from evrythng.exceptions import RequiredFieldException
+from . import validate_field_specs
 
 
-datatype_specs = {
-    'name': 'str',
-    'customFields': 'dict_of_str',
-    'tags': 'dict_of_str',
-    'scopes': 'scopes',
+field_specs = {
+    'datatypes': {
+        'name': 'str',
+        'customFields': 'dict_of_str',
+        'tags': 'dict_of_str',
+        'scopes': 'scopes',
+    },
+    'required': ('name',),
+    'readonly': ('id', 'createdAt', 'updatedAt'),
+    'writable': ('customFields', 'tags', 'scopes'),
 }
-required_fields = ('name',)
-readonly_fields = ('id', 'createdAt', 'updatedAt')
-writable_fields = ('customFields', 'tags', 'scopes')
-
-
-def _validate_data(kwargs):
-    """Sanity checking of data that is submitted to evrythng."""
-
-    # # Custom rule specified by evrythng.
-    # if kwargs['location'] and not kwargs['locationSource']:
-    #     raise RequiredFieldException('locationSource')
-
-    assertions.required(kwargs, required_fields)
-    assertions.readonly(kwargs, readonly_fields)
-    assertions.no_extras(
-        kwargs, required_fields + writable_fields + readonly_fields)
-    assertions.datatypes(kwargs, datatype_specs)
 
 
 def create_action_type(name, customFields=None, tags=None, scopes=None,
@@ -33,7 +21,7 @@ def create_action_type(name, customFields=None, tags=None, scopes=None,
     kwargs['type'] = kwargs['type_']
     del kwargs['type_']
     api_key = kwargs.pop('api_key', None)
-    _validate_data(kwargs)
+    validate_field_specs(kwargs, field_specs)
     url = '/actions/{}'.format(type_)
     return utils.request('POST', '/actions', data=kwargs, api_key=api_key)
 
@@ -46,7 +34,7 @@ def update_action_type(type_, thng=None, product=None, collection=None,
     kwargs['type'] = kwargs['type_']
     del kwargs['type_']
     api_key = kwargs.pop('api_key', None)
-    _validate_data(kwargs)
+    validate_field_specs(kwargs, field_specs)
     url = '/actions/{}'.format(type_)
     return utils.request('POST', '/actions', data=kwargs, api_key=api_key)
 

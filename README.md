@@ -9,7 +9,6 @@ into something worth using.
 It hasn't quite reached a usable alpha, though that will happen soon. This
 status will be updated accordingly.
 
-
 ### Supported Entities
 
 - Projects

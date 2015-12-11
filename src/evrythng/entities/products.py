@@ -1,31 +1,25 @@
-from evrythng import assertions, utils
+from evrythng import utils
+from . import validate_field_specs
 
 
-datatype_specs = {
-    'name': 'str',
-    'description': 'str',
-    'brand': 'str',
-    'categories': 'list_of_str',
-    'photos': 'list_of_str',
-    'url': 'str',
-    'identifiers': 'dict_of_dict',
-    'properties': 'dict',
-    'tags': 'list_of_str',
-    'customFields': 'dict_of_str',
+field_specs = {
+    'datatypes': {
+        'name': 'str',
+        'description': 'str',
+        'brand': 'str',
+        'categories': 'list_of_str',
+        'photos': 'list_of_str',
+        'url': 'str',
+        'identifiers': 'dict_of_dict',
+        'properties': 'dict',
+        'tags': 'list_of_str',
+        'customFields': 'dict_of_str',
+    },
+    'required': ('name',),
+    'readonly': ('id', 'createdAt', 'updatedAt', 'activatedAt'),
+    'writable': ('description', 'brand', 'categories', 'photos', 'url',
+                 'identifiers', 'properties', 'tags', 'customFields'),
 }
-required_fields = ('name',)
-readonly_fields = ('id', 'createdAt', 'updatedAt', 'activatedAt')
-writable_fields = ('description', 'brand', 'categories', 'photos', 'url',
-                   'identifiers', 'properties', 'tags', 'customFields')
-
-
-def _validate_data(kwargs):
-    """Sanity checking of data that is submitted to evrythng."""
-    assertions.required(kwargs, required_fields)
-    assertions.readonly(kwargs, readonly_fields)
-    assertions.no_extras(
-        kwargs, required_fields + writable_fields + readonly_fields)
-    assertions.datatypes(kwargs, datatype_specs)
 
 
 def create_product(name, description=None, brand=None, categories=None,
@@ -33,7 +27,7 @@ def create_product(name, description=None, brand=None, categories=None,
                    tags=None, customFields=None, api_key=None):
     kwargs = locals()
     api_key = kwargs.pop('api_key', None)
-    _validate_data(kwargs)
+    validate_field_specs(kwargs, field_specs)
     return utils.request('POST', '/products', data=kwargs, api_key=api_key)
 
 
@@ -52,10 +46,9 @@ def update_product(product_id, name=None, description=None, brand=None,
     kwargs = locals()
     product_id = kwargs.pop('product_id')
     api_key = kwargs.pop('api_key', None)
-    _validate_data(kwargs)
+    validate_field_specs(kwargs, field_specs)
     url = '/products/{}'.format(product_id)
-    return utils.request(
-        'PUT', url, data=kwargs, api_key=api_key)
+    return utils.request('PUT', url, data=kwargs, api_key=api_key)
 
 
 def delete_product(product_id, api_key=None):

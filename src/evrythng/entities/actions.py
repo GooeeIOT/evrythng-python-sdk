@@ -1,37 +1,25 @@
-from evrythng import assertions, utils
-from evrythng.exceptions import RequiredFieldException
+from evrythng import utils
+from . import validate_field_specs
 
 
-datatype_specs = {
-    'type': 'str',
-    'thng': 'ref',
-    'product': 'ref',
-    'collection': 'ref',
-    'timestamp': 'time',
-    'identifiers': 'dict_of_dict',
-    'location': 'location',
-    'locationSource': 'str',
-    'context': 'dict',
-    'customFields': 'dict_of_str',
+field_specs = {
+    'datatypes': {
+        'type': 'str',
+        'thng': 'ref',
+        'product': 'ref',
+        'collection': 'ref',
+        'timestamp': 'time',
+        'identifiers': 'dict_of_dict',
+        'location': 'location',
+        'locationSource': 'str',
+        'context': 'dict',
+        'customFields': 'dict_of_str',
+    },
+    'required': ('type',),
+    'readonly': ('id', 'user', 'createdAt', 'createdByProject, createdByApp'),
+    'writable': ('thng', 'product', 'collection', 'timestamp', 'identifiers',
+                 'location', 'locationSource', 'context', 'customFields'),
 }
-required_fields = ('type',)
-readonly_fields = ('id', 'user', 'createdAt', 'createdByProject, createdByApp')
-writable_fields = ('thng', 'product', 'collection', 'timestamp', 'identifiers',
-                   'location', 'locationSource', 'context', 'customFields')
-
-
-def _validate_data(kwargs):
-    """Sanity checking of data that is submitted to evrythng."""
-
-    # Custom rule specified by evrythng.
-    if kwargs['location'] and not kwargs['locationSource']:
-        raise RequiredFieldException('locationSource')
-
-    assertions.required(kwargs, required_fields)
-    assertions.readonly(kwargs, readonly_fields)
-    assertions.no_extras(
-        kwargs, required_fields + writable_fields + readonly_fields)
-    assertions.datatypes(kwargs, datatype_specs)
 
 
 def create_action(type_, thng=None, product=None, collection=None,
@@ -42,7 +30,7 @@ def create_action(type_, thng=None, product=None, collection=None,
     kwargs['type'] = kwargs['type_']
     del kwargs['type_']
     api_key = kwargs.pop('api_key', None)
-    _validate_data(kwargs)
+    validate_field_specs(kwargs, field_specs)
     url = '/actions/{}'.format(type_)
     return utils.request('POST', '/actions', data=kwargs, api_key=api_key)
 

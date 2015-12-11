@@ -1,28 +1,22 @@
-from evrythng import assertions, utils
+from evrythng import utils
+from . import validate_field_specs
 
 
-datatype_specs = {
-    'name': 'str',
-    'description': 'str',
-    'project': 'ref',
-    'defaultUrl': 'str',
-    'socialNetworks': 'list_of_social_networks',
-    'tags': 'list_of_str',
-    'customFields': 'dict_of_str',
-    'appApiKey': 'str',
+field_specs = {
+    'datatypes': {
+        'name': 'str',
+        'description': 'str',
+        'project': 'ref',
+        'defaultUrl': 'str',
+        'socialNetworks': 'list_of_social_networks',
+        'tags': 'list_of_str',
+        'customFields': 'dict_of_str',
+        'appApiKey': 'str',
+    },
+    'required': ('name', 'socialNetworks'),
+    'readonly': ('id', 'createdAt', 'updatedAt', 'project', 'appApiKey'),
+    'writable': ('description', 'defaultUrl', 'tags', 'customFields'),
 }
-required_fields = ('name', 'socialNetworks')
-readonly_fields = ('id', 'createdAt', 'updatedAt', 'project', 'appApiKey')
-writable_fields = ('description', 'defaultUrl', 'tags', 'customFields')
-
-
-def _validate_data(kwargs):
-    """Sanity checking of data that is submitted to evrythng."""
-    assertions.required(kwargs, required_fields)
-    assertions.no_extras(
-        kwargs, required_fields + writable_fields + readonly_fields)
-    assertions.readonly(kwargs, readonly_fields)
-    assertions.datatypes(kwargs, datatype_specs)
 
 
 def create_application(project_id, name=None, description=None,
@@ -31,7 +25,7 @@ def create_application(project_id, name=None, description=None,
     kwargs = locals()
     api_key = kwargs.pop('api_key', None)
     project_id = kwargs.pop('project_id')
-    _validate_data(kwargs)
+    validate_field_specs(kwargs, field_specs)
     url = '/projects/{}/applications'.format(project_id)
     return utils.request('POST', url, data=kwargs, api_key=api_key)
 
@@ -43,7 +37,7 @@ def update_application(project_id, application_id, name=None, description=None,
     api_key = kwargs.pop('api_key', None)
     project_id = kwargs.pop('project_id')
     application_id = kwargs.pop('application_id')
-    _validate_data(kwargs)
+    validate_field_specs(kwargs, field_specs)
     url = '/projects/{}/applications/{}'.format(project_id, application_id)
     return utils.request('PUT', url, data=kwargs, api_key=api_key, accept=True)
 

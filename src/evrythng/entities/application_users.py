@@ -1,32 +1,26 @@
-from evrythng import assertions, utils
+from evrythng import utils
+from . import validate_field_specs
 
 
-datatype_specs = {
-    'email': 'str',
-    'firstName': 'str',
-    'lastName': 'str',
-    'password': 'str',
-    'birthday': 'birthday',
-    'gender': 'str|male,female',  # male|female
-    'timezone': 'str',
-    'locale': 'str',
-    'photo': 'base64',
-    'customFields': 'dict_of_str',
-    'tags': 'list_of_str',
+field_specs = {
+    'datatypes': {
+        'email': 'str',
+        'firstName': 'str',
+        'lastName': 'str',
+        'password': 'str',
+        'birthday': 'birthday',
+        'gender': 'str|male,female',  # male|female
+        'timezone': 'str',
+        'locale': 'str',
+        'photo': 'base64',
+        'customFields': 'dict_of_str',
+        'tags': 'list_of_str',
+    },
+    'required': ('email',),
+    'readonly': tuple(),
+    'writable': ('firstName', 'lastName', 'password', 'birthday', 'gender',
+                 'timezone', 'locale', 'photo', 'customFields', 'tags'),
 }
-required_fields = ('email',)
-readonly_fields = tuple()
-writable_fields = ('firstName', 'lastName', 'password', 'birthday', 'gender',
-                   'timezone', 'locale', 'photo', 'customFields', 'tags')
-
-
-def _validate_data(kwargs):
-    """Sanity checking of data that is submitted to evrythng."""
-    assertions.required(kwargs, required_fields)
-    assertions.no_extras(
-        kwargs, required_fields + writable_fields + readonly_fields)
-    assertions.readonly(kwargs, readonly_fields)
-    assertions.datatypes(kwargs, datatype_specs)
 
 
 def create_user(email, firstName=None, lastName=None, password=None,
@@ -34,7 +28,7 @@ def create_user(email, firstName=None, lastName=None, password=None,
                 photo=None, customFields=None, tags=None, api_key=None):
     kwargs = locals()
     api_key = kwargs.pop('api_key', None)
-    _validate_data(kwargs)
+    validate_field_specs(kwargs, field_specs)
     return utils.request(
         'POST', '/auth/evrythng/users', data=kwargs, api_key=api_key)
 
@@ -91,6 +85,6 @@ def update_user(user_id, email=None, firstName=None, lastName=None,
     kwargs = locals()
     user_id = kwargs.pop('user_id')
     api_key = kwargs.pop('api_key', None)
-    _validate_data(kwargs)
+    validate_field_specs(kwargs, field_specs)
     url = '/users/{}'.format(user_id)
     return utils.request('PUT', url, data=kwargs, api_key=api_key)

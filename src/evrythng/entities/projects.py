@@ -56,30 +56,24 @@
 <Response [200]>
 """
 
-from evrythng import assertions, utils
+from evrythng import utils
+from . import validate_field_specs
 
 
-datatype_specs = {
-    'name': 'str',
-    'description': 'str',
-    'startsAt': 'time',
-    'endsAt': 'time',
-    'tags': 'list_of_str',
-    'shortDomains': 'list_of_str',
-    'customFields': 'dict_of_str',
+field_specs = {
+    'datatypes': {
+        'name': 'str',
+        'description': 'str',
+        'startsAt': 'time',
+        'endsAt': 'time',
+        'tags': 'list_of_str',
+        'shortDomains': 'list_of_str',
+        'customFields': 'dict_of_str',
+    },
+    'required': ('name',),
+    'readonly': ('id', 'createdAt', 'updatedAt'),
+    'writable': ('description', 'startsAt', 'endsAt', 'tags', 'shortDomains'),
 }
-required_fields = ('name',)
-readonly_fields = ('id', 'createdAt', 'updatedAt')
-writable_fields = ('description', 'startsAt', 'endsAt', 'tags', 'shortDomains')
-
-
-def _validate_data(kwargs):
-    """Sanity checking of data that is submitted to evrythng."""
-    assertions.required(kwargs, required_fields)
-    assertions.readonly(kwargs, readonly_fields)
-    assertions.no_extras(
-        kwargs, required_fields + writable_fields + readonly_fields)
-    assertions.datatypes(kwargs, datatype_specs)
 
 
 def create_project(name=None, description=None, startsAt=None, endsAt=None,
@@ -106,9 +100,8 @@ def create_project(name=None, description=None, startsAt=None, endsAt=None,
     """
     kwargs = locals()
     api_key = kwargs.pop('api_key', None)
-    _validate_data(kwargs)
-    return utils.request(
-        'POST', '/projects', data=kwargs, api_key=api_key)
+    validate_field_specs(kwargs, field_specs)
+    return utils.request('POST', '/projects', data=kwargs, api_key=api_key)
 
 
 def update_project(project_id, name=None, description=None, startsAt=None,
@@ -136,10 +129,9 @@ def update_project(project_id, name=None, description=None, startsAt=None,
     kwargs = locals()
     api_key = kwargs.pop('api_key', None)
     project_id = kwargs.pop('project_id')
-    _validate_data(kwargs)
+    validate_field_specs(kwargs, field_specs)
     url = '/projects/{}'.format(project_id)
-    return utils.request(
-        'PUT', url, data=kwargs, api_key=api_key, accept=True)
+    return utils.request('PUT', url, data=kwargs, api_key=api_key, accept=True)
 
 
 def list_projects(api_key=None):

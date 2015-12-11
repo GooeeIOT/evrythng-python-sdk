@@ -1,34 +1,28 @@
-from evrythng import assertions, utils
+from evrythng import utils
+from . import validate_field_specs
 
 
-datatype_specs = {
-    'position': 'geojson',
-    'address': 'address',
-    'description': 'str',
-    'icon': 'str',
-    'tags': 'list_of_str',
-    'customFields': 'dict_of_str',
+field_specs = {
+    'datatypes': {
+        'position': 'geojson',
+        'address': 'address',
+        'description': 'str',
+        'icon': 'str',
+        'tags': 'list_of_str',
+        'customFields': 'dict_of_str',
+    },
+    'required': ('name',),
+    'readonly': ('id', 'createdAt', 'updatedAt'),
+    'writable': ('position', 'address', 'description', 'icon', 'tags',
+                 'customFields'),
 }
-required_fields = ('name',)
-readonly_fields = ('id', 'createdAt', 'updatedAt')
-writable_fields = ('position', 'address', 'description', 'icon', 'tags',
-                   'customFields')
-
-
-def _validate_data(kwargs):
-    """Sanity checking of data that is submitted to evrythng."""
-    assertions.required(kwargs, required_fields)
-    assertions.readonly(kwargs, readonly_fields)
-    assertions.no_extras(
-        kwargs, required_fields + writable_fields + readonly_fields)
-    assertions.datatypes(kwargs, datatype_specs)
 
 
 def create_place(name, position=None, address=None, description=None,
                  icon=None, tags=None, customFields=None):
     kwargs = locals()
     api_key = kwargs.pop('api_key', None)
-    _validate_data(kwargs)
+    validate_field_specs(kwargs, field_specs)
     return utils.request('POST', '/places', data=kwargs)
 
 
@@ -42,7 +36,7 @@ def update_place(place_id, name=None, position=None, address=None, description=N
     kwargs = locals()
     place_id = kwargs.pop('place_id')
     api_key = kwargs.pop('api_key', None)
-    _validate_data(kwargs)
+    validate_field_specs(kwargs, field_specs)
     url = '/places/{}'.format(place_id)
     return utils.request('PUT', url, data=kwargs, api_key=api_key)
 

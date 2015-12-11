@@ -1,30 +1,24 @@
-from evrythng import assertions, utils
+from evrythng import utils
+from . import validate_field_specs
 
 
-datatype_specs = {
-    'name': 'str',
-    'description': 'str',
-    'product': 'ref',
-    'location': 'location',
-    'identifiers': 'dict_of_dict',
-    'properties': 'dict',
-    'tags': 'list_of_str',
-    'collections': 'ref_list',
-    'customFields': 'dict_of_str',
+field_specs = {
+    'datatypes': {
+        'name': 'str',
+        'description': 'str',
+        'product': 'ref',
+        'location': 'location',
+        'identifiers': 'dict_of_dict',
+        'properties': 'dict',
+        'tags': 'list_of_str',
+        'collections': 'ref_list',
+        'customFields': 'dict_of_str',
+    },
+    'required': ('name',),
+    'readonly': ('id', 'createdAt', 'updatedAt', 'activatedAt'),
+    'writable': ('description', 'product', 'location', 'identifiers',
+                 'properties', 'tags', 'collections', 'customFields'),
 }
-required_fields = ('name',)
-readonly_fields = ('id', 'createdAt', 'updatedAt', 'activatedAt')
-writable_fields = ('description', 'product', 'location', 'identifiers',
-                   'properties', 'tags', 'collections', 'customFields')
-
-
-def _validate_data(kwargs):
-    """Sanity checking of data that is submitted to evrythng."""
-    assertions.required(kwargs, required_fields)
-    assertions.readonly(kwargs, readonly_fields)
-    assertions.no_extras(
-        kwargs, required_fields + writable_fields + readonly_fields)
-    assertions.datatypes(kwargs, datatype_specs)
 
 
 def create_thng(name, description=None, product=None, location=None,
@@ -32,7 +26,7 @@ def create_thng(name, description=None, product=None, location=None,
                 customFields=None, api_key=None):
     kwargs = locals()
     api_key = kwargs.pop('api_key', None)
-    _validate_data(kwargs)
+    validate_field_specs(kwargs, field_specs)
     return utils.request('POST', '/thngs', data=kwargs, api_key=api_key)
 
 
@@ -51,7 +45,7 @@ def update_thng(thng_id, name, description=None, product=None, location=None,
     kwargs = locals()
     api_key = kwargs.pop('api_key', None)
     thng_id = kwargs.pop('thng_id')
-    _validate_data(kwargs)
+    validate_field_specs(kwargs, field_specs)
     url = '/thngs/{}'.format(thng_id)
     return utils.request(
         'PUT', url, data=kwargs, api_key=api_key)

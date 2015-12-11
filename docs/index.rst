@@ -9,8 +9,9 @@ Welcome to evrythng-python's documentation!
 Contents:
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 5
 
+   evrythng
 
 
 Indices and tables
