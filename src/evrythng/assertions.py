@@ -57,17 +57,20 @@ def datatype_dict(field, value, spec):
     except AssertionError:
         raise InvalidDatatypeException(field, dict, type(value))
 
-    # for i, (k, v) in enumerate(value.items()):
-    #     try:
-    #         assert isinstance(k, str)
-    #     except:
-    #         raise InvalidDatatypeException(
-    #                 '{}[{}].key'.format(field, i), str, type(k))
-    #     try:
-    #         assert isinstance(v, str)
-    #     except:
-    #         raise InvalidDatatypeException(
-    #                 '{}[{}].value'.format(field, i), str, type(v))
+
+def datatype_dict_of_str(field, value, spec):
+    datatype_dict(field, value, spec)
+    for k, v in value.iteritems():
+        try:
+            assert isinstance(k, str)
+        except:
+            raise InvalidDatatypeException(
+                    '{}[{}]'.format(field, k), str, type(k))
+        try:
+            assert isinstance(v, str)
+        except:
+            raise InvalidDatatypeException(
+                    '{}[{}].value'.format(field, k), str, type(v))
 
 
 def datatype_list_of_str(field, value, spec):
@@ -155,6 +158,43 @@ def datatype_location(field, value, spec):
         assert len(coordinates) == 2
     except AssertionError:
         raise ValueError('location[position][coordinates] must be an array of 2 floats: [float, float]')
+
+
+def datatype_address(field, value, spec):
+    valid_keys = (
+        'extension',
+        'street',
+        'postalCode',
+        'city',
+        'county',
+        'state',
+        'country',
+        'countryCode',
+        'district',
+        'buildingName',
+        'buildingFloor',
+        'buildingRoom',
+        'buildingZone',
+        'crossing1',
+        'crossing2',
+    )
+
+    if not isinstance(value, dict):
+        raise InvalidDatatypeException(field, dict, type(value))
+
+    # Make sure the user didn't submit an unexpected key.
+    for key in value:
+        if key not in valid_keys:
+            raise ExtraDataSubmittedException(field, key)
+
+    # Make sure all values are str.
+    for k, v in value.iteritems():
+        if not isinstance(v, str):
+            raise InvalidDatatypeException('{}[{}]'.format(field, v))
+
+
+def datatype_geojson(field, value, spec):
+    pass
 
 
 def datatypes(supplied_fields, datatype_specs):

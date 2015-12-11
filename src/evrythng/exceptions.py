@@ -1,8 +1,8 @@
 class ExtraDataSubmittedException(Exception):
 
     def __init__(self, field_name, value):
-        message = '"{}" is a read-only field and was written to: {}'.format(
-            field_name, value)
+        message = '"{}" is not a valid key the "{}" field.'.format(
+            value, field_name)
         super(ExtraDataSubmittedException, self).__init__(message)
 
 
