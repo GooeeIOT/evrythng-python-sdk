@@ -60,7 +60,7 @@ def datatype_dict(field, value, spec):
 
 def datatype_dict_of_str(field, value, spec):
     datatype_dict(field, value, spec)
-    for k, v in value.iteritems():
+    for k, v in value.items():
         try:
             assert isinstance(k, str)
         except:
@@ -119,15 +119,17 @@ def datatype_birthday(field, value, spec):
             raise InvalidDatatypeException(
                 '{}[{}]'.format(field, key), int, type(value[key]))
 
-        if key == 'month' and not (1 <= value <= 12):
+        keyval = value[key]
+
+        if key == 'month' and not (1 <= keyval <= 12):
             raise InvalidValueException(
-                '{}[{}]'.format(field, key), value, '1-12')
-        elif key == 'day' and not (1 <= value <= 31):
+                '{}[{}]'.format(field, key), keyval, '1-12')
+        elif key == 'day' and not (1 <= keyval <= 31):
             raise InvalidValueException(
-                '{}[{}]'.format(field, key), value, '1-31')
-        elif key == 'year' and not (1800 <= value <= 2100):
+                '{}[{}]'.format(field, key), keyval, '1-31')
+        elif key == 'year' and not (1800 <= keyval <= 2100):
             raise InvalidValueException(
-                '{}[{}]'.format(field, key), value, '1800-2100')
+                '{}[{}]'.format(field, key), keyval, '1800-2100')
 
 
 def datatype_location(field, value, spec):
