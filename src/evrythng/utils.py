@@ -4,7 +4,7 @@ import requests
 
 
 def request(request_type, resource_url, data=None, api_key=None,
-            base_url='https://api.evrythng.com', accept=False, debug=True):
+            base_url='https://api.evrythng.com', accept=False, debug=False):
     request_type = request_type.lower()
 
     if api_key is None:

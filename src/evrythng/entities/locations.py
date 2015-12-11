@@ -1,6 +1,11 @@
 from evrythng import assertions, utils
-from . import validate_field_specs
 
+
+__all__ = [
+    'update_location',
+    'list_locations',
+    'delete_location',
+]
 
 field_specs = {
     'datatypes': {
@@ -15,7 +20,7 @@ field_specs = {
 
 def update_location(thng_id, position=None, timestamp=None, api_key=None):
     data = {'position': position, 'timestamp': timestamp}
-    validate_field_specs(data, field_specs)
+    assertions.validate_field_specs(data, field_specs)
     url = '/thngs/{}/location'.format(thng_id)
     return utils.request('PUT', url, data=data, api_key=api_key)
 

@@ -1,26 +1,26 @@
 """
 :Example:
 
->> api_key = 'YOURAPIKEY'
->> response = projects.create_project(
-..     name='Project 1',
-..     description='My Project',
-..     api_key=api_key
-.. )
->> print(response)
+>>> api_key = 'your-api-key'
+>>> response = create_project(
+...     name='Project 1',
+...     description='My Project',
+...     api_key=api_key
+... )
+>>> print(response)
 <Response [201]>
->> print(response.json())
+>>> print(response.json())
 {"id":"UgDHtdm2se5RpbXRfnfC9a9h",
  "createdAt":1449849752918,
  "updatedAt":1449849752918,
  "name":"Project 1",
  "description":"My Project",
  "shortDomains":["tn.gg"]}
->> project_id = response.json()['id']
->> response = projects.list_projects(api_key=api_key)
->> print(response)
+>>> project_id = response.json()['id']
+>>> response = list_projects(api_key=api_key)
+>>> print(response)
 <Response [200]>
->> print(response.json())
+>>> print(response.json())
 [
     {"id":"UgDHtdm2se5RpbXRfnfC9a9h",
      "name": "Project 1",
@@ -30,35 +30,42 @@
      "description":"My Project",
      "shortDomains":["tn.gg"]},
  ]
->> response = projects.read_project(project_id, api_key=api_key)
->> print(response)
+>>> response = read_project(project_id, api_key=api_key)
+>>> print(response)
 <Response [200]>
->> print(response.json())
+>>> print(response.json())
 {"id":"UgDHtdm2se5RpbXRfnfC9a9h",
  "createdAt":1449849752918,
  "updatedAt":1449849752918,
  "name":"Project 1",
  "description":"My Project",
  "shortDomains":["tn.gg"]}
->> response = projects.update_project(project_id, name='Project 1 EDIT',
-..     api_key=api_key)
->> print(response)
+>>> response = update_project(project_id, name='Project 1 EDIT',
+...     api_key=api_key)
+>>> print(response)
 <Response [200]>
->> print(response.json())
+>>> print(response.json())
 {"id":"UgDHtdm2se5RpbXRfnfC9a9h",
  "createdAt":1449849752918,
  "updatedAt":1449849752918,
  "name":"Project 1 EDIT",
  "description":"My Project",
  "shortDomains":["tn.gg"]}
->> response = projects.delete_project(project_id, api_key=api_key)
->> print(response)
+>>> response = delete_project(project_id, api_key=api_key)
+>>> print(response)
 <Response [200]>
 """
 
 from evrythng import assertions, utils
-from . import validate_field_specs
 
+
+__all__ = [
+    'create_project',
+    'update_project',
+    'list_projects',
+    'read_project',
+    'delete_project',
+]
 
 field_specs = {
     'datatypes': {
@@ -100,7 +107,7 @@ def create_project(name=None, description=None, startsAt=None, endsAt=None,
     """
     kwargs = locals()
     api_key = kwargs.pop('api_key')
-    validate_field_specs(kwargs, field_specs)
+    assertions.validate_field_specs(kwargs, field_specs)
     return utils.request('POST', '/projects', data=kwargs, api_key=api_key)
 
 
@@ -129,7 +136,7 @@ def update_project(project_id, name=None, description=None, startsAt=None,
     kwargs = locals()
     api_key = kwargs.pop('api_key')
     project_id = kwargs.pop('project_id')
-    validate_field_specs(kwargs, field_specs)
+    assertions.validate_field_specs(kwargs, field_specs)
     url = '/projects/{}'.format(project_id)
     return utils.request('PUT', url, data=kwargs, api_key=api_key, accept=True)
 
@@ -176,3 +183,8 @@ def delete_project(project_id, api_key=None):
     assertions.datatype_str('project_id', project_id)
     url = '/projects/{}'.format(project_id)
     return utils.request('DELETE', url, api_key=api_key, accept=True)
+
+
+if __name__ == '__main__':
+    import doctest
+    doctest.testmod()

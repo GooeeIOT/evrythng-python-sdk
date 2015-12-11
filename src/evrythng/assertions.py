@@ -7,6 +7,18 @@ from evrythng.exceptions import (
 )
 
 
+def validate_field_specs(fields, field_specs):
+    """Sanity checking of data that is submitted to evrythng."""
+    required(fields, field_specs['required'])
+    readonly(fields, field_specs['readonly'])
+    no_extras(
+        fields,
+        field_specs['required'] + field_specs['writable'] +
+            field_specs['readonly']
+    )
+    datatypes(fields, field_specs['datatypes'])
+
+
 def required(supplied_fields, required_fields):
     """Assert that all required fields are in the supplied_fields."""
     for field in required_fields:
@@ -20,7 +32,8 @@ def readonly(supplied_fields, readonly_fields):
     """Assert that a read only field wasn't supplied as a field/value."""
     for field in supplied_fields:
         try:
-            assert field not in readonly_fields or supplied_fields[field] is None
+            assert field not in readonly_fields \
+                   or supplied_fields[field] is None
         except AssertionError:
             raise ReadOnlyFieldWrittenToException(field, supplied_fields[field])
 
@@ -158,7 +171,9 @@ def datatype_location(field, value):
     try:
         assert len(coordinates) == 2
     except AssertionError:
-        raise ValueError('location[position][coordinates] must be an array of 2 floats: [float, float]')
+        raise ValueError(
+            'location[position][coordinates] must be an array of 2 floats: '
+            '[float, float]')
 
 
 def datatype_address(field, value):

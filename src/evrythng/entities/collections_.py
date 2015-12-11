@@ -1,5 +1,20 @@
 from evrythng import assertions, utils
-from . import validate_field_specs
+
+
+__all__ = [
+    'create_collection',
+    'list_collections',
+    'read_collection',
+    'update_collection',
+    'delete_collection',
+    'list_collection_thngs',
+    'add_collection_thngs',
+    'delete_collection_thng',
+    'delete_all_collection_thngs',
+    'add_collections_to_collection',
+    'delete_collection_from_collection',
+    'delete_all_collections_from_collection',
+]
 
 field_specs = {
     'datatypes': {
@@ -36,7 +51,7 @@ def create_collection(name, description=None, customFields=None,
     """
     kwargs = locals()
     api_key = kwargs.pop('api_key')
-    validate_field_specs(kwargs, field_specs)
+    assertions.validate_field_specs(kwargs, field_specs)
     return utils.request('POST', '/collections', data=kwargs, api_key=api_key)
 
 
@@ -94,7 +109,7 @@ def update_collection(collection_id, name=None, description=None,
     kwargs = locals()
     collection_id = kwargs.pop('collection_id')
     api_key = kwargs.pop('api_key')
-    validate_field_specs(kwargs, field_specs)
+    assertions.validate_field_specs(kwargs, field_specs)
     url = '/collections/{}'.format(collection_id)
     return utils.request(
         'PUT', url, data=kwargs, api_key=api_key)

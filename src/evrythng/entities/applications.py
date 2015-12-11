@@ -1,6 +1,13 @@
-from evrythng import utils
-from . import validate_field_specs
+from evrythng import assertions, utils
 
+
+__all__ = [
+    'create_application',
+    'update_application',
+    'list_applications',
+    'read_application',
+    'delete_application',
+]
 
 field_specs = {
     'datatypes': {
@@ -25,7 +32,7 @@ def create_application(project_id, name=None, description=None,
     kwargs = locals()
     api_key = kwargs.pop('api_key', None)
     project_id = kwargs.pop('project_id')
-    validate_field_specs(kwargs, field_specs)
+    assertions.validate_field_specs(kwargs, field_specs)
     url = '/projects/{}/applications'.format(project_id)
     return utils.request('POST', url, data=kwargs, api_key=api_key)
 
@@ -37,7 +44,7 @@ def update_application(project_id, application_id, name=None, description=None,
     api_key = kwargs.pop('api_key', None)
     project_id = kwargs.pop('project_id')
     application_id = kwargs.pop('application_id')
-    validate_field_specs(kwargs, field_specs)
+    assertions.validate_field_specs(kwargs, field_specs)
     url = '/projects/{}/applications/{}'.format(project_id, application_id)
     return utils.request('PUT', url, data=kwargs, api_key=api_key, accept=True)
 

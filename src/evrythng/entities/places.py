@@ -1,6 +1,13 @@
 from evrythng import assertions, utils
-from . import validate_field_specs
 
+
+__all__ = [
+    'create_place',
+    'read_place',
+    'update_place',
+    'delete_place',
+    'list_places',
+]
 
 field_specs = {
     'datatypes': {
@@ -22,7 +29,7 @@ def create_place(name, position=None, address=None, description=None,
                  icon=None, tags=None, customFields=None):
     kwargs = locals()
     api_key = kwargs.pop('api_key')
-    validate_field_specs(kwargs, field_specs)
+    assertions.validate_field_specs(kwargs, field_specs)
     return utils.request('POST', '/places', data=kwargs)
 
 
@@ -37,7 +44,7 @@ def update_place(place_id, name=None, position=None, address=None, description=N
     kwargs = locals()
     place_id = kwargs.pop('place_id')
     api_key = kwargs.pop('api_key')
-    validate_field_specs(kwargs, field_specs)
+    assertions.validate_field_specs(kwargs, field_specs)
     url = '/places/{}'.format(place_id)
     return utils.request('PUT', url, data=kwargs, api_key=api_key)
 

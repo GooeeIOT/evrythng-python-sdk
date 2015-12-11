@@ -1,6 +1,16 @@
 from evrythng import assertions, utils
-from . import validate_field_specs
 
+
+__all__ = [
+    'create_thng',
+    'list_thngs',
+    'read_thng',
+    'update_thng',
+    'delete_thng',
+    'create_device_thng',
+    'read_device_thng',
+    'delete_device_thng',
+]
 
 field_specs = {
     'datatypes': {
@@ -26,7 +36,7 @@ def create_thng(name, description=None, product=None, location=None,
                 customFields=None, api_key=None):
     kwargs = locals()
     api_key = kwargs.pop('api_key')
-    validate_field_specs(kwargs, field_specs)
+    assertions.validate_field_specs(kwargs, field_specs)
     return utils.request('POST', '/thngs', data=kwargs, api_key=api_key)
 
 
@@ -46,7 +56,7 @@ def update_thng(thng_id, name, description=None, product=None, location=None,
     kwargs = locals()
     api_key = kwargs.pop('api_key')
     thng_id = kwargs.pop('thng_id')
-    validate_field_specs(kwargs, field_specs)
+    assertions.validate_field_specs(kwargs, field_specs)
     url = '/thngs/{}'.format(thng_id)
     return utils.request(
         'PUT', url, data=kwargs, api_key=api_key)

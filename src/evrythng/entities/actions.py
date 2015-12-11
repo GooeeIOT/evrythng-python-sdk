@@ -1,6 +1,11 @@
 from evrythng import assertions, utils
-from . import validate_field_specs
 
+
+__all__ = [
+    'create_action',
+    'list_actions',
+    'read_action',
+]
 
 field_specs = {
     'datatypes': {
@@ -30,7 +35,7 @@ def create_action(type_, thng=None, product=None, collection=None,
     kwargs['type'] = kwargs['type_']
     del kwargs['type_']
     api_key = kwargs.pop('api_key', None)
-    validate_field_specs(kwargs, field_specs)
+    assertions.validate_field_specs(kwargs, field_specs)
     url = '/actions/{}'.format(type_)
     return utils.request('POST', '/actions', data=kwargs, api_key=api_key)
 

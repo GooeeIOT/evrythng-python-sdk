@@ -1,6 +1,16 @@
-from evrythng import utils
-from . import validate_field_specs
+from evrythng import assertions, utils
 
+
+__all__ = [
+    'create_user',
+    'activate_user',
+    'create_anonymous_user',
+    'authenticate_user',
+    'authenticate_facebook_user',
+    'logout_user',
+    'list_users',
+    'update_user',
+]
 
 field_specs = {
     'datatypes': {
@@ -28,7 +38,7 @@ def create_user(email, firstName=None, lastName=None, password=None,
                 photo=None, customFields=None, tags=None, api_key=None):
     kwargs = locals()
     api_key = kwargs.pop('api_key', None)
-    validate_field_specs(kwargs, field_specs)
+    assertions.validate_field_specs(kwargs, field_specs)
     return utils.request(
         'POST', '/auth/evrythng/users', data=kwargs, api_key=api_key)
 
@@ -85,6 +95,6 @@ def update_user(user_id, email=None, firstName=None, lastName=None,
     kwargs = locals()
     user_id = kwargs.pop('user_id')
     api_key = kwargs.pop('api_key', None)
-    validate_field_specs(kwargs, field_specs)
+    assertions.validate_field_specs(kwargs, field_specs)
     url = '/users/{}'.format(user_id)
     return utils.request('PUT', url, data=kwargs, api_key=api_key)

@@ -1,6 +1,13 @@
 from evrythng import assertions, utils
-from . import validate_field_specs
 
+
+__all__ = [
+    'create_product',
+    'list_products',
+    'read_product',
+    'update_product',
+    'delete_product',
+]
 
 field_specs = {
     'datatypes': {
@@ -27,7 +34,7 @@ def create_product(name, description=None, brand=None, categories=None,
                    tags=None, customFields=None, api_key=None):
     kwargs = locals()
     api_key = kwargs.pop('api_key')
-    validate_field_specs(kwargs, field_specs)
+    assertions.validate_field_specs(kwargs, field_specs)
     return utils.request('POST', '/products', data=kwargs, api_key=api_key)
 
 
@@ -47,7 +54,7 @@ def update_product(product_id, name=None, description=None, brand=None,
     kwargs = locals()
     product_id = kwargs.pop('product_id')
     api_key = kwargs.pop('api_key')
-    validate_field_specs(kwargs, field_specs)
+    assertions.validate_field_specs(kwargs, field_specs)
     url = '/products/{}'.format(product_id)
     return utils.request('PUT', url, data=kwargs, api_key=api_key)
 
