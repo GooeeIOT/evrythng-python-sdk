@@ -12,7 +12,7 @@ datatype_specs = {
     'location': 'location',
     'locationSource': 'str',
     'context': 'dict',
-    'customFields': 'dict',
+    'customFields': 'dict_of_str',
 }
 required_fields = ('type',)
 readonly_fields = ('id', 'user', 'createdAt', 'createdByProject, createdByApp')

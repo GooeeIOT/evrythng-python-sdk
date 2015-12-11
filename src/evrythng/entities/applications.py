@@ -8,7 +8,7 @@ datatype_specs = {
     'defaultUrl': 'str',
     'socialNetworks': 'list_of_social_networks',
     'tags': 'list_of_str',
-    'customFields': 'dict',
+    'customFields': 'dict_of_str',
     'appApiKey': 'str',
 }
 required_fields = ('name', 'socialNetworks')

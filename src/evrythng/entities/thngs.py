@@ -5,12 +5,12 @@ datatype_specs = {
     'name': 'str',
     'description': 'str',
     'product': 'ref',
-    'location': 'list_of_str',
+    'location': 'location',
     'identifiers': 'dict_of_dict',
     'properties': 'dict',
     'tags': 'list_of_str',
     'collections': 'ref_list',
-    'customFields': 'dict',
+    'customFields': 'dict_of_str',
 }
 required_fields = ('name',)
 readonly_fields = ('id', 'createdAt', 'updatedAt', 'activatedAt')

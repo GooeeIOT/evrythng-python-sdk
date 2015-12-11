@@ -7,7 +7,6 @@ datatype_specs = {
     'customFields': 'dict',
     'collections': 'list_of_ref',
     'tags': 'list_of_str',
-
 }
 required_fields = ('name',)
 readonly_fields = ('id', 'createdAt', 'updatedAt')

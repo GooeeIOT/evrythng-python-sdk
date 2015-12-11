@@ -11,7 +11,7 @@ datatype_specs = {
     'identifiers': 'dict_of_dict',
     'properties': 'dict',
     'tags': 'list_of_str',
-    'customFields': 'dict',
+    'customFields': 'dict_of_str',
 }
 required_fields = ('name',)
 readonly_fields = ('id', 'createdAt', 'updatedAt', 'activatedAt')
@@ -46,12 +46,12 @@ def read_product(product_id, api_key=None):
     return utils.request('GET', url, api_key=api_key)
 
 
-def update_product(product_id, name, description=None, brand=None,
+def update_product(product_id, name=None, description=None, brand=None,
                    categories=None, photos=None, url=None, identifiers=None,
                    properties=None, tags=None, customFields=None, api_key=None):
     kwargs = locals()
-    api_key = kwargs.pop('api_key', None)
     product_id = kwargs.pop('product_id')
+    api_key = kwargs.pop('api_key', None)
     _validate_data(kwargs)
     url = '/products/{}'.format(product_id)
     return utils.request(

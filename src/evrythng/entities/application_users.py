@@ -11,7 +11,7 @@ datatype_specs = {
     'timezone': 'str',
     'locale': 'str',
     'photo': 'base64',
-    'customFields': 'dict',
+    'customFields': 'dict_of_str',
     'tags': 'list_of_str',
 }
 required_fields = ('email',)

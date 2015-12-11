@@ -8,7 +8,7 @@ datatype_specs = {
     'endsAt': 'time',
     'tags': 'list_of_str',
     'shortDomains': 'list_of_str',
-    'customFields': 'dict',
+    'customFields': 'dict_of_str',
 }
 required_fields = ('name',)
 readonly_fields = ('id', 'createdAt', 'updatedAt')
