@@ -26,7 +26,7 @@ def create_product(name, description=None, brand=None, categories=None,
                    photos=None, url=None, identifiers=None, properties=None,
                    tags=None, customFields=None, api_key=None):
     kwargs = locals()
-    api_key = kwargs.pop('api_key', None)
+    api_key = kwargs.pop('api_key')
     validate_field_specs(kwargs, field_specs)
     return utils.request('POST', '/products', data=kwargs, api_key=api_key)
 
@@ -36,7 +36,7 @@ def list_products(api_key=None):
 
 
 def read_product(product_id, api_key=None):
-    assertions.datatype_str('product_id', product_id, None)
+    assertions.datatype_str('product_id', product_id)
     url = '/products/{}'.format(product_id)
     return utils.request('GET', url, api_key=api_key)
 
@@ -46,13 +46,13 @@ def update_product(product_id, name=None, description=None, brand=None,
                    properties=None, tags=None, customFields=None, api_key=None):
     kwargs = locals()
     product_id = kwargs.pop('product_id')
-    api_key = kwargs.pop('api_key', None)
+    api_key = kwargs.pop('api_key')
     validate_field_specs(kwargs, field_specs)
     url = '/products/{}'.format(product_id)
     return utils.request('PUT', url, data=kwargs, api_key=api_key)
 
 
 def delete_product(product_id, api_key=None):
-    assertions.datatype_str('product_id', product_id, None)
+    assertions.datatype_str('product_id', product_id)
     url = '/products/{}'.format(product_id)
     return utils.request('DELETE', url, api_key=api_key)

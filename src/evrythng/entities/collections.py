@@ -35,7 +35,7 @@ def create_collection(name, description=None, customFields=None,
     :rtype
     """
     kwargs = locals()
-    api_key = kwargs.pop('api_key', None)
+    api_key = kwargs.pop('api_key')
     validate_field_specs(kwargs, field_specs)
     return utils.request('POST', '/collections', data=kwargs, api_key=api_key)
 
@@ -63,7 +63,7 @@ def read_collection(collection_id, api_key=None):
     :return
     :rtype
     """
-    assertions.datatype_str('collection_id', collection_id, None)
+    assertions.datatype_str('collection_id', collection_id)
     url = '/collections/{}'.format(collection_id)
     return utils.request('GET', url, api_key=api_key)
 
@@ -93,7 +93,7 @@ def update_collection(collection_id, name=None, description=None,
     """
     kwargs = locals()
     collection_id = kwargs.pop('collection_id')
-    api_key = kwargs.pop('api_key', None)
+    api_key = kwargs.pop('api_key')
     validate_field_specs(kwargs, field_specs)
     url = '/collections/{}'.format(collection_id)
     return utils.request(
@@ -111,7 +111,7 @@ def delete_collection(collection_id, api_key=None):
     :return
     :rtype
     """
-    assertions.datatype_str('collection_id', collection_id, None)
+    assertions.datatype_str('collection_id', collection_id)
     url = '/collections/{}'.format(collection_id)
     return utils.request('DELETE', url, api_key=api_key)
 
@@ -127,7 +127,7 @@ def list_collection_thngs(collection_id, api_key=None):
     :return
     :rtype
     """
-    assertions.datatype_str('collection_id', collection_id, None)
+    assertions.datatype_str('collection_id', collection_id)
     url = '/collections/{}/thngs'.format(collection_id)
     return utils.request('GET', url, api_key=api_key, accept=True)
 
@@ -145,7 +145,7 @@ def add_collection_thngs(collection_id, thng_ids, api_key=None):
     :return
     :rtype
     """
-    assertions.datatype_str('collection_id', collection_id, None)
+    assertions.datatype_str('collection_id', collection_id)
     assertions.datatype_list_of_str('thng_ids', thng_ids, '')
     url = '/collections/{}/thngs'.format(collection_id)
     return utils.request('PUT', url, data=thng_ids, api_key=api_key)
@@ -164,7 +164,7 @@ def delete_collection_thng(collection_id, thng_id, api_key=None):
     :return
     :rtype
     """
-    assertions.datatype_str('collection_id', collection_id, None)
+    assertions.datatype_str('collection_id', collection_id)
     url = '/collections/{}/thngs/{}'.format(collection_id, thng_id)
     return utils.request('DELETE', url, api_key=api_key, accept=True)
 
@@ -180,7 +180,7 @@ def delete_all_collection_thngs(collection_id, api_key=None):
     :return
     :rtype
     """
-    assertions.datatype_str('collection_id', collection_id, None)
+    assertions.datatype_str('collection_id', collection_id)
     url = '/collections/{}/collections'.format(collection_id)
     return utils.request('DELETE', url, api_key=api_key, accept=True)
 
@@ -198,8 +198,8 @@ def add_collections_to_collection(collection_id, collection_ids, api_key=None):
     :return
     :rtype
     """
-    assertions.datatype_str('collection_id', collection_id, None)
-    assertions.datatype_list_of_str('collection_ids', collection_ids, None)
+    assertions.datatype_str('collection_id', collection_id)
+    assertions.datatype_list_of_str('collection_ids', collection_ids)
     url = '/collections/{}/collections'.format(collection_id)
     return utils.request('POST', url, data=collection_ids, api_key=api_key)
 
@@ -218,8 +218,8 @@ def delete_collection_from_collection(collection_id, child_collection_id,
     :return
     :rtype
     """
-    assertions.datatype_str('collection_id', collection_id, None)
-    assertions.datatype_str('child_collection_id', collection_id, None)
+    assertions.datatype_str('collection_id', collection_id)
+    assertions.datatype_str('child_collection_id', collection_id)
     url = '/collections/{}/collections/{}'.format(
         collection_id, child_collection_id)
     return utils.request('DELETE', url, api_key=api_key, accept=True)
@@ -236,6 +236,6 @@ def delete_all_collections_from_collection(collection_id, api_key=None):
     :return
     :rtype
     """
-    assertions.datatype_str('collection_id', collection_id, None)
+    assertions.datatype_str('collection_id', collection_id)
     url = '/collections/{}/collections'.format(collection_id)
     return utils.request('DELETE', url, api_key=api_key, accept=True)

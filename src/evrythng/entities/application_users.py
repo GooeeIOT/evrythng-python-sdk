@@ -9,7 +9,7 @@ field_specs = {
         'lastName': 'str',
         'password': 'str',
         'birthday': 'birthday',
-        'gender': 'str|male,female',  # male|female
+        'gender': 'gender',
         'timezone': 'str',
         'locale': 'str',
         'photo': 'base64',

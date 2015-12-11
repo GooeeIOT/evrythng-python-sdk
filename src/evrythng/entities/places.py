@@ -21,13 +21,13 @@ field_specs = {
 def create_place(name, position=None, address=None, description=None,
                  icon=None, tags=None, customFields=None):
     kwargs = locals()
-    api_key = kwargs.pop('api_key', None)
+    api_key = kwargs.pop('api_key')
     validate_field_specs(kwargs, field_specs)
     return utils.request('POST', '/places', data=kwargs)
 
 
 def read_place(place_id, api_key=None):
-    assertions.datatype_str('place_id', place_id, None)
+    assertions.datatype_str('place_id', place_id)
     url = '/places/{}'.format(place_id)
     return utils.request('GET', url, api_key=api_key)
 
@@ -36,14 +36,14 @@ def update_place(place_id, name=None, position=None, address=None, description=N
                  icon=None, tags=None, customFields=None):
     kwargs = locals()
     place_id = kwargs.pop('place_id')
-    api_key = kwargs.pop('api_key', None)
+    api_key = kwargs.pop('api_key')
     validate_field_specs(kwargs, field_specs)
     url = '/places/{}'.format(place_id)
     return utils.request('PUT', url, data=kwargs, api_key=api_key)
 
 
 def delete_place(place_id, api_key=None):
-    assertions.datatype_str('place_id', place_id, None)
+    assertions.datatype_str('place_id', place_id)
     url = '/places/{}'.format(place_id)
     return utils.request('DELETE', url, api_key=api_key)
 

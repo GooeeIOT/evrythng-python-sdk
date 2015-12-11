@@ -56,12 +56,12 @@ def update_property_on_product(product_id, key, value, timestamp=None,
 
 
 def list_properties_on_thng(thngId, api_key=None):
-    assertions.datatype_str('thngId', thngId, None)
+    assertions.datatype_str('thngId', thngId)
     url = '/thngs/{}/properties'.format(thngId)
     return utils.request('PUT', url, api_key=api_key)
 
 
 def list_properties_on_product(product_id, api_key=None):
-    assertions.datatype_str('product_id', product_id, None)
+    assertions.datatype_str('product_id', product_id)
     url = '/products/{}/properties'.format(product_id)
     return utils.request('GET', url, api_key=api_key)

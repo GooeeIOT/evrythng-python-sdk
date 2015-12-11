@@ -99,7 +99,7 @@ def create_project(name=None, description=None, startsAt=None, endsAt=None,
     :rtype Response
     """
     kwargs = locals()
-    api_key = kwargs.pop('api_key', None)
+    api_key = kwargs.pop('api_key')
     validate_field_specs(kwargs, field_specs)
     return utils.request('POST', '/projects', data=kwargs, api_key=api_key)
 
@@ -127,7 +127,7 @@ def update_project(project_id, name=None, description=None, startsAt=None,
     :rtype Response
     """
     kwargs = locals()
-    api_key = kwargs.pop('api_key', None)
+    api_key = kwargs.pop('api_key')
     project_id = kwargs.pop('project_id')
     validate_field_specs(kwargs, field_specs)
     url = '/projects/{}'.format(project_id)
@@ -157,7 +157,7 @@ def read_project(project_id, api_key=None):
     :return A Project document.
     :rtype Response
     """
-    assertions.datatype_str('project_id', project_id, None)
+    assertions.datatype_str('project_id', project_id)
     url = '/projects/{}'.format(project_id)
     return utils.request('GET', url, api_key=api_key, accept=True)
 
@@ -173,6 +173,6 @@ def delete_project(project_id, api_key=None):
     :return Blank string.
     :rtype Response
     """
-    assertions.datatype_str('project_id', project_id, None)
+    assertions.datatype_str('project_id', project_id)
     url = '/projects/{}'.format(project_id)
     return utils.request('DELETE', url, api_key=api_key, accept=True)

@@ -34,7 +34,7 @@ def no_extras(supplied_fields, possible_fields):
             raise ExtraDataSubmittedException(field, supplied_fields[field])
 
 
-def datatype_str(field, value, spec):
+def datatype_str(field, value):
     """Assert that the value is of type str."""
     try:
         assert isinstance(value, str)
@@ -42,7 +42,7 @@ def datatype_str(field, value, spec):
         raise InvalidDatatypeException(field, str, type(value))
 
 
-def datatype_time(field, value, spec):
+def datatype_time(field, value):
     """Assert that the value is of type int."""
     try:
         assert isinstance(value, int)
@@ -50,7 +50,7 @@ def datatype_time(field, value, spec):
         raise InvalidDatatypeException(field, int, type(value))
 
 
-def datatype_dict(field, value, spec):
+def datatype_dict(field, value):
     """Assert that the value is of type dict."""
     try:
         assert isinstance(value, dict)
@@ -58,8 +58,8 @@ def datatype_dict(field, value, spec):
         raise InvalidDatatypeException(field, dict, type(value))
 
 
-def datatype_dict_of_str(field, value, spec):
-    datatype_dict(field, value, spec)
+def datatype_dict_of_str(field, value):
+    datatype_dict(field, value)
     for k, v in value.items():
         try:
             assert isinstance(k, str)
@@ -73,7 +73,7 @@ def datatype_dict_of_str(field, value, spec):
                     '{}[{}].value'.format(field, k), str, type(v))
 
 
-def datatype_list_of_str(field, value, spec):
+def datatype_list_of_str(field, value):
     """Assert that the value is of type list containing str."""
     try:
         assert isinstance(value, (list, tuple))
@@ -86,20 +86,19 @@ def datatype_list_of_str(field, value, spec):
     except AssertionError:
         raise InvalidDatatypeException(field, (list, tuple), type(value))
 
-    spec = spec.split('|')
-    if len(spec) > 1:
-        required_values = spec[1].split(',')
-        if value not in required_values:
-            raise InvalidValueException(
-                field, value, ', '.join(required_values))
+
+def datatype_gender(field, value):
+    valid_values = ('male', 'female')
+    if value not in valid_values:
+        raise InvalidValueException(field, value, ', '.join(valid_values))
 
 
-def datatype_list_of_social_networks(field, value, spec):
+def datatype_list_of_social_networks(field, value):
     # TODO: figure our how to serialize this.
     return ''
 
 
-def datatype_birthday(field, value, spec):
+def datatype_birthday(field, value):
     try:
         assert isinstance(value, dict)
     except AssertionError:
@@ -132,8 +131,8 @@ def datatype_birthday(field, value, spec):
                 '{}[{}]'.format(field, key), keyval, '1800-2100')
 
 
-def datatype_location(field, value, spec):
-    datatype_dict(field, value, spec)
+def datatype_location(field, value):
+    datatype_dict(field, value)
     try:
         assert 'position' in value
     except AssertionError:
@@ -162,7 +161,7 @@ def datatype_location(field, value, spec):
         raise ValueError('location[position][coordinates] must be an array of 2 floats: [float, float]')
 
 
-def datatype_address(field, value, spec):
+def datatype_address(field, value):
     valid_keys = (
         'extension',
         'street',
@@ -195,7 +194,7 @@ def datatype_address(field, value, spec):
             raise InvalidDatatypeException('{}[{}]'.format(field, v))
 
 
-def datatype_geojson(field, value, spec):
+def datatype_geojson(field, value):
     pass
 
 
@@ -208,7 +207,7 @@ def datatypes(supplied_fields, datatype_specs):
         spec = datatype_specs[field]
         validator_name = spec.split('|')[0]
         validator = file_locals['datatype_{}'.format(validator_name)]
-        validator(field, supplied_fields[field], spec)
+        validator(field, supplied_fields[field])
 
 
 file_locals = locals()
