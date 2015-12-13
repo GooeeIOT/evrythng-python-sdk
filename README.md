@@ -27,6 +27,8 @@ status will be updated accordingly.
 
 ### ToDo
 
+probably need to define all entitiy arguments as kwarguments?
+
 - complete datatype_list_of_social_networks
 - add filtering where possible (ie, list pages)
 - refactor repeated repetative things out to keep things DRY

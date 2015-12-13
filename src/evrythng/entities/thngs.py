@@ -50,9 +50,9 @@ def read_thng(thng_id, api_key=None):
     return utils.request('GET', url, api_key=api_key, accept=True)
 
 
-def update_thng(thng_id, name, description=None, product=None, location=None,
-                identifiers=None, properties=None, tags=None, collections=None,
-                customFields=None, api_key=None):
+def update_thng(thng_id, name=None, description=None, product=None,
+                location=None, identifiers=None, properties=None, tags=None,
+                collections=None, customFields=None, api_key=None):
     kwargs = locals()
     api_key = kwargs.pop('api_key')
     thng_id = kwargs.pop('thng_id')

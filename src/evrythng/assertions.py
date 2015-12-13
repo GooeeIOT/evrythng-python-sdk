@@ -92,10 +92,10 @@ def datatype_list_of_str(field, value):
         assert isinstance(value, (list, tuple))
         for i, val in enumerate(value):
             try:
-                assert isinstance(value, str)
+                assert isinstance(val, str)
             except AssertionError:
                 raise InvalidDatatypeException(
-                    '{}[{}]'.format(field, i), str, type(value))
+                    '{}[{}]'.format(field, i), str, type(val))
     except AssertionError:
         raise InvalidDatatypeException(field, (list, tuple), type(value))
 
