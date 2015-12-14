@@ -75,16 +75,18 @@ field_specs = {
         'endsAt': 'time',
         'tags': 'list_of_str',
         'shortDomains': 'list_of_str',
-        'customFields': 'dict_of_str',
+        'customFields': 'dict',
     },
     'required': ('name',),
     'readonly': ('id', 'createdAt', 'updatedAt'),
-    'writable': ('description', 'startsAt', 'endsAt', 'tags', 'shortDomains'),
+    'writable': ('description', 'startsAt', 'endsAt', 'tags', 'shortDomains',
+                 'customFields'),
 }
 
 
-def create_project(name=None, description=None, startsAt=None, endsAt=None,
-                   tags=None, shortDomains=None, api_key=None):
+def create_project(name, description=None, startsAt=None, endsAt=None,
+                   tags=None, shortDomains=None, customFields=None,
+                   api_key=None):
     """
     Create a new Project.
 
@@ -112,7 +114,8 @@ def create_project(name=None, description=None, startsAt=None, endsAt=None,
 
 
 def update_project(project_id, name=None, description=None, startsAt=None,
-                   endsAt=None, tags=None, shortDomains=None, api_key=None):
+                   endsAt=None, tags=None, shortDomains=None,
+                   customFields=None, api_key=None):
     """
     Update an existing Project.
 

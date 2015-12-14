@@ -22,7 +22,7 @@ field_specs = {
         'properties': 'dict',
         'tags': 'list_of_str',
         'collections': 'ref_list',
-        'customFields': 'dict_of_str',
+        'customFields': 'dict',
     },
     'required': ('name',),
     'readonly': ('id', 'createdAt', 'updatedAt', 'activatedAt'),

@@ -18,7 +18,7 @@ field_specs = {
         'location': 'location',
         'locationSource': 'str',
         'context': 'dict',
-        'customFields': 'dict_of_str',
+        'customFields': 'dict',
     },
     'required': ('type',),
     'readonly': ('id', 'user', 'createdAt', 'createdByProject, createdByApp'),

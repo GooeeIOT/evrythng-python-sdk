@@ -11,7 +11,7 @@ __all__ = [
 field_specs = {
     'datatypes': {
         'name': 'str',
-        'customFields': 'dict_of_str',
+        'customFields': 'dict',
         'tags': 'dict_of_str',
         'scopes': 'scopes',
     },

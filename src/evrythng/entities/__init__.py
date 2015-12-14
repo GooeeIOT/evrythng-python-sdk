@@ -1,6 +1,5 @@
 from .action_types import *
 from .actions import *
-from .application_users import *
 from .applications import *
 from .collections_ import *
 from .locations import *
@@ -9,3 +8,4 @@ from .products import *
 from .projects import *
 from .properties import *
 from .thngs import *
+from .application_users import *

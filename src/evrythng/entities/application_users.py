@@ -23,7 +23,7 @@ field_specs = {
         'timezone': 'str',
         'locale': 'str',
         'photo': 'base64',
-        'customFields': 'dict_of_str',
+        'customFields': 'dict',
         'tags': 'list_of_str',
     },
     'required': ('email',),
@@ -44,6 +44,8 @@ def create_user(email, firstName=None, lastName=None, password=None,
 
 
 def activate_user(user_id, activationCode, api_key=None):
+    assertions.datatype_str('user_id', user_id)
+    assertions.datatype_str('activationCode', activationCode)
     url = '/auth/evrythng/users/{}/validate'.format(user_id)
     data = {'activationCode': activationCode}
     return utils.request('POST', url, data=data, api_key=api_key)
@@ -61,11 +63,14 @@ def authenticate_user(email, password, api_key=None):
         403 = User status is not 'active'.
         404 = User not found.
     """
+    assertions.datatype_str('email', email)
+    assertions.datatype_str('password', password)
     data = {'email': email, 'password': password}
     return utils.request('POST', '/auth/evrythng', data=data, api_key=api_key)
 
 
 def authenticate_facebook_user(expires, token, api_key=None):
+    assertions.datatype_str('token', token)
     data = {
         'access': {
             'expires': expires,
@@ -80,10 +85,12 @@ def logout_user(api_key=None):
 
 
 def list_users(project_id, api_key=None):
+    assertions.datatype_str('project_id', project_id)
     return utils.request('GET', '/users', api_key=api_key)
 
 
 def read_user(user_id, api_key=None):
+    assertions.datatype_str('project_id', user_id)
     url = '/users/{}'.format(user_id)
     return utils.request('GET', url, api_key=api_key)
 

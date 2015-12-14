@@ -17,7 +17,7 @@ field_specs = {
         'defaultUrl': 'str',
         'socialNetworks': 'list_of_social_networks',
         'tags': 'list_of_str',
-        'customFields': 'dict_of_str',
+        'customFields': 'dict',
         'appApiKey': 'str',
     },
     'required': ('name', 'socialNetworks'),
@@ -26,9 +26,11 @@ field_specs = {
 }
 
 
-def create_application(project_id, name=None, description=None,
+def create_application(project_id, name, description=None, project=None,
                        defaultUrl=None, socialNetworks=None, tags=None,
-                       customFields=None, appApiKey=None, api_key=None):
+                       customFields=None, api_key=None):
+    if socialNetworks is None:
+        socialNetworks = {}
     kwargs = locals()
     api_key = kwargs.pop('api_key', None)
     project_id = kwargs.pop('project_id')
@@ -39,7 +41,7 @@ def create_application(project_id, name=None, description=None,
 
 def update_application(project_id, application_id, name=None, description=None,
                        defaultUrl=None, socialNetworks=None, tags=None,
-                       customFields=None, appApiKey=None, api_key=None):
+                       customFields=None, api_key=None):
     kwargs = locals()
     api_key = kwargs.pop('api_key', None)
     project_id = kwargs.pop('project_id')

@@ -16,7 +16,7 @@ field_specs = {
         'description': 'str',
         'icon': 'str',
         'tags': 'list_of_str',
-        'customFields': 'dict_of_str',
+        'customFields': 'dict',
     },
     'required': ('name',),
     'readonly': ('id', 'createdAt', 'updatedAt'),
