@@ -198,7 +198,9 @@ def delete_project(project_id, api_key=None):
 
 def delete_all_projects(api_key=None):
     """
-    Delete all projects.
+    Delete all Projects.
+
+    WARNING: This will recursively delete most underlying relationships.
 
     :param api_key: The API key to authorize the request against.
     :type api_key: str
