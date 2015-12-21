@@ -186,3 +186,15 @@ def delete_project(project_id, api_key=None):
     assertions.datatype_str('project_id', project_id)
     url = '/projects/{}'.format(project_id)
     return utils.request('DELETE', url, api_key=api_key, accept=True)
+
+
+def delete_all_projects(api_key=None):
+    """
+    Delete all projects.
+
+    :param api_key: The API key to authorize the request against.
+    :type api_key: str
+    """
+    for project in list_projects(api_key=api_key).json():
+        response = delete_project(project['id'], api_key=api_key)
+        print(project['id'], project['name'], response)
