@@ -6,24 +6,10 @@ This project is currently in heavy development. We are creating a rough basic
 entity API first. Then we will iterate off of that and refactor commonalities
 into something worth using.
 
-It hasn't quite reached a usable alpha, though that will happen soon. This
-status will be updated accordingly.
+Though mostly usable, it hasn't reached a production build. Also, things are
+pretty naive at the moment... much refactoring needs to take place.
 
-### Supported Entities
-
-- Projects
-- Applications
-- Application Users
-- Products
-- Thngs
-- Properties
-- Actions
-- Action Types
-- Locations
-- Collections
-- Places
-
-(filters are coming soon, but not currently supported)
+NOTE: Filters are generally unsupported at the moment. It's an ASAP.
 
 ### ToDo
 
