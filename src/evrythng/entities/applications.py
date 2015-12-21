@@ -26,9 +26,9 @@ field_specs = {
 }
 
 
-def create_application(project_id, name, description=None, project=None,
-                       defaultUrl=None, socialNetworks=None, tags=None,
-                       customFields=None, api_key=None):
+def create_application(project_id, name, description=None, defaultUrl=None,
+                       socialNetworks=None, tags=None, customFields=None,
+                       api_key=None):
     if socialNetworks is None:
         socialNetworks = {}
     kwargs = locals()
