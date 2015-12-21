@@ -55,6 +55,7 @@
 >>> print(response)
 <Response [200]>
 """
+import logging
 
 from evrythng import assertions, utils
 
@@ -83,6 +84,8 @@ field_specs = {
                  'customFields'),
 }
 
+logger = logging.getLogger(__name__)
+
 
 def create_project(name, description=None, startsAt=None, endsAt=None,
                    tags=None, shortDomains=None, customFields=None,
@@ -110,6 +113,7 @@ def create_project(name, description=None, startsAt=None, endsAt=None,
     kwargs = locals()
     api_key = kwargs.pop('api_key')
     assertions.validate_field_specs(kwargs, field_specs)
+    logger.debug('Creating Project...')
     return utils.request('POST', '/projects', data=kwargs, api_key=api_key)
 
 
@@ -141,6 +145,7 @@ def update_project(project_id, name=None, description=None, startsAt=None,
     project_id = kwargs.pop('project_id')
     assertions.validate_field_specs(kwargs, field_specs)
     url = '/projects/{}'.format(project_id)
+    logger.debug('Updating Project {}...'.format(project_id))
     return utils.request('PUT', url, data=kwargs, api_key=api_key, accept=True)
 
 
@@ -153,6 +158,7 @@ def list_projects(api_key=None):
     :return A list of Project documents.
     :rtype Response
     """
+    logger.debug('Listing Projects...')
     return utils.request('GET', '/projects', api_key=api_key, accept=True)
 
 
@@ -169,6 +175,7 @@ def read_project(project_id, api_key=None):
     """
     assertions.datatype_str('project_id', project_id)
     url = '/projects/{}'.format(project_id)
+    logger.debug('Reading Project {}'.format(project_id))
     return utils.request('GET', url, api_key=api_key, accept=True)
 
 
@@ -185,6 +192,7 @@ def delete_project(project_id, api_key=None):
     """
     assertions.datatype_str('project_id', project_id)
     url = '/projects/{}'.format(project_id)
+    logger.debug('Deleting Project {}'.format(project_id))
     return utils.request('DELETE', url, api_key=api_key, accept=True)
 
 
@@ -196,5 +204,4 @@ def delete_all_projects(api_key=None):
     :type api_key: str
     """
     for project in list_projects(api_key=api_key).json():
-        response = delete_project(project['id'], api_key=api_key)
-        print(project['id'], project['name'], response)
+        delete_project(project['id'], api_key=api_key)
