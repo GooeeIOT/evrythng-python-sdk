@@ -9,22 +9,35 @@ into something worth using.
 Though mostly usable, it hasn't reached a production build. Also, things are
 pretty naive at the moment... much refactoring needs to take place.
 
-NOTE: Filters are generally unsupported at the moment. It's an ASAP.
+### Supported Entities
+
+- Projects
+- Applications
+- Application Users
+- Products
+- Thngs
+- Properties
+- Actions
+- Action Types
+- Locations
+- Collections
+- Places
+
+(Filters are coming soon, but not currently supported)
 
 ### ToDo
 
-probably need to define all entitiy arguments as kwarguments?
-
-- complete datatype_list_of_social_networks
-- add filtering where possible (ie, list pages)
-- refactor repeated repetative things out to keep things DRY
-- implement Service APIs
+- Probably need to define all Entity arguments as kwarguments?
+- Complete datatype_list_of_social_networks
+- Add filtering where possible (ie, list pages)
+- Re-factor repeated repetative things out to keep things DRY
+- Implement Service APIs
 - Alias endpoints
     - /products/:productId/actions/:actionType
     - /thngs/:thngId/actions/:actionType
     - /collections/:collectionId/actions/:actionType
 - 'to' parameter in delete_location
-- config options singleton (so you don't have to pass api_key everywhere)
-- add more examples
+- Config options singleton (so you don't have to pass api_key everywhere)
+- Add more examples
 - Sphinx generated documentation
-- create a (locally installable) pip package
+- Create a (locally installable) pip package

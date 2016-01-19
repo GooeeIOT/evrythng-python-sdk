@@ -5,10 +5,14 @@ import requests
 
 def request(request_type, resource_url, data=None, api_key=None,
             base_url='https://api.evrythng.com', accept=False, debug=True):
+    """Send a request to the API"""
     request_type = request_type.lower()
 
     if api_key is None:
-        os.getenv('EVRYTHNG_API_TOKEN')
+        try:
+            api_key = os.getenv('EVRYTHNG_API_TOKEN')
+        except KeyError:
+            print("Configure your EVRYTHNG_API_TOKEN environment variable")
 
     request_func = getattr(requests, request_type)
     url = '{}{}'.format(base_url, resource_url)
