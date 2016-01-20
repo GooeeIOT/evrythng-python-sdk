@@ -18,6 +18,7 @@ __all__ = [
 
 field_specs = {
     'datatypes': {
+        'name': 'str',
         'description': 'str',
         'customFields': 'dict',
         'collections': 'list_of_ref',
