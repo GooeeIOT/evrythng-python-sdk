@@ -97,7 +97,7 @@ def read_user(user_id, api_key=None):
 
 def update_user(user_id, email=None, firstName=None, lastName=None,
                 password=None, birthday=None, gender=None, timezone=None,
-                localte=None, photo=None, customFields=None, tags=None,
+                locale=None, photo=None, customFields=None, tags=None,
                 api_key=None):
     kwargs = locals()
     user_id = kwargs.pop('user_id')
