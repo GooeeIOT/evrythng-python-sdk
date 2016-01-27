@@ -2,13 +2,14 @@ from evrythng import assertions, utils
 
 
 __all__ = [
-    'create_user',
     'activate_user',
-    'create_anonymous_user',
-    'authenticate_user',
     'authenticate_facebook_user',
-    'logout_user',
+    'authenticate_user',
+    'create_anonymous_user',
+    'create_user',
+    'delete_user',
     'list_users',
+    'logout_user',
     'update_user',
 ]
 
@@ -80,6 +81,13 @@ def authenticate_facebook_user(expires, token, api_key=None):
     return utils.request('POST', '/auth/facebook', data=data, api_key=api_key)
 
 
+def delete_user(user_id, api_key=None):
+    """Delete a User"""
+    assertions.datatype_str('user_id', user_id)
+    url = '/users/{}'.format(user_id)
+    return utils.request('DELETE', url, api_key=api_key)
+
+
 def logout_user(api_key=None):
     return utils.request('POST', '/auth/all/logout', api_key=api_key)
 
@@ -90,7 +98,7 @@ def list_users(project_id, api_key=None):
 
 
 def read_user(user_id, api_key=None):
-    assertions.datatype_str('project_id', user_id)
+    assertions.datatype_str('user_id', user_id)
     url = '/users/{}'.format(user_id)
     return utils.request('GET', url, api_key=api_key)
 
