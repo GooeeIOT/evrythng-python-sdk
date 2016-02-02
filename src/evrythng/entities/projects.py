@@ -66,6 +66,7 @@ __all__ = [
     'list_projects',
     'read_project',
     'delete_project',
+    'delete_all_projects',
 ]
 
 field_specs = {
