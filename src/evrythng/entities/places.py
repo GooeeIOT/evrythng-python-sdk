@@ -11,6 +11,7 @@ __all__ = [
 
 field_specs = {
     'datatypes': {
+        'name': 'str',
         'position': 'geojson',
         'address': 'address',
         'description': 'str',
@@ -26,11 +27,11 @@ field_specs = {
 
 
 def create_place(name, position=None, address=None, description=None,
-                 icon=None, tags=None, customFields=None):
+                 icon=None, tags=None, customFields=None, api_key=None):
     kwargs = locals()
     api_key = kwargs.pop('api_key')
     assertions.validate_field_specs(kwargs, field_specs)
-    return utils.request('POST', '/places', data=kwargs)
+    return utils.request('POST', '/places', data=kwargs, api_key=api_key)
 
 
 def read_place(place_id, api_key=None):
@@ -39,8 +40,9 @@ def read_place(place_id, api_key=None):
     return utils.request('GET', url, api_key=api_key)
 
 
-def update_place(place_id, name=None, position=None, address=None, description=None,
-                 icon=None, tags=None, customFields=None):
+def update_place(place_id, name=None, position=None, address=None,
+                 description=None, icon=None, tags=None, customFields=None,
+                 api_key=None):
     kwargs = locals()
     place_id = kwargs.pop('place_id')
     api_key = kwargs.pop('api_key')
