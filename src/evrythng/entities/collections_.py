@@ -35,17 +35,17 @@ def create_collection(name, description=None, customFields=None,
     """
     Create a new Collection.
 
-    :param name:
+    :param name: The Name of the Collection.
     :type description: str
-    :param description:
+    :param description: The Description of the Collection.
     :type description: str
-    :param customFields:
-    :type customFields: list of str
-    :param collections:
+    :param customFields: The Custom Fields of Collection.
+    :type customFields: dict
+    :param collections: The Collections of the Collection.
     :type collections: list of str
-    :param tags:
+    :param tags: The Tags of the Collection.
     :type tags: list of str
-    :param api_key:
+    :param api_key: The API key to authorize request against.
     :type api_key: str
     :return
     :rtype
@@ -60,7 +60,7 @@ def list_collections(api_key=None):
     """
     List Collections.
 
-    :param api_key:
+    :param api_key: The API key to authorize request against.
     :type api_key: str
     :return
     :rtype
@@ -74,7 +74,7 @@ def read_collection(collection_id, api_key=None):
 
     :param collection_id: The Collection to read.
     :type collection_id: str
-    :param api_key:
+    :param api_key: The API key to authorize request against.
     :type api_key: str
     :return
     :rtype
@@ -92,17 +92,17 @@ def update_collection(collection_id, name=None, description=None,
 
     :param collection_id: The Collection to update.
     :type collection_id: str
-    :param name:
+    :param name: The Name of the Collection.
     :type description: str
-    :param description:
+    :param description: The Description of the Collection.
     :type description: str
-    :param customFields:
-    :type customFields: list of str
-    :param collections:
+    :param customFields: The Custom Fields of Collection.
+    :type customFields: dict
+    :param collections: The Collections of the Collection.
     :type collections: list of str
-    :param tags:
+    :param tags: The Tags of the Collection.
     :type tags: list of str
-    :param api_key:
+    :param api_key: The API key to authorize request against.
     :type api_key: str
     :return
     :rtype
@@ -122,7 +122,7 @@ def delete_collection(collection_id, api_key=None):
 
     :param collection_id: The Collection to delete.
     :type collection_id: str
-    :param api_key:
+    :param api_key: The API key to authorize request against.
     :type api_key: str
     :return
     :rtype
@@ -138,7 +138,7 @@ def list_collection_thngs(collection_id, api_key=None):
 
     :param collection_id: The Collection to list Thngs for.
     :type collection_id: str
-    :param api_key:
+    :param api_key: The API key to authorize request against.
     :type api_key: str
     :return
     :rtype
@@ -154,9 +154,9 @@ def add_collection_thngs(collection_id, thng_ids, api_key=None):
 
     :param collection_id: The Collection to add Thngs to.
     :type collection_id: str
-    :param thng_ids:
+    :param thng_ids: The Thngs to add to the Collection.
     :type thng_ids: list of str
-    :param api_key:
+    :param api_key: The API key to authorize request against.
     :type api_key: str
     :return
     :rtype
@@ -173,9 +173,9 @@ def delete_collection_thng(collection_id, thng_id, api_key=None):
 
     :param collection_id: The Collection to remove Thngs from.
     :type collection_id: str
-    :param thng_id:
+    :param thng_id: The Thng to remove from the Collection.
     :type thng_id: str
-    :param api_key:
+    :param api_key: The API key to authorize request against.
     :type api_key: str
     :return
     :rtype
@@ -191,7 +191,7 @@ def delete_all_collection_thngs(collection_id, api_key=None):
 
     :param collection_id: The Collection to remove *all* Thngs from.
     :type collection_id: str
-    :param api_key:
+    :param api_key: The API key to authorize request against.
     :type api_key: str
     :return
     :rtype
@@ -207,9 +207,9 @@ def add_collections_to_collection(collection_id, collection_ids, api_key=None):
 
     :param collection_id: The Collection to add Collections to.
     :type collection_id: str
-    :param collection_ids:
+    :param collection_ids: The Collections to add.
     :type collection_ids: list of str
-    :param api_key:
+    :param api_key: The API key to authorize request against.
     :type api_key: str
     :return
     :rtype
@@ -227,9 +227,9 @@ def delete_collection_from_collection(collection_id, child_collection_id,
 
     :param collection_id: The Collection to remove a Collection from.
     :type collection_id: str
-    :param child_collection_id:
+    :param child_collection_id: The child Collection to remove.
     :type child_collection_id: str
-    :param api_key:
+    :param api_key: The API key to authorize request against.
     :type api_key: str
     :return
     :rtype
@@ -247,7 +247,7 @@ def delete_all_collections_from_collection(collection_id, api_key=None):
 
     :param collection_id: The Collection to remove *all* Collections from.
     :type collection_id: str
-    :param api_key:
+    :param api_key: The API key to authorize request against.
     :type api_key: str
     :return
     :rtype
