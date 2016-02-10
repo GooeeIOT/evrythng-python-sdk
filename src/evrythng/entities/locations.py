@@ -1,11 +1,9 @@
+"""
+Evrything Docs
+https://dashboard.evrythng.com/documentation/api/locations
+"""
 from evrythng import assertions, utils
 
-
-__all__ = [
-    'update_location',
-    'list_locations',
-    'delete_location',
-]
 
 field_specs = {
     'datatypes': {

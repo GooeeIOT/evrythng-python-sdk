@@ -1,20 +1,9 @@
+"""
+Evrything Docs
+https://dashboard.evrythng.com/documentation/api/collections
+"""
 from evrythng import assertions, utils
 
-
-__all__ = [
-    'create_collection',
-    'list_collections',
-    'read_collection',
-    'update_collection',
-    'delete_collection',
-    'list_collection_thngs',
-    'add_collection_thngs',
-    'delete_collection_thng',
-    'delete_all_collection_thngs',
-    'add_collections_to_collection',
-    'delete_collection_from_collection',
-    'delete_all_collections_from_collection',
-]
 
 field_specs = {
     'datatypes': {

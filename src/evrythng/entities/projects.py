@@ -1,73 +1,11 @@
 """
-:Example:
-
->>> api_key = 'your-api-key'
->>> response = create_project(
-...     name='Project 1',
-...     description='My Project',
-...     api_key=api_key
-... )
->>> print(response)
-<Response [201]>
->>> print(response.json())
-{"id":"UgDHtdm2se5RpbXRfnfC9a9h",
- "createdAt":1449849752918,
- "updatedAt":1449849752918,
- "name":"Project 1",
- "description":"My Project",
- "shortDomains":["tn.gg"]}
->>> project_id = response.json()['id']
->>> response = list_projects(api_key=api_key)
->>> print(response)
-<Response [200]>
->>> print(response.json())
-[
-    {"id":"UgDHtdm2se5RpbXRfnfC9a9h",
-     "name": "Project 1",
-     "createdAt":1449849752918,
-     "updatedAt":1449849752918,
-     "name":"Project 1",
-     "description":"My Project",
-     "shortDomains":["tn.gg"]},
- ]
->>> response = read_project(project_id, api_key=api_key)
->>> print(response)
-<Response [200]>
->>> print(response.json())
-{"id":"UgDHtdm2se5RpbXRfnfC9a9h",
- "createdAt":1449849752918,
- "updatedAt":1449849752918,
- "name":"Project 1",
- "description":"My Project",
- "shortDomains":["tn.gg"]}
->>> response = update_project(project_id, name='Project 1 EDIT',
-...     api_key=api_key)
->>> print(response)
-<Response [200]>
->>> print(response.json())
-{"id":"UgDHtdm2se5RpbXRfnfC9a9h",
- "createdAt":1449849752918,
- "updatedAt":1449849752918,
- "name":"Project 1 EDIT",
- "description":"My Project",
- "shortDomains":["tn.gg"]}
->>> response = delete_project(project_id, api_key=api_key)
->>> print(response)
-<Response [200]>
+Evrything Docs
+https://dashboard.evrythng.com/documentation/api/projects
 """
 import logging
 
 from evrythng import assertions, utils
 
-
-__all__ = [
-    'create_project',
-    'update_project',
-    'list_projects',
-    'read_project',
-    'delete_project',
-    'delete_all_projects',
-]
 
 field_specs = {
     'datatypes': {

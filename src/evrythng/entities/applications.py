@@ -1,14 +1,9 @@
+"""
+Evrything Docs
+https://dashboard.evrythng.com/documentation/api/applications
+"""
 from evrythng import assertions, utils
 
-
-__all__ = [
-    'create_application',
-    'update_application',
-    'list_applications',
-    'read_application',
-    'read_trusted_application_key',
-    'delete_application',
-]
 
 field_specs = {
     'datatypes': {

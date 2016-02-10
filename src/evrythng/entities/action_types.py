@@ -1,12 +1,9 @@
+"""
+Evrything Docs
+https://dashboard.evrythng.com/documentation/api/actiontypes
+"""
 from evrythng import assertions, utils
 
-
-__all__ = [
-    'create_action_type',
-    'update_action_type',
-    'list_action_types',
-    'read_action_type',
-]
 
 field_specs = {
     'datatypes': {

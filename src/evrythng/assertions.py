@@ -224,6 +224,34 @@ def datatype_ref(field, value):
     datatype_str(field, value)
 
 
+def datatype_number(field, value):
+    try:
+        float(value)
+    except (TypeError, ValueError):
+        raise InvalidDatatypeException(field, (int, float), type(value))
+
+
+def datatype_bool(field, value):
+    try:
+        assert isinstance(value, bool)
+    except AssertionError:
+        raise InvalidDatatypeException(field, bool, type(value))
+
+
+def datatype_str_num_bool(field, value):
+    try:
+        datatype_str(field, value)
+    except InvalidDatatypeException:
+        try:
+            datatype_number(field, value)
+        except InvalidDatatypeException:
+            try:
+                datatype_bool(field, value)
+            except:
+                raise InvalidDatatypeException(
+                    field, (str, int, float, bool), type(value))
+
+
 def datatypes(supplied_fields, datatype_specs):
     """A helper for routing values to their type validators."""
     for field in supplied_fields:

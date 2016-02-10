@@ -11,7 +11,7 @@ class InvalidDatatypeException(Exception):
     def __init__(self, field_name, expected_type, received_type):
         if isinstance(expected_type, tuple):
             expected_type = ' or '.join(
-                type(expect_type) for expect_type in expected_type)
+                str(type(expect_type)) for expect_type in expected_type)
         message = '"{}" expects a {} but received a {}'.format(
             field_name, expected_type, received_type)
         super(InvalidDatatypeException, self).__init__(message)

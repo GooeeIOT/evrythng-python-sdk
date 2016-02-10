@@ -1,13 +1,9 @@
+"""
+Evrything Docs
+https://dashboard.evrythng.com/documentation/api/products
+"""
 from evrythng import assertions, utils
 
-
-__all__ = [
-    'create_product',
-    'list_products',
-    'read_product',
-    'update_product',
-    'delete_product',
-]
 
 field_specs = {
     'datatypes': {

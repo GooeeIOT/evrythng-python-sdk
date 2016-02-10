@@ -1,16 +1,9 @@
+"""
+Evrything Docs
+https://dashboard.evrythng.com/documentation/api/thngs
+"""
 from evrythng import assertions, utils
 
-
-__all__ = [
-    'create_thng',
-    'list_thngs',
-    'read_thng',
-    'update_thng',
-    'delete_thng',
-    'create_device_thng',
-    'read_device_thng',
-    'delete_device_thng',
-]
 
 field_specs = {
     'datatypes': {

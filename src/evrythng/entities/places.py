@@ -1,13 +1,9 @@
+"""
+Evrything Docs
+https://dashboard.evrythng.com/documentation/api/places
+"""
 from evrythng import assertions, utils
 
-
-__all__ = [
-    'create_place',
-    'read_place',
-    'update_place',
-    'delete_place',
-    'list_places',
-]
 
 field_specs = {
     'datatypes': {

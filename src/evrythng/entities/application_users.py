@@ -1,17 +1,9 @@
+"""
+Evrything Docs
+https://dashboard.evrythng.com/documentation/api/appusers
+"""
 from evrythng import assertions, utils
 
-
-__all__ = [
-    'activate_user',
-    'authenticate_facebook_user',
-    'authenticate_user',
-    'create_anonymous_user',
-    'create_user',
-    'delete_user',
-    'list_users',
-    'logout_user',
-    'update_user',
-]
 
 field_specs = {
     'datatypes': {
