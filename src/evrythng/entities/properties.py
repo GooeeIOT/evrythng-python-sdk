@@ -117,3 +117,51 @@ def list_thng_properties(thng_id, api_key=None):
     assertions.datatype_str('thng_id', thng_id)
     url = '/thngs/{}/properties'.format(thng_id)
     return utils.request('GET', url, api_key=api_key)
+
+
+# Delete Properties
+#
+# The only way to delete data points is to append the ?to=Timestamp URL query
+# parameter to specify a point in time before which all the data points will
+# be removed.
+#
+# ATTENTION: If the ?to= parameter is not specified, ALL updates of this
+# property will be deleted!
+
+
+def _delete_property(evrythng_id, evrythng_type, property_name,
+                     timestamp_from=None, timestamp_to=None, api_key=None):
+    assertions.datatype_str('product_id', property_name)
+    if timestamp_from:
+        assertions.datatype_time('timestamp', timestamp_from)
+    if timestamp_to:
+        assertions.datatype_time('timestamp', timestamp_to)
+
+    url = '/{}/{}/properties/{}'.format(evrythng_type, evrythng_id,
+                                        property_name)
+    if timestamp_from and timestamp_to:
+        url += '?from={}&to={}'.format(timestamp_from, timestamp_to)
+    elif timestamp_from:
+        url += '?from={}'.format(timestamp_from)
+    elif timestamp_to:
+        url += '?to={}'.format(timestamp_to)
+
+    return utils.request('DELETE', url, api_key=api_key)
+
+
+def delete_product_property(product_id, property_name, timestamp_from=None,
+                            timestamp_to=None, api_key=None):
+    """Delete a Property on a Product."""
+    assertions.datatype_str('product_id', product_id)
+    _delete_property(product_id, 'products', property_name,
+                     timestamp_from=timestamp_from, timestamp_to=timestamp_to,
+                     api_key=api_key)
+
+
+def delete_thng_property(thng_id, property_name, timestamp_from=None,
+                         timestamp_to=None, api_key=None):
+    """Delete a Property on a Thng."""
+    assertions.datatype_str('thng_id', thng_id)
+    _delete_property(thng_id, 'thngs', property_name,
+                     timestamp_from=timestamp_from, timestamp_to=timestamp_to,
+                     api_key=api_key)

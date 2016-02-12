@@ -3,6 +3,8 @@ import os
 import requests
 
 
+# TODO: Since so much dev is going on, we've made debug=True the default. This
+# needs to change, probably soon.
 def request(request_type, resource_url, data=None, api_key=None,
             base_url='https://api.evrythng.com', accept=False, debug=True):
     """Send a request to the API"""
@@ -38,6 +40,6 @@ def request(request_type, resource_url, data=None, api_key=None,
     response = request_func(url, **kwargs)
 
     if debug:
-        print('RESPONSE', response.text)
+        print('RESPONSE', response.status_code, response.text)
 
     return response
