@@ -96,7 +96,7 @@ create_thng_properties = upsert_thng_properties
 update_thng_properties = upsert_thng_properties
 
 
-# List Properties
+# List All Properties
 
 
 def list_product_properties(product_id, api_key=None):
@@ -116,6 +116,25 @@ def list_thng_properties(thng_id, api_key=None):
     """
     assertions.datatype_str('thng_id', thng_id)
     url = '/thngs/{}/properties'.format(thng_id)
+    return utils.request('GET', url, api_key=api_key)
+
+
+# Read a Property
+
+
+def read_product_property(product_id, property_name, api_key=None):
+    """Read a Product Property."""
+    assertions.datatype_str('product_id', product_id)
+    assertions.datatype_str('property_name', property_name)
+    url = '/products/{}/properties/{}'.format(product_id, property_name)
+    return utils.request('GET', url, api_key=api_key)
+
+
+def read_thng_property(thng_id, property_name, api_key=None):
+    """Read a Thng Property."""
+    assertions.datatype_str('thng_id', thng_id)
+    assertions.datatype_str('property_name', property_name)
+    url = '/thngs/{}/properties/{}'.format(thng_id, property_name)
     return utils.request('GET', url, api_key=api_key)
 
 
