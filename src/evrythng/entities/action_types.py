@@ -10,7 +10,7 @@ field_specs = {
         'name': 'str',
         'customFields': 'dict',
         'tags': 'dict_of_str',
-        'scopes': 'scopes',
+        'scopes': 'dict',
     },
     'required': ('name',),
     'readonly': ('id', 'createdAt', 'updatedAt'),
