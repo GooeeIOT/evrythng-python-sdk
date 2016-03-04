@@ -1,12 +1,13 @@
 import os
-
 import requests
+from urllib.parse import urlencode
 
 
 # TODO: Since so much dev is going on, we've made debug=True the default. This
 # needs to change, probably soon.
 def request(request_type, resource_url, data=None, api_key=None,
-            base_url='https://api.evrythng.com', accept=False, debug=True):
+            base_url='https://api.evrythng.com', accept=False, debug=True,
+            query=None):
     """Send a request to the API"""
     request_type = request_type.lower()
 
@@ -30,6 +31,9 @@ def request(request_type, resource_url, data=None, api_key=None,
 
     if data:
         kwargs['json'] = data
+
+    if query:
+        url += '?{}'.format(urlencode(query))
 
     if debug:
         print('---')
