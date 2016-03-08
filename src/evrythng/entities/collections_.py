@@ -151,7 +151,7 @@ def add_collection_thngs(collection_id, thng_ids, api_key=None):
     :rtype
     """
     assertions.datatype_str('collection_id', collection_id)
-    assertions.datatype_list_of_str('thng_ids', thng_ids, '')
+    assertions.datatype_list_of_str('thng_ids', thng_ids)
     url = '/collections/{}/thngs'.format(collection_id)
     return utils.request('PUT', url, data=thng_ids, api_key=api_key)
 
