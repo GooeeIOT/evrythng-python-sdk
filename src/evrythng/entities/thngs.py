@@ -14,7 +14,7 @@ field_specs = {
         'identifiers': 'dict_of_dict',
         'properties': 'dict',
         'tags': 'list_of_str',
-        'collections': 'ref_list',
+        'collections': 'list_of_str',
         'customFields': 'dict',
     },
     'required': ('name',),
