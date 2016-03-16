@@ -1,6 +1,11 @@
 import os
 import requests
-from urllib.parse import urlencode
+try:
+    # Python 3.x
+    from urllib.parse import urlencode
+except:
+    # Python 2.x
+    from urlparse import urlparse
 
 
 # TODO: Since so much dev is going on, we've made debug=True the default. This

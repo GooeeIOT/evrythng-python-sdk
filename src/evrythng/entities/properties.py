@@ -8,7 +8,7 @@ from evrythng import assertions, utils
 field_specs = {
     'datatypes': {
         'key': 'str',
-        'value': 'str_num_bool',
+        'value': 'json',
         'timestamp': 'time'
     },
     'required': ('key', 'value'),
