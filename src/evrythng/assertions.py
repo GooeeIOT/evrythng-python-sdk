@@ -207,8 +207,8 @@ def datatype_address(field, value):
 
     # Make sure all values are str.
     for k, v in value.items():
-        if not isinstance(v, str):
-            raise InvalidDatatypeException('{}[{}]'.format(field, v))
+        if v is not None and not isinstance(v, str):
+            raise InvalidDatatypeException('{}[{}]'.format(field, v), str, type(v))
 
 
 def datatype_geojson(field, value):
