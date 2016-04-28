@@ -6,12 +6,15 @@ except ImportError:
 
 setup(
     name='python-evrythng',
-    version='0.1',
+    version='0.2',
     packages=['evrythng', 'evrythng.entities'],
     package_dir={'': 'src'},
     url='https://github.com/GooeeIOT/python-evrythng',
     license='MIT',
-    author='Lyle Scott, III',
-    author_email='lyle@digitalfoo.net',
-    description='A Python wrapper about the Evrythng REST API.'
+    author='Gooee, Inc',
+    author_email='lyle@gooee.com',
+    description='A Python wrapper about the Evrythng REST API.',
+    install_requires=[
+        'requests',
+    ],
 )
