@@ -4,15 +4,12 @@ from setuptools import setup, find_packages
 
 project_dir = os.path.abspath(os.path.dirname(__file__))
 
-with open(os.path.join(project_dir, 'src/VERSION'), 'rb') as f:
-    version = f.read().decode('ascii').strip()
-
 with open(os.path.join(project_dir, 'README.rst'), 'r') as f:
     long_description = f.read()
 
 setup(
     name='python-evrythng',
-    version=version,
+    version='0.2',
     packages=find_packages(exclude=["docs", "tests*"]),
     include_package_data=True,
     zip_safe=False,
