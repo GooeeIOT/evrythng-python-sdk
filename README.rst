@@ -1,6 +1,15 @@
 Python Everythng
-------------------------------------------------------------------------------
+================
 A comprehensive pythonic wrapper around the Evrythng REST API.
+
+.. image:: https://img.shields.io/pypi/v/python-evrythng.svg
+    :target: https://pypi.python.org/pypi/python-evrythng
+
+.. image:: https://img.shields.io/pypi/dm/python-evrythng.svg
+        :target: https://pypi.python.org/pypi/python-evrythng
+        
+.. image:: https://img.shields.io/twitter/url/https/pypi.python.org/pypi/python-evrythng.svg?style=social
+        :target: https://twitter.com/intent/tweet?text=Wow:&url=%5Bobject%20Object%5D
 
 More information about Evrythng may be found in its
 `Documentation <https://dashboard.evrythng.com/documentation/api>`_.
