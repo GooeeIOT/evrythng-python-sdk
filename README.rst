@@ -37,7 +37,7 @@ into something worth using.
 Though mostly usable, it hasn't reached a production build. Also, things are
 pretty naive at the moment... much refactoring needs to take place.
 
-Supported Entities:
+**Supported Entities:**
 
 * Projects
 * Applications
@@ -51,10 +51,8 @@ Supported Entities:
 * Collections
 * Places
 
-(Filters are coming soon, but not currently supported)
 
-
-TODO:
+**TODO:**
 
 * Probably need to define all Entity arguments as kwarguments?
 * Complete datatype_list_of_social_networks
@@ -62,9 +60,9 @@ TODO:
 * Re-factor repeated repetative things out to keep things DRY
 * Implement Service APIs
 * Alias endpoints
-    * /products/:productId/actions/:actionType
-    * /thngs/:thngId/actions/:actionType
-    * /collections/:collectionId/actions/:actionType
+    * */products/:productId/actions/:actionType*
+    * */thngs/:thngId/actions/:actionType*
+    * */collections/:collectionId/actions/:actionType*
 * 'to' parameter in delete_location
 * Config options singleton (so you don't have to pass api_key everywhere)
 * Add usage examples
