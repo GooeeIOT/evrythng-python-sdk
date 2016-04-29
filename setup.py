@@ -24,15 +24,17 @@ setup(
     maintainer_email='dairon@gooee.com',
     description='A Python wrapper arround the Evrythng REST API.',
     long_description=long_description,
-    install_requires=['requests'],
+    install_requires=['requests>=2.8.1'],
     classifiers=[
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
         'Topic :: Utilities',
+        'Topic :: Software Development :: Libraries'
         'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
-        'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.5',
     ],
     keywords='Wrapper IoT REST API Evrythng',
 )
