@@ -1,20 +1,38 @@
-try:
-    from setuptools import setup
-except ImportError:
-    from distutils.core import setup
+# -*- coding: utf-8 -*-
+import os
+from setuptools import setup, find_packages
 
+project_dir = os.path.abspath(os.path.dirname(__file__))
+
+with open(os.path.join(project_dir, 'src/VERSION'), 'rb') as f:
+    version = f.read().decode('ascii').strip()
+
+with open(os.path.join(project_dir, 'README.rst'), 'r') as f:
+    long_description = f.read()
 
 setup(
     name='python-evrythng',
-    version='0.2',
-    packages=['evrythng', 'evrythng.entities'],
-    package_dir={'': 'src'},
+    version=version,
+    packages=find_packages(exclude=["docs", "tests*"]),
+    include_package_data=True,
+    zip_safe=False,
     url='https://github.com/GooeeIOT/python-evrythng',
     license='MIT',
     author='Gooee, Inc',
     author_email='lyle@gooee.com',
-    description='A Python wrapper about the Evrythng REST API.',
-    install_requires=[
-        'requests',
+    maintainer='Dairon Medina',
+    maintainer_email='dairon@gooee.com',
+    description='A Python wrapper arround the Evrythng REST API.',
+    long_description=long_description,
+    install_requires=['requests'],
+    classifiers=[
+        'Development Status :: 4 - Beta',
+        'Intended Audience :: Developers',
+        'Topic :: Utilities',
+        'License :: OSI Approved :: MIT License',
+        'Operating System :: OS Independent',
+        'Programming Language :: Python :: 2',
+        'Programming Language :: Python :: 3',
     ],
+    keywords='Wrapper IoT REST API Evrythng',
 )
