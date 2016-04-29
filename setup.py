@@ -21,7 +21,7 @@ setup(
     zip_safe=False,
     url='https://github.com/GooeeIOT/python-evrythng',
     license='MIT',
-    author='Gooee, Inc',
+    author='Gooee LLC',
     author_email='lyle@gooee.com',
     description='A Python wrapper arround the Evrythng REST API.',
     long_description=long_description,
