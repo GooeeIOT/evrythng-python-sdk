@@ -76,6 +76,7 @@ pretty naive at the moment... much refactoring needs to take place.
 * Config options singleton (so you don't have to pass api_key everywhere)
 * Add usage examples
 * Sphinx generated documentation
+* Add pagination limit support
 
 Found a bug, wanna help?
 ==============================================================================

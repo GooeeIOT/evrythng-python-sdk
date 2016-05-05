@@ -11,8 +11,7 @@ except:
 # TODO: Since so much dev is going on, we've made debug=True the default. This
 # needs to change, probably soon.
 def request(request_type, resource_url, data=None, api_key=None,
-            base_url='https://api.evrythng.com', accept=False, debug=True,
-            query=None):
+            base_url='https://api.evrythng.com', accept=False, debug=True, query=None, files=None):
     """Send a request to the API"""
     request_type = request_type.lower()
 
@@ -24,18 +23,20 @@ def request(request_type, resource_url, data=None, api_key=None,
 
     request_func = getattr(requests, request_type)
     url = '{}{}'.format(base_url, resource_url)
-    kwargs = {
-        'headers': {'Content-Type': 'application/json'},
-    }
+    kwargs = {'headers': {}}
+
+    if data:
+        kwargs['json'] = data
+        kwargs['headers'] = {'Content-Type': 'application/json'}
+
+    if files:
+        kwargs['files'] = files
 
     if accept:
         kwargs['headers']['Accept'] = 'application/json'
 
     if api_key:
         kwargs['headers']['Authorization'] = 'Token {}'.format(api_key)
-
-    if data:
-        kwargs['json'] = data
 
     if query:
         url += '?{}'.format(urlencode(query))

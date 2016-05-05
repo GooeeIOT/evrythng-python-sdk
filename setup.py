@@ -14,7 +14,7 @@ if sys.argv[-1] == 'publish':
 
 setup(
     name='python-evrythng',
-    version='0.2.1',
+    version='0.2.2',
     packages=['evrythng', 'evrythng.entities'],
     package_dir={'': 'src'},
     include_package_data=True,
@@ -42,5 +42,5 @@ setup(
         'Topic :: Utilities',
         'Topic :: Software Development :: Libraries'
     ],
-    keywords='Wrapper IoT REST API Evrythng',
+    keywords=['wrapper', 'iot', 'rest', 'api', 'evrythng'],
 )
