@@ -1,3 +1,5 @@
+import json
+
 from evrythng.exceptions import (
     ExtraDataSubmittedException,
     InvalidDatatypeException,
@@ -205,8 +207,8 @@ def datatype_address(field, value):
 
     # Make sure all values are str.
     for k, v in value.items():
-        if not isinstance(v, str):
-            raise InvalidDatatypeException('{}[{}]'.format(field, v))
+        if v is not None and not isinstance(v, str):
+            raise InvalidDatatypeException('{}[{}]'.format(field, v), str, type(v))
 
 
 def datatype_geojson(field, value):
@@ -238,18 +240,15 @@ def datatype_bool(field, value):
         raise InvalidDatatypeException(field, bool, type(value))
 
 
-def datatype_str_num_bool(field, value):
+def datatype_json(field, value):
+    """
+    Evrythng parses the value into its native JSON datatype, so the
+    value must be JSONifiable.
+    """
     try:
-        datatype_str(field, value)
-    except InvalidDatatypeException:
-        try:
-            datatype_number(field, value)
-        except InvalidDatatypeException:
-            try:
-                datatype_bool(field, value)
-            except:
-                raise InvalidDatatypeException(
-                    field, (str, int, float, bool), type(value))
+        json.dumps(value)
+    except (ValueError, TypeError):
+        raise InvalidDatatypeException(field, json, type(value))
 
 
 def datatypes(supplied_fields, datatype_specs):

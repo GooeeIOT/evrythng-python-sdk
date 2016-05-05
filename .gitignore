@@ -2,6 +2,19 @@
 .idea
 __pycache__
 *.swp
+_trial_temp*
+dropin.cache
+docs/build
+*egg-info
+.tox
+venv
+build
+dist
+htmlcov/
+.coverage
+
+# Windows
+Thumbs.db
 
 # Sphinx documentation build directories.
 _build
