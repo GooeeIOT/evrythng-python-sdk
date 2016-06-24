@@ -14,7 +14,7 @@ if sys.argv[-1] == 'publish':
 
 setup(
     name='python-evrythng',
-    version='0.2.3',
+    version='0.2.4',
     packages=['evrythng', 'evrythng.entities'],
     package_dir={'': 'src'},
     include_package_data=True,
@@ -23,7 +23,7 @@ setup(
     license='MIT',
     author='Gooee LLC',
     author_email='lyle@gooee.com',
-    description='A Python wrapper arround the Evrythng REST API.',
+    description='A Python wrapper around the Evrythng REST API.',
     long_description=long_description,
     install_requires=['requests>=2.8.1'],
     classifiers=[
