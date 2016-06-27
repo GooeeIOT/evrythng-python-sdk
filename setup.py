@@ -14,7 +14,7 @@ if sys.argv[-1] == 'publish':
 
 setup(
     name='python-evrythng',
-    version='0.2.4',
+    version='0.2.5',
     packages=['evrythng', 'evrythng.entities'],
     package_dir={'': 'src'},
     include_package_data=True,
