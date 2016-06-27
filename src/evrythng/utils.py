@@ -14,8 +14,9 @@ def request(request_type, resource_url, data=None, api_key=None, files=None,
             base_url='https://api.evrythng.com', accept=None, debug=True, custom_query_params=None,
             pageNumber=None, perPage=None, timeout=30):
     """Send a request to the Evrythng API."""
-    if custom_query_params and type(custom_query_params) != dict:
-        raise ValueError('custom_query_params must be a dict mapping keys to values.')
+    if custom_query_params:
+        if type(custom_query_params) != dict:
+            raise ValueError('custom_query_params must be a dict mapping keys to values.')
     else:
         custom_query_params = {}
 

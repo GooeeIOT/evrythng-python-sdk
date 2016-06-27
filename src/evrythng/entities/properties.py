@@ -120,7 +120,7 @@ def _read_property(evrythng_id, evrythng_type, property_name, timestamp_to=None,
     if timestamp_to:
         assertions.datatype_time('timestamp', timestamp_to)
         custom_query_params['to'] = timestamp_to
-    return utils.request('GET', url, **request_kwargs)
+    return utils.request('GET', url, custom_query_params=custom_query_params, **request_kwargs)
 
 
 def read_product_property(product_id, property_name, timestamp_from=None, timestamp_to=None,
@@ -161,7 +161,7 @@ def _delete_property(evrythng_id, evrythng_type, property_name, timestamp_from=N
         assertions.datatype_time('timestamp', timestamp_to)
         custom_query_params['to'] = timestamp_to
     url = '/{}/{}/properties/{}'.format(evrythng_type, evrythng_id, property_name)
-    return utils.request('DELETE', url, **request_kwargs)
+    return utils.request('DELETE', url, custom_query_params=custom_query_params, **request_kwargs)
 
 
 def delete_product_property(product_id, property_name, timestamp_from=None, timestamp_to=None,
