@@ -11,7 +11,7 @@ except:
 # TODO: Since so much dev is going on, we've made debug=True the default. This
 # needs to change, probably soon.
 def request(request_type, resource_url, data=None, api_key=None, files=None,
-            base_url='https://api.evrythng.com', accept=None, debug=True, custom_query_params=None,
+            base_url='https://api.evrythng.com', accept=False, debug=True, custom_query_params=None,
             pageNumber=None, perPage=None, timeout=30):
     """Send a request to the Evrythng API."""
     if custom_query_params:
@@ -41,8 +41,7 @@ def request(request_type, resource_url, data=None, api_key=None, files=None,
         requests_kwargs['files'] = files
 
     if accept:
-        # Example: application/json
-        requests_kwargs['headers']['Accept'] = accept
+        requests_kwargs['headers']['Accept'] = 'application/json'
 
     if api_key:
         requests_kwargs['headers']['Authorization'] = 'Token {}'.format(api_key)
@@ -63,6 +62,7 @@ def request(request_type, resource_url, data=None, api_key=None, files=None,
         print(request_type.upper(), url)
         if data:
             print('DATA', data)
+        print('REQKWARGS', requests_kwargs)
 
     response = request_func(url, **requests_kwargs)
 
