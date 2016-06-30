@@ -244,3 +244,19 @@ def delete_all_collections_from_collection(collection_id, api_key=None):
     assertions.datatype_str('collection_id', collection_id)
     url = '/collections/{}/collections'.format(collection_id)
     return utils.request('DELETE', url, api_key=api_key, accept=True)
+
+
+def read_collections_from_collection(collection_id, api_key=None):
+    """
+    Read the Collections of a Collection.
+
+    :param collection_id: The Collection to read the Collections of.
+    :type collection_id: str
+    :param api_key: The API key to authorize request against.
+    :type api_key: str
+    :return
+    :rtype
+    """
+    assertions.datatype_str('collection_id', collection_id)
+    url = '/collections/{}/collections'.format(collection_id)
+    return utils.request('GET', url, api_key=api_key, accept=True)
