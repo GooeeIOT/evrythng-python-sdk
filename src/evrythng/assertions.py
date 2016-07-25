@@ -74,6 +74,7 @@ def datatype_dict(field, value):
 
 
 def datatype_dict_of_str(field, value):
+    """Assert that the value is a dict of str's."""
     datatype_dict(field, value)
     for k, v in value.items():
         try:
@@ -208,7 +209,8 @@ def datatype_address(field, value):
     # Make sure all values are str.
     for k, v in value.items():
         if v is not None and not isinstance(v, str):
-            raise InvalidDatatypeException('{}[{}]'.format(field, v), str, type(v))
+            raise InvalidDatatypeException('{}[{}]'.format(
+                field, v), str, type(v))
 
 
 def datatype_geojson(field, value):
@@ -227,6 +229,7 @@ def datatype_ref(field, value):
 
 
 def datatype_number(field, value):
+    """Assert that the value is a number (int or float)."""
     try:
         float(value)
     except (TypeError, ValueError):
@@ -251,6 +254,18 @@ def datatype_json(field, value):
         raise InvalidDatatypeException(field, json, type(value))
 
 
+def datatype_enum(field, value, *extra):
+    """Make sure the value is one of a few specific choices."""
+    possible = extra[0].split(',')
+    if value not in possible:
+        raise InvalidValueException(field, value, possible)
+
+
+def datatype_not_implemented(field, value):
+    """A datatype was not yet implemented or decided upon."""
+    pass
+
+
 def datatypes(supplied_fields, datatype_specs):
     """A helper for routing values to their type validators."""
     for field in supplied_fields:
@@ -258,9 +273,14 @@ def datatypes(supplied_fields, datatype_specs):
         if value is None:
             continue
         spec = datatype_specs[field]
-        validator_name = spec.split('|')[0]
+        split = spec.split('|')
+        validator_name = split[0]
         validator = file_locals['datatype_{}'.format(validator_name)]
-        validator(field, supplied_fields[field])
+        extra = split[1:] if (len(split) > 1) else None
+        if extra:
+            validator(field, supplied_fields[field], *extra)
+        else:
+            validator(field, supplied_fields[field])
 
 
 file_locals = locals()

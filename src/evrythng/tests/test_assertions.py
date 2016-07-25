@@ -1,7 +1,7 @@
 from unittest import TestCase
 
 from evrythng.entities import assertions
-from evrythng.exceptions import InvalidDatatypeException
+from evrythng.exceptions import InvalidDatatypeException, InvalidValueException
 
 
 class AssertionsTest(TestCase):
@@ -30,3 +30,10 @@ class AssertionsTest(TestCase):
         self.assertRaises(
             InvalidDatatypeException, assertions.datatype_json,
             'whatever', set((1, 2, 3)))
+
+    def test_datatype_enum(self):
+        self.assertRaises(
+            InvalidValueException, assertions.datatype_enum,
+            'whatever', 'a', 'b,c')
+        self.assertIsNone(
+            assertions.datatype_enum('whatever', 'a', 'a,b,c'))

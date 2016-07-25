@@ -1,7 +1,7 @@
 class ExtraDataSubmittedException(Exception):
 
     def __init__(self, field_name, value):
-        message = '"{}" is not a valid key the "{}" field.'.format(
+        message = '"{}" is not a valid key for the "{}" field.'.format(
             value, field_name)
         super(ExtraDataSubmittedException, self).__init__(message)
 

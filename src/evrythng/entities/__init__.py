@@ -9,4 +9,3 @@ from .products import *
 from .projects import *
 from .properties import *
 from .thngs import *
-from .reactor import *

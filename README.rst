@@ -1,5 +1,6 @@
 Python Everythng
 ================
+
 A comprehensive pythonic wrapper around the Evrythng REST API.
 
 .. image:: https://img.shields.io/pypi/v/python-evrythng.svg
@@ -20,8 +21,14 @@ python_evrythng is available on PyPI and can be installed via pip.
 
     $ pip install python_evrythng
 
+Recent Changes
+--------------
+
+* 2016-07-24: Refactored Reactor API interaction bits.
+
 License
-===============================================================================
+-------
+
 .. image:: https://raw.githubusercontent.com/GooeeIOT/python-evrythng/master/docs/gooee.png
 
 Copyright (c) 2016, Gooee™ LLC.All rights reserved.
@@ -37,7 +44,7 @@ modification, are permitted provided that the following conditions are met:
   and/or other materials provided with the distribution.
 
 Notice
-=============================================================================
+------
 
 This project is currently in heavy development. We are creating a rough basic
 entity API first. Then we will iterate off of that and refactor commonalities
@@ -47,7 +54,7 @@ Though mostly usable, it hasn't reached a production build. Also, things are
 pretty naive at the moment... much refactoring needs to take place.
 
 TODO
-==============================================================================
+----
 
 - Complete datatype_list_of_social_networks validation.
 - Implement Service APIs.
@@ -58,6 +65,7 @@ TODO
 - 'to' parameter in delete_location
 
 Found a bug, wanna help?
-==============================================================================
+------------------------
+
 Awesome, let us know! Send a pull request or a patch. Ask! We are here to help 
 and will respond to all filed issues.
