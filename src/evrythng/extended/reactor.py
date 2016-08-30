@@ -123,6 +123,23 @@ def get_reactor(project_id, application_id, api_key=None):
     return utils.request('GET', url, api_key=api_key, accept=True)
 
 
+def get_reactor_status(project_id, application_id, api_key=None):
+    """
+    Read the reactor script status.
+
+    :param project_id: The Project of the Application.
+    :type project_id: str
+    :param application_id: The Application to get the script for.
+    :type application_id: str
+    :param api_key: The API key to authorize request against.
+    :type api_key: str
+    :return:
+    """
+    url = '/projects/{}/applications/{}/reactorScript/status'.format(
+        project_id, application_id)
+    return utils.request('GET', url, api_key=api_key, accept=True)
+
+
 def create_reactor_logs(project_id, application_id, logs, api_key=None):
     """
     Create one or more Reactor script logs.
