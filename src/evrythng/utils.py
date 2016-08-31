@@ -57,8 +57,6 @@ def request(request_type, resource_url, data=None, api_key=None, files=None,
         query_params['page'] = pageNumber
 
     if query_params:
-        if 'filter' in query_params:
-            query_params['filter'] = urlencode(query_params['filter'])
         url += '?{}'.format(urlencode(query_params))
 
     if debug:
