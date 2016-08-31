@@ -47,8 +47,8 @@ def delete_action(type_, action_id, api_key=None):
     return utils.request('DELETE', url, api_key=api_key)
 
 
-def list_actions(type_, api_key=None):
+def list_actions(type_, api_key=None, **request_kwargs):
     """List Actions"""
     assertions.datatype_str('type_', type_)
     url = '/actions/{}'.format(type_)
-    return utils.request('GET', url, api_key=api_key)
+    return utils.request('GET', url, api_key=api_key, **request_kwargs)

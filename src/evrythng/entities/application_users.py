@@ -97,10 +97,10 @@ def login_user(email, password, app_api_key):
     return utils.request('POST', '/auth/evrythng', data=kwargs, api_key=app_api_key)
 
 
-def list_users(project_id, api_key=None):
+def list_users(project_id, api_key=None, **request_kwargs):
     """List Application Users."""
     assertions.datatype_str('project_id', project_id)
-    return utils.request('GET', '/users', api_key=api_key)
+    return utils.request('GET', '/users', api_key=api_key, **request_kwargs)
 
 
 def read_user(user_id, api_key=None):

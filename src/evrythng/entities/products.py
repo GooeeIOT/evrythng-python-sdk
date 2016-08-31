@@ -34,8 +34,8 @@ def create_product(name, description=None, brand=None, categories=None,
     return utils.request('POST', '/products', data=kwargs, api_key=api_key)
 
 
-def list_products(api_key=None):
-    return utils.request('GET', '/products', api_key=api_key)
+def list_products(api_key=None, **request_kwargs):
+    return utils.request('GET', '/products', api_key=api_key, **request_kwargs)
 
 
 def read_product(product_id, api_key=None):

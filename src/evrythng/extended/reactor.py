@@ -162,7 +162,7 @@ def create_reactor_logs(project_id, application_id, logs, api_key=None):
     return utils.request('POST', url, api_key=api_key, accept=True, data=logs)
 
 
-def get_reactor_logs(project_id, application_id, api_key=None):
+def get_reactor_logs(project_id, application_id, api_key=None, **request_kwargs):
     """
     Get the logs of a Reactor script.
 
@@ -176,7 +176,7 @@ def get_reactor_logs(project_id, application_id, api_key=None):
     """
     url = '/projects/{}/applications/{}/reactorLogs'.format(
         project_id, application_id)
-    return utils.request('GET', url, api_key=api_key, accept=True)
+    return utils.request('GET', url, api_key=api_key, accept=True, **request_kwargs)
 
 
 def delete_reactor_logs(project_id, application_id, api_key=None):

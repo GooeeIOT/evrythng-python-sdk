@@ -88,7 +88,7 @@ def update_project(project_id, name=None, description=None, startsAt=None,
     return utils.request('PUT', url, data=kwargs, api_key=api_key, accept=True)
 
 
-def list_projects(api_key=None):
+def list_projects(api_key=None, **request_kwargs):
     """
     List Projects.
 
@@ -98,7 +98,7 @@ def list_projects(api_key=None):
     :rtype Response
     """
     logger.debug('Listing Projects...')
-    return utils.request('GET', '/projects', api_key=api_key, accept=True)
+    return utils.request('GET', '/projects', api_key=api_key, accept=True, **request_kwargs)
 
 
 def read_project(project_id, api_key=None):

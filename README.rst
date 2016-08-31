@@ -24,6 +24,7 @@ python_evrythng is available on PyPI and can be installed via pip.
 Recent Changes
 --------------
 
+* 2016-08-30: Added EVT filtering support.
 * 2016-07-24: Refactored Reactor API interaction bits.
 
 License

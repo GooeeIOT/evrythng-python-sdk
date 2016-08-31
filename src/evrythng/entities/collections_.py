@@ -45,7 +45,7 @@ def create_collection(name, description=None, customFields=None,
     return utils.request('POST', '/collections', data=kwargs, api_key=api_key)
 
 
-def list_collections(api_key=None):
+def list_collections(api_key=None, **request_kwargs):
     """
     List Collections.
 
@@ -54,7 +54,7 @@ def list_collections(api_key=None):
     :return
     :rtype
     """
-    return utils.request('GET', '/collections', api_key=api_key)
+    return utils.request('GET', '/collections', api_key=api_key, **request_kwargs)
 
 
 def read_collection(collection_id, api_key=None):

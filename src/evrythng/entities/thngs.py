@@ -33,8 +33,8 @@ def create_thng(name, description=None, product=None, location=None,
     return utils.request('POST', '/thngs', data=kwargs, api_key=api_key)
 
 
-def list_thngs(api_key=None):
-    return utils.request('GET', '/thngs', api_key=api_key, accept=True)
+def list_thngs(api_key=None, **request_kwargs):
+    return utils.request('GET', '/thngs', api_key=api_key, accept=True, **request_kwargs)
 
 
 def read_thng(thng_id, api_key=None):

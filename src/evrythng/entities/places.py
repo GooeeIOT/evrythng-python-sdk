@@ -53,5 +53,5 @@ def delete_place(place_id, api_key=None):
     return utils.request('DELETE', url, api_key=api_key)
 
 
-def list_places(api_key=None):
-    return utils.request('GET', '/places', api_key=api_key)
+def list_places(api_key=None, **request_kwargs):
+    return utils.request('GET', '/places', api_key=api_key, **request_kwargs)

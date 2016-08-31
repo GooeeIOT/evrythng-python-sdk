@@ -113,14 +113,18 @@ def _read_property(evrythng_id, evrythng_type, property_name, timestamp_to=None,
     """Helper for reading properties."""
     assertions.datatype_str('property_name', property_name)
     url = '/{}/{}/properties/{}'.format(evrythng_type, evrythng_id, property_name)
-    custom_query_params = {}
+    query_params = request_kwargs.get('query_params', {})
+
     if timestamp_from:
         assertions.datatype_time('timestamp', timestamp_from)
-        custom_query_params['from'] = timestamp_from
+        query_params['from'] = timestamp_from
     if timestamp_to:
         assertions.datatype_time('timestamp', timestamp_to)
-        custom_query_params['to'] = timestamp_to
-    return utils.request('GET', url, custom_query_params=custom_query_params, **request_kwargs)
+        query_params['to'] = timestamp_to
+
+    request_kwargs.update(query_params=query_params)
+
+    return utils.request('GET', url, **request_kwargs)
 
 
 def read_product_property(product_id, property_name, timestamp_from=None, timestamp_to=None,
@@ -153,15 +157,15 @@ def _delete_property(evrythng_id, evrythng_type, property_name, timestamp_from=N
                      timestamp_to=None, **request_kwargs):
     """Helper for deleting properties."""
     assertions.datatype_str('property_name', property_name)
-    custom_query_params = {}
+    query_params = {}
     if timestamp_from:
         assertions.datatype_time('timestamp', timestamp_from)
-        custom_query_params['from'] = timestamp_from
+        query_params['from'] = timestamp_from
     if timestamp_to:
         assertions.datatype_time('timestamp', timestamp_to)
-        custom_query_params['to'] = timestamp_to
+        query_params['to'] = timestamp_to
     url = '/{}/{}/properties/{}'.format(evrythng_type, evrythng_id, property_name)
-    return utils.request('DELETE', url, custom_query_params=custom_query_params, **request_kwargs)
+    return utils.request('DELETE', url, query_params=query_params, **request_kwargs)
 
 
 def delete_product_property(product_id, property_name, timestamp_from=None, timestamp_to=None,

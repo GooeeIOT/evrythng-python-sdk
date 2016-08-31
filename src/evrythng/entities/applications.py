@@ -91,7 +91,7 @@ def update_application(project_id, application_id, name=None, description=None,
     return utils.request('PUT', url, data=kwargs, api_key=api_key, accept=True)
 
 
-def list_applications(project_id, api_key=None):
+def list_applications(project_id, api_key=None, **request_kwargs):
     """
     List Applications.
 

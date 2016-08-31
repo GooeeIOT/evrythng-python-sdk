@@ -44,7 +44,7 @@ def update_action_type(name, customFields=None, tags=None, scopes=None,
     return utils.request('POST', '/actions', data=kwargs, api_key=api_key)
 
 
-def list_action_types(api_key=None):
+def list_action_types(api_key=None, **request_kwargs):
     """List Action Types"""
     url = '/actions'
-    return utils.request('GET', url, api_key=api_key)
+    return utils.request('GET', url, api_key=api_key, **request_kwargs)

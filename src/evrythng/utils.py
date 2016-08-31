@@ -10,16 +10,16 @@ except:
 
 def request(request_type, resource_url, data=None, api_key=None, files=None,
             base_url='https://api.evrythng.com', accept=False, debug=None,
-            custom_query_params=None, pageNumber=None, perPage=None, timeout=30):
+            query_params=None, pageNumber=None, perPage=None, timeout=30):
     """Send a request to the Evrythng API."""
     if debug is None:
         debug = os.getenv('PYEVT_DEBUG', '0') == '1'
 
-    if custom_query_params:
-        if type(custom_query_params) != dict:
-            raise ValueError('custom_query_params must be a dict mapping keys to values.')
+    if query_params:
+        if type(query_params) != dict:
+            raise ValueError('query_params must be a dict mapping keys to values.')
     else:
-        custom_query_params = {}
+        query_params = {}
 
     if api_key is None:
         try:
@@ -52,11 +52,14 @@ def request(request_type, resource_url, data=None, api_key=None, files=None,
 
     # Add in custom URL parameters.
     if perPage:
-        custom_query_params['perPage'] = perPage
+        query_params['perPage'] = perPage
     if pageNumber:
-        custom_query_params['page'] = pageNumber
-    if custom_query_params:
-        url += '?{}'.format(urlencode(custom_query_params))
+        query_params['page'] = pageNumber
+
+    if query_params:
+        if 'filter' in query_params:
+            query_params['filter'] = urlencode(query_params['filter'])
+        url += '?{}'.format(urlencode(query_params))
 
     if debug:
         print('---')
