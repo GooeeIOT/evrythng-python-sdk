@@ -59,16 +59,16 @@ def request(request_type, resource_url, data=None, api_key=None, files=None,
     if query_params:
         url += '?{}'.format(urlencode(query_params))
 
-    if debug:
-        print('---')
-        print(request_type.upper(), url)
-        if data:
-            print('DATA', data)
-        print('REQKWARGS', requests_kwargs)
-
     response = request_func(url, **requests_kwargs)
 
     if debug:
-        print('RESPONSE', response.status_code, response.text)
+        print('|'.join((
+            'EVTDEBUG',
+            request_type.upper(),
+            url,
+            str(requests_kwargs),
+            str(response.status_code),
+            response.text,
+        )))
 
     return response
