@@ -3,6 +3,7 @@ Evrything Docs
 https://dashboard.evrythng.com/documentation/api/collections
 """
 from evrythng import assertions, utils
+from evrythng.entities.actions import field_specs as action_field_specs
 
 
 field_specs = {
@@ -17,6 +18,21 @@ field_specs = {
     'readonly': ('id', 'createdAt', 'updatedAt'),
     'writable': ('description', 'customFields', 'collections', 'tags'),
 }
+
+
+def create_collection_action(type_, collection, timestamp=None, identifiers=None,
+                             location=None, locationSource=None, context=None, customFields=None,
+                             api_key=None):
+    """Create an Action for a Collection"""
+    kwargs = locals()
+    kwargs['type'] = kwargs['type_']
+    del kwargs['type_']
+    api_key = kwargs.pop('api_key', None)
+    assertions.validate_field_specs(kwargs, action_field_specs)
+
+    url = '/collections/{}/actions/{}'.format(collection, type_)
+
+    return utils.request('POST', url, data=kwargs, api_key=api_key)
 
 
 def create_collection(name, description=None, customFields=None,
