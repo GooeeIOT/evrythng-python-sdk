@@ -65,9 +65,9 @@ def request(request_type, resource_url, data=None, api_key=None, files=None,
         print('|'.join((
             'EVTDEBUG',
             request_type.upper(),
+            str(response.status_code),
             url,
             str(requests_kwargs),
-            str(response.status_code),
             response.text,
         )))
 
