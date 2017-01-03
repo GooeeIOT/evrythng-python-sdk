@@ -202,7 +202,7 @@ def delete_all_collection_thngs(collection_id, api_key=None):
     :rtype
     """
     assertions.datatype_str('collection_id', collection_id)
-    url = '/collections/{}/collections'.format(collection_id)
+    url = '/collections/{}/thngs'.format(collection_id)
     return utils.request('DELETE', url, api_key=api_key, accept=True)
 
 
