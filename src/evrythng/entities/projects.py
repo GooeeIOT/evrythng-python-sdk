@@ -56,7 +56,7 @@ def create_project(name, description=None, startsAt=None, endsAt=None,
     return utils.request('POST', '/projects', data=kwargs, api_key=api_key)
 
 
-def update_project(project_id, name=None, description=None, startsAt=None,
+def update_project(project, name=None, description=None, startsAt=None,
                    endsAt=None, tags=None, shortDomains=None,
                    customFields=None, api_key=None):
     """
@@ -81,10 +81,10 @@ def update_project(project_id, name=None, description=None, startsAt=None,
     """
     kwargs = locals()
     api_key = kwargs.pop('api_key')
-    project_id = kwargs.pop('project_id')
+    project = kwargs.pop('project')
     assertions.validate_field_specs(kwargs, field_specs)
-    url = '/projects/{}'.format(project_id)
-    logger.debug('Updating Project {}...'.format(project_id))
+    url = '/projects/{}'.format(project)
+    logger.debug('Updating Project {}...'.format(project))
     return utils.request('PUT', url, data=kwargs, api_key=api_key, accept=True)
 
 
@@ -101,37 +101,37 @@ def list_projects(api_key=None, **request_kwargs):
     return utils.request('GET', '/projects', api_key=api_key, accept=True, **request_kwargs)
 
 
-def read_project(project_id, api_key=None):
+def read_project(project, api_key=None):
     """
     Read a Project.
 
-    :param project_id: The ID of the Project entity.
-    :type project_id: str
+    :param project: The ID of the Project entity.
+    :type project: str
     :param api_key: The API key to authorize the request against.
     :type api_key: str
     :return A Project document.
     :rtype Response
     """
-    assertions.datatype_str('project_id', project_id)
-    url = '/projects/{}'.format(project_id)
-    logger.debug('Reading Project {}'.format(project_id))
+    assertions.datatype_str('project', project)
+    url = '/projects/{}'.format(project)
+    logger.debug('Reading Project {}'.format(project))
     return utils.request('GET', url, api_key=api_key, accept=True)
 
 
-def delete_project(project_id, api_key=None):
+def delete_project(project, api_key=None):
     """
     Delete a Project.
 
-    :param project_id: The ID of the Project entity.
-    :type project_id: str
+    :param project: The ID of the Project entity.
+    :type project: str
     :param api_key: The API key to authorize the request against.
     :type api_key: str
     :return Blank string.
     :rtype Response
     """
-    assertions.datatype_str('project_id', project_id)
-    url = '/projects/{}'.format(project_id)
-    logger.debug('Deleting Project {}'.format(project_id))
+    assertions.datatype_str('project', project)
+    url = '/projects/{}'.format(project)
+    logger.debug('Deleting Project {}'.format(project))
     return utils.request('DELETE', url, api_key=api_key, accept=True)
 
 

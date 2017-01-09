@@ -38,3 +38,11 @@ class RequiredFieldException(Exception):
     def __init__(self, field_name):
         message = '"{}" is a required field.'.format(field_name)
         super(RequiredFieldException, self).__init__(message)
+
+
+class MissingAPIKeyException(Exception):
+
+    def __init__(self):
+        message = ('You must either supply the api_key argument to the request function or set '
+                   'the EVRYTHNG_API_TOKEN environment variable to make requests to Evrythng.')
+        super(MissingAPIKeyException, self).__init__(message)

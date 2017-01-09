@@ -39,11 +39,11 @@ def create_action(type_, thng=None, product=None, collection=None,
     return utils.request('POST', url, data=kwargs, api_key=api_key)
 
 
-def delete_action(type_, action_id, api_key=None):
+def delete_action(type_, action, api_key=None):
     """Delete an Action"""
     assertions.datatype_str('type_', type_)
-    assertions.datatype_str('action_id', action_id)
-    url = '/actions/{}/{}'.format(type_, action_id)
+    assertions.datatype_str('action', action)
+    url = '/actions/{}/{}'.format(type_, action)
     return utils.request('DELETE', url, api_key=api_key)
 
 

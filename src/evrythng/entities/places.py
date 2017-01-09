@@ -30,26 +30,26 @@ def create_place(name, position=None, address=None, description=None,
     return utils.request('POST', '/places', data=kwargs, api_key=api_key)
 
 
-def read_place(place_id, api_key=None):
-    assertions.datatype_str('place_id', place_id)
-    url = '/places/{}'.format(place_id)
+def read_place(place, api_key=None):
+    assertions.datatype_str('place', place)
+    url = '/places/{}'.format(place)
     return utils.request('GET', url, api_key=api_key)
 
 
-def update_place(place_id, name=None, position=None, address=None,
+def update_place(place, name=None, position=None, address=None,
                  description=None, icon=None, tags=None, customFields=None,
                  api_key=None):
     kwargs = locals()
-    place_id = kwargs.pop('place_id')
+    place = kwargs.pop('place')
     api_key = kwargs.pop('api_key')
     assertions.validate_field_specs(kwargs, field_specs)
-    url = '/places/{}'.format(place_id)
+    url = '/places/{}'.format(place)
     return utils.request('PUT', url, data=kwargs, api_key=api_key)
 
 
-def delete_place(place_id, api_key=None):
-    assertions.datatype_str('place_id', place_id)
-    url = '/places/{}'.format(place_id)
+def delete_place(place, api_key=None):
+    assertions.datatype_str('place', place)
+    url = '/places/{}'.format(place)
     return utils.request('DELETE', url, api_key=api_key)
 
 

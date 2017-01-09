@@ -14,7 +14,7 @@ if sys.argv[-1] == 'publish':
 
 setup(
     name='python-evrythng',
-    version='0.2.17',
+    version='0.2.18',
     packages=['evrythng', 'evrythng.entities', 'evrythng.extended'],
     package_dir={'': 'src'},
     include_package_data=True,
@@ -23,11 +23,11 @@ setup(
     license='MIT',
     author='Gooee LLC',
     author_email='lyle@gooee.com',
-    description='A Python wrapper around the Evrythng REST API.',
+    description='A comprehensive pythonic wrapper around the Evrythng REST API.',
     long_description=long_description,
     install_requires=['requests>=2.8.1'],
     classifiers=[
-        'Development Status :: 4 - Beta',
+        'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
         'Natural Language :: English',
         'License :: OSI Approved :: MIT License',
@@ -37,10 +37,11 @@ setup(
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: Implementation :: CPython',
         'Programming Language :: Python :: Implementation :: PyPy',
         'Topic :: Utilities',
         'Topic :: Software Development :: Libraries'
     ],
-    keywords=['wrapper', 'iot', 'rest', 'api', 'evrythng'],
+    keywords=['wrapper', 'iot', 'rest', 'api', 'evrythng', 'client', 'internet of things', 'thng'],
 )

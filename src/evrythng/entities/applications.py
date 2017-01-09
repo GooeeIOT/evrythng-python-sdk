@@ -22,14 +22,14 @@ field_specs = {
 }
 
 
-def create_application(project_id, name, description=None, defaultUrl=None,
+def create_application(project, name, description=None, defaultUrl=None,
                        socialNetworks=None, tags=None, customFields=None,
                        api_key=None):
     """
     Create an Application.
 
-    :param project_id: The Project of the Application.
-    :type project_id: str
+    :param project: The Project of the Application.
+    :type project: str
     :param name: The Name of the Application.
     :type name: str
     :param description: The Description of the Application.
@@ -50,20 +50,20 @@ def create_application(project_id, name, description=None, defaultUrl=None,
         socialNetworks = {}
     kwargs = locals()
     api_key = kwargs.pop('api_key', None)
-    project_id = kwargs.pop('project_id')
+    project = kwargs.pop('project')
     assertions.validate_field_specs(kwargs, field_specs)
-    url = '/projects/{}/applications'.format(project_id)
+    url = '/projects/{}/applications'.format(project)
     return utils.request('POST', url, data=kwargs, api_key=api_key)
 
 
-def update_application(project_id, application_id, name=None, description=None,
+def update_application(project, application_id, name=None, description=None,
                        defaultUrl=None, socialNetworks=None, tags=None,
                        customFields=None, api_key=None):
     """
     Update an Application.
 
-    :param project_id: The Project of the Application.
-    :type project_id: str
+    :param project: The Project of the Application.
+    :type project: str
     :param application_id: The Application to update the details for.
     :type application_id: str
     :param name: The Name of the Application.
@@ -84,49 +84,49 @@ def update_application(project_id, application_id, name=None, description=None,
     """
     kwargs = locals()
     api_key = kwargs.pop('api_key', None)
-    project_id = kwargs.pop('project_id')
+    project = kwargs.pop('project')
     application_id = kwargs.pop('application_id')
     assertions.validate_field_specs(kwargs, field_specs)
-    url = '/projects/{}/applications/{}'.format(project_id, application_id)
+    url = '/projects/{}/applications/{}'.format(project, application_id)
     return utils.request('PUT', url, data=kwargs, api_key=api_key, accept=True)
 
 
-def list_applications(project_id, api_key=None, **request_kwargs):
+def list_applications(project, api_key=None, **request_kwargs):
     """
     List Applications.
 
-    :param project_id: The Project to list the Applications for.
-    :type project_id: str
+    :param project: The Project to list the Applications for.
+    :type project: str
     :param api_key: The API key to authorize request against.
     :type api_key: str
     :return:
     """
-    url = '/projects/{}/applications'.format(project_id)
+    url = '/projects/{}/applications'.format(project)
     return utils.request('GET', url, api_key=api_key, accept=True)
 
 
-def read_application(project_id, application_id, api_key=None):
+def read_application(project, application_id, api_key=None):
     """
     Read an Application.
 
-    :param project_id: The Project of the Application.
-    :type project_id: str
+    :param project: The Project of the Application.
+    :type project: str
     :param application_id: The Application to get the details of.
     :type application_id: str
     :param api_key: The API key to authorize request against.
     :type api_key: str
     :return:
     """
-    url = '/projects/{}/applications/{}'.format(project_id, application_id)
+    url = '/projects/{}/applications/{}'.format(project, application_id)
     return utils.request('GET', url, api_key=api_key, accept=True)
 
 
-def read_trusted_application_key(project_id, application_id, api_key=None):
+def read_trusted_application_key(project, application_id, api_key=None):
     """
     Read a Trusted Application Key.
 
-    :param project_id: The Project of the Application.
-    :type project_id: str
+    :param project: The Project of the Application.
+    :type project: str
     :param application_id: The Application to get the Trusted Key for.
     :type application_id: str
     :param api_key: The API key to authorize request against.
@@ -134,21 +134,21 @@ def read_trusted_application_key(project_id, application_id, api_key=None):
     :return:
     """
     url = '/projects/{}/applications/{}/secretKey'\
-        .format(project_id, application_id)
+        .format(project, application_id)
     return utils.request('GET', url, api_key=api_key, accept=True)
 
 
-def delete_application(project_id, application_id, api_key=None):
+def delete_application(project, application_id, api_key=None):
     """
     Delete an Application.
 
-    :param project_id: The Project of the Application.
-    :type project_id: str
+    :param project: The Project of the Application.
+    :type project: str
     :param application_id: The Application to delete.
     :type application_id: str
     :param api_key: The API key to authorize request against.
     :type api_key: str
     :return:
     """
-    url = '/projects/{}/applications/{}'.format(project_id, application_id)
+    url = '/projects/{}/applications/{}'.format(project, application_id)
     return utils.request('DELETE', url, api_key=api_key, accept=True)

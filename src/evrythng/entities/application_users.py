@@ -37,11 +37,11 @@ def create_user(email, firstName=None, lastName=None, password=None,
         'POST', '/auth/evrythng/users', data=kwargs, api_key=api_key)
 
 
-def activate_user(user_id, activationCode, api_key=None):
+def activate_user(user, activationCode, api_key=None):
     """Activate an Application User."""
-    assertions.datatype_str('user_id', user_id)
+    assertions.datatype_str('user', user)
     assertions.datatype_str('activationCode', activationCode)
-    url = '/auth/evrythng/users/{}/validate'.format(user_id)
+    url = '/auth/evrythng/users/{}/validate'.format(user)
     data = {'activationCode': activationCode}
     return utils.request('POST', url, data=data, api_key=api_key)
 
@@ -77,10 +77,10 @@ def authenticate_facebook_user(expires, token, api_key=None):
     return utils.request('POST', '/auth/facebook', data=data, api_key=api_key)
 
 
-def delete_user(user_id, api_key=None):
+def delete_user(user, api_key=None):
     """Delete a User."""
-    assertions.datatype_str('user_id', user_id)
-    url = '/users/{}'.format(user_id)
+    assertions.datatype_str('user', user)
+    url = '/users/{}'.format(user)
     return utils.request('DELETE', url, api_key=api_key)
 
 
@@ -103,21 +103,21 @@ def list_users(project_id, api_key=None, **request_kwargs):
     return utils.request('GET', '/users', api_key=api_key, **request_kwargs)
 
 
-def read_user(user_id, api_key=None):
+def read_user(user, api_key=None):
     """Read an Application User."""
-    assertions.datatype_str('user_id', user_id)
-    url = '/users/{}'.format(user_id)
+    assertions.datatype_str('user', user)
+    url = '/users/{}'.format(user)
     return utils.request('GET', url, api_key=api_key)
 
 
-def update_user(user_id, email=None, firstName=None, lastName=None,
+def update_user(user, email=None, firstName=None, lastName=None,
                 password=None, birthday=None, gender=None, timezone=None,
                 locale=None, photo=None, customFields=None, tags=None,
                 api_key=None):
     """Update an Application User."""
     kwargs = locals()
-    user_id = kwargs.pop('user_id')
+    user = kwargs.pop('user')
     api_key = kwargs.pop('api_key', None)
     assertions.validate_field_specs(kwargs, field_specs)
-    url = '/users/{}'.format(user_id)
+    url = '/users/{}'.format(user)
     return utils.request('PUT', url, data=kwargs, api_key=api_key)

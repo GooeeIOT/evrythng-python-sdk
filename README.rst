@@ -6,67 +6,58 @@ A comprehensive pythonic wrapper around the Evrythng REST API.
 .. image:: https://img.shields.io/pypi/v/python-evrythng.svg
     :target: https://pypi.python.org/pypi/python-evrythng
 
-.. image:: https://img.shields.io/pypi/dm/python-evrythng.svg
-        :target: https://pypi.python.org/pypi/python-evrythng
-        
-.. image:: https://img.shields.io/twitter/url/https/pypi.python.org/pypi/python-evrythng.svg?style=social
-        :target: https://twitter.com/intent/tweet?text=Wow:&url=%5Bobject%20Object%5D
+For more information about Evrythng and the API that this module wraps, see the
+`Evrythng Documentation Portal <https://dashboard.evrythng.com/documentation/api>`_.
 
-More information about Evrythng may be found in its
-`Documentation <https://dashboard.evrythng.com/documentation/api>`_.
+Installation
+------------
 
-python_evrythng is available on PyPI and can be installed via pip.
+`python-evrythng` is available on PyPI and can be installed via pip.
 
 .. code-block:: bash
 
-    $ pip install python_evrythng
+    $ pip install python-evrythng
 
-Recent Changes
---------------
+Example Usage
+-------------
 
-* 2016-08-30: Added EVT filtering support.
-* 2016-07-24: Refactored Reactor API interaction bits.
+.. code-block:: python
 
-License
--------
+    import os
+    from evrythng import entities
 
-.. image:: https://raw.githubusercontent.com/GooeeIOT/python-evrythng/master/docs/gooee.png
+    EVT_OPERATOR_KEY = 'your operator key from the Accounts page'
+    os.environ['EVRYTHNG_API_TOKEN'] = EVT_OPERATOR_KEY
+    os.environ['PYEVT_DEBUG'] = '1'
 
-Copyright (c) 2016, Gooee™ LLC.All rights reserved.
+    print('Creating a  Project...')
+    response = entities.create_project('python-evrythng Project')
+    assert response.status_code == 201
+    project_id = response.json()['id']
 
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:
+    print('Creating an Application under Project={}...'.format(
+        project_id))
+    response = entities.create_application(project_id,
+                                           'python-evrythng Application')
+    assert response.status_code == 201
+    response_json = response.json()
 
-* Redistributions of source code must retain the above copyright notice, this
-  list of conditions and the following disclaimer.
-
-* Redistributions in binary form must reproduce the above copyright notice,
-  this list of conditions and the following disclaimer in the documentation
-  and/or other materials provided with the distribution.
-
-Notice
-------
-
-This project is currently in heavy development. We are creating a rough basic
-entity API first. Then we will iterate off of that and refactor commonalities
-into something worth using.
-
-Though mostly usable, it hasn't reached a production build. Also, things are
-pretty naive at the moment... much refactoring needs to take place.
-
-TODO
-----
-
-- Complete datatype_list_of_social_networks validation.
-- Implement Service APIs.
-- Alias endpoints
-    - /products/:productId/actions/:actionType
-    - /thngs/:thngId/actions/:actionType
-    - /collections/:collectionId/actions/:actionType
-- 'to' parameter in delete_location
+    print('You can get the Trusted API key of the Application...')
+    application_id = response_json['id']
+    trusted_app_key = entities.read_trusted_application_key(
+        project_id, application_id)
+    app_key = response_json['appApiKey']
+    print('Trusted App Key = {} for Application={}'.format(
+        trusted_app_key, application_id))
 
 Found a bug, wanna help?
 ------------------------
 
-Awesome, let us know! Send a pull request or a patch. Ask! We are here to help 
-and will respond to all filed issues.
+Awesome, let us know! Create a pull request.
+
+.. image:: https://raw.githubusercontent.com/GooeeIOT/python-evrythng/master/docs/gooee.png
+    :width: 50%
+
+.. image:: https://raw.githubusercontent.com/LyleScott/python-evrythng/master/docs/evrythng.png
+    :width: 50%
+

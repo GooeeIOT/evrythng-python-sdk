@@ -20,24 +20,24 @@ field_specs = {
 # Update a single Property
 
 
-def upsert_product_property(product_id, key, values, **request_kwargs):
+def upsert_product_property(product, key, values, **request_kwargs):
     """Create/Update a single Property on a Product.
 
-    POST /products/{$product_id}/properties/{$key}
+    POST /products/{$product}/properties/{$key}
     {"value": {$value}}
     """
-    assertions.datatype_str('product_id', product_id)
-    return _upsert_property('products', product_id, key, values, **request_kwargs)
+    assertions.datatype_str('product', product)
+    return _upsert_property('products', product, key, values, **request_kwargs)
 
 
-def upsert_thng_property(thng_id, key, values, **request_kwargs):
+def upsert_thng_property(thng, key, values, **request_kwargs):
     """Create/Update a single Property on a Thng.
 
-    POST /thngs/{$thng_id}/properties/{$key}
+    POST /thngs/{$thng}/properties/{$key}
     {"value": {$value}}
     """
-    assertions.datatype_str('thng_id', thng_id)
-    return _upsert_property('thngs', thng_id, key, values, **request_kwargs)
+    assertions.datatype_str('thng', thng)
+    return _upsert_property('thngs', thng, key, values, **request_kwargs)
 
 
 def _upsert_property(entity_type, entity_id, key, values, **request_kwargs):
@@ -55,26 +55,26 @@ update_product_property = upsert_product_property
 # Update multiple Properties
 
 
-def upsert_product_properties(product_id, key_values, **request_kwargs):
+def upsert_product_properties(product, key_values, **request_kwargs):
     """Create/Update multiple Properties on a Product.
 
-    POST /products/{$product_id}/properties
+    POST /products/{$product}/properties
     [{"key": "max_wattage", "value": 40}, {"key": "sku", "value": "abc123"}]
     """
     for key_value in key_values:
         assertions.validate_field_specs(key_value, field_specs)
-    return _upsert_properties('products', product_id, key_values, **request_kwargs)
+    return _upsert_properties('products', product, key_values, **request_kwargs)
 
 
-def upsert_thng_properties(thng_id, key_values, **request_kwargs):
+def upsert_thng_properties(thng, key_values, **request_kwargs):
     """Create/Update multiple Properties on a Thng.
 
-    POST /thngs/{$thng_id}/properties
+    POST /thngs/{$thng}/properties
     [{"key": "motion", "value": 20}, {"key": "temperature", "value": 98}]
     """
     for key_value in key_values:
         assertions.validate_field_specs(key_value, field_specs)
-    return _upsert_properties('thngs', thng_id, key_values, **request_kwargs)
+    return _upsert_properties('thngs', thng, key_values, **request_kwargs)
 
 
 def _upsert_properties(entity_type, entity_id, key_values, api_key=None):
@@ -91,28 +91,28 @@ update_thng_properties = upsert_thng_properties
 # List All Properties
 
 
-def list_product_properties(product_id, from_date=None, to_date=None, **request_kwargs):
+def list_product_properties(product, from_date=None, to_date=None, **request_kwargs):
     """List all Properties on a Product."""
-    assertions.datatype_str('product_id', product_id)
-    url = '/products/{}/properties'.format(product_id)
+    assertions.datatype_str('product', product)
+    url = '/products/{}/properties'.format(product)
     return utils.request('GET', url, **request_kwargs)
 
 
-def list_thng_properties(thng_id, from_date=None, to_date=None, **request_kwargs):
+def list_thng_properties(thng, from_date=None, to_date=None, **request_kwargs):
     """List all Properties on a thng."""
-    assertions.datatype_str('thng_id', thng_id)
-    url = '/thngs/{}/properties'.format(thng_id)
+    assertions.datatype_str('thng', thng)
+    url = '/thngs/{}/properties'.format(thng)
     return utils.request('GET', url, **request_kwargs)
 
 
 # Read a Property
 
 
-def _read_property(evrythng_id, evrythng_type, property_name, timestamp_to=None,
+def _read_property(evrythng, evrythng_type, property_name, timestamp_to=None,
                    timestamp_from=None, **request_kwargs):
     """Helper for reading properties."""
     assertions.datatype_str('property_name', property_name)
-    url = '/{}/{}/properties/{}'.format(evrythng_type, evrythng_id, property_name)
+    url = '/{}/{}/properties/{}'.format(evrythng_type, evrythng, property_name)
     query_params = request_kwargs.get('query_params', {})
 
     if timestamp_from:
@@ -127,19 +127,19 @@ def _read_property(evrythng_id, evrythng_type, property_name, timestamp_to=None,
     return utils.request('GET', url, **request_kwargs)
 
 
-def read_product_property(product_id, property_name, timestamp_from=None, timestamp_to=None,
+def read_product_property(product, property_name, timestamp_from=None, timestamp_to=None,
                           **request_kwargs):
     """Read a Product Property."""
-    assertions.datatype_str('product_id', product_id)
-    return _read_property(product_id, 'products', property_name, timestamp_from=timestamp_from,
+    assertions.datatype_str('product', product)
+    return _read_property(product, 'products', property_name, timestamp_from=timestamp_from,
                           timestamp_to=timestamp_to, **request_kwargs)
 
 
-def read_thng_property(thng_id, property_name, timestamp_from=None, timestamp_to=None,
+def read_thng_property(thng, property_name, timestamp_from=None, timestamp_to=None,
                        **request_kwargs):
     """Read a Thng Property."""
-    assertions.datatype_str('thng_id', thng_id)
-    return _read_property(thng_id, 'thngs', property_name, timestamp_from=timestamp_from,
+    assertions.datatype_str('thng', thng)
+    return _read_property(thng, 'thngs', property_name, timestamp_from=timestamp_from,
                           timestamp_to=timestamp_to, **request_kwargs)
 
 
@@ -153,7 +153,7 @@ def read_thng_property(thng_id, property_name, timestamp_from=None, timestamp_to
 # property will be deleted!
 
 
-def _delete_property(evrythng_id, evrythng_type, property_name, timestamp_from=None,
+def _delete_property(evrythng, evrythng_type, property_name, timestamp_from=None,
                      timestamp_to=None, **request_kwargs):
     """Helper for deleting properties."""
     assertions.datatype_str('property_name', property_name)
@@ -164,21 +164,21 @@ def _delete_property(evrythng_id, evrythng_type, property_name, timestamp_from=N
     if timestamp_to:
         assertions.datatype_time('timestamp', timestamp_to)
         query_params['to'] = timestamp_to
-    url = '/{}/{}/properties/{}'.format(evrythng_type, evrythng_id, property_name)
+    url = '/{}/{}/properties/{}'.format(evrythng_type, evrythng, property_name)
     return utils.request('DELETE', url, query_params=query_params, **request_kwargs)
 
 
-def delete_product_property(product_id, property_name, timestamp_from=None, timestamp_to=None,
+def delete_product_property(product, property_name, timestamp_from=None, timestamp_to=None,
                             **request_kwargs):
     """Delete a Property on a Product."""
-    assertions.datatype_str('product_id', product_id)
-    _delete_property(product_id, 'products', property_name, timestamp_from=timestamp_from,
+    assertions.datatype_str('product', product)
+    _delete_property(product, 'products', property_name, timestamp_from=timestamp_from,
                      timestamp_to=timestamp_to, **request_kwargs)
 
 
-def delete_thng_property(thng_id, property_name, timestamp_from=None,
+def delete_thng_property(thng, property_name, timestamp_from=None,
                          timestamp_to=None, **request_kwargs):
     """Delete a Property on a Thng."""
-    assertions.datatype_str('thng_id', thng_id)
-    _delete_property(thng_id, 'thngs', property_name, timestamp_from=timestamp_from,
+    assertions.datatype_str('thng', thng)
+    _delete_property(thng, 'thngs', property_name, timestamp_from=timestamp_from,
                      timestamp_to=timestamp_to, **request_kwargs)

@@ -1,11 +1,27 @@
+import logging
 import os
-import requests
+import sys
+
+from evrythng.exceptions import MissingAPIKeyException
+
 try:
     # Python 3.x
     from urllib.parse import urlencode
 except:
     # Python 2.x
     from urlparse import urlparse
+
+import requests
+
+
+logging.getLogger('requests').setLevel(logging.WARNING)
+LOG = logging.getLogger()
+LOG.setLevel(logging.DEBUG)
+ch = logging.StreamHandler(sys.stdout)
+ch.setLevel(logging.DEBUG)
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+ch.setFormatter(formatter)
+LOG.addHandler(ch)
 
 
 def request(request_type, resource_url, data=None, api_key=None, files=None,
@@ -21,11 +37,11 @@ def request(request_type, resource_url, data=None, api_key=None, files=None,
     else:
         query_params = {}
 
-    if api_key is None:
+    if not api_key:
         try:
             api_key = os.getenv('EVRYTHNG_API_TOKEN')
         except KeyError:
-            print('Configure your EVRYTHNG_API_TOKEN environment variable.')
+            raise MissingAPIKeyException
 
     request_func = getattr(requests, request_type.lower())
     url = '{}{}'.format(base_url, resource_url)
@@ -62,7 +78,7 @@ def request(request_type, resource_url, data=None, api_key=None, files=None,
     response = request_func(url, **requests_kwargs)
 
     if debug:
-        print('|'.join((
+        LOG.debug('|'.join((
             'EVTDEBUG',
             request_type.upper(),
             str(response.status_code),
