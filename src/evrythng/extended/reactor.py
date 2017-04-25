@@ -106,6 +106,30 @@ def update_reactor_script(project_id, application_id, script, manifest='',
     return utils.request('PUT', url, data=kwargs, api_key=api_key)
 
 
+def update_local_reactor_script(collection_id, operator_key, reactor_url=None):
+    """
+    Update a Reactor running in ThngHub
+
+    :param collection_id: The ID for the Collection that contains
+                          thngs running ThngHub.
+    :type collection_id: str
+    :param operator_key: The API key to authorize request against.
+    :type operator_key: str
+    :param reactor_url: URL of the location where the script lives. If None, then
+                        it will remove the old script.
+    :type reactor_url: str
+    :returns: response object
+    """
+    assertions.datatype_str('collection_id', collection_id)
+    assertions.datatype_str('operator_key', operator_key)
+    url = '/collections/{}'.format(collection_id)
+    data = {'customFields': {'hubrules': []}}
+    if reactor_url:
+        assertions.datatype_url('reactor_url', reactor_url)
+        data['customFields']['hubrules'].append(reactor_url)
+    return utils.request('PUT', url, data=data, api_key=operator_key)
+
+
 def get_reactor(project_id, application_id, api_key=None):
     """
     Get the Reactor script of the Project Application.

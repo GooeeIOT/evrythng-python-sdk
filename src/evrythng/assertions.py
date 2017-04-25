@@ -1,4 +1,5 @@
 import json
+from urllib.parse import urlparse
 
 from evrythng.exceptions import (
     ExtraDataSubmittedException,
@@ -56,6 +57,14 @@ def datatype_str(field, value):
     except AssertionError:
         raise InvalidDatatypeException(field, str, type(value))
 
+
+def datatype_url(field, value):
+    """Assert that the value is a URL."""
+    try:
+        result = urlparse(value)
+        assert result.scheme and result.netloc
+    except (AssertionError, AttributeError):
+        raise InvalidDatatypeException(field, str, type(value))
 
 def datatype_time(field, value):
     """Assert that the value is of type int."""

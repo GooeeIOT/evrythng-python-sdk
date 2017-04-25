@@ -37,3 +37,13 @@ class AssertionsTest(TestCase):
             'whatever', 'a', 'b,c')
         self.assertIsNone(
             assertions.datatype_enum('whatever', 'a', 'a,b,c'))
+
+    def test_datatype_url(self):
+        self.assertRaises(
+            InvalidDatatypeException, assertions.datatype_url,
+            'whatever', '')
+        self.assertRaises(
+            InvalidDatatypeException, assertions.datatype_url,
+            'whatever', 'not-a-url')
+        self.assertIsNone(
+            assertions.datatype_url('whatever', 'http://whatever.com'))
