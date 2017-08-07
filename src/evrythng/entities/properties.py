@@ -172,13 +172,13 @@ def delete_product_property(product, property_name, timestamp_from=None, timesta
                             **request_kwargs):
     """Delete a Property on a Product."""
     assertions.datatype_str('product', product)
-    _delete_property(product, 'products', property_name, timestamp_from=timestamp_from,
-                     timestamp_to=timestamp_to, **request_kwargs)
+    return _delete_property(product, 'products', property_name, timestamp_from=timestamp_from,
+                            timestamp_to=timestamp_to, **request_kwargs)
 
 
 def delete_thng_property(thng, property_name, timestamp_from=None,
                          timestamp_to=None, **request_kwargs):
     """Delete a Property on a Thng."""
     assertions.datatype_str('thng', thng)
-    _delete_property(thng, 'thngs', property_name, timestamp_from=timestamp_from,
-                     timestamp_to=timestamp_to, **request_kwargs)
+    return _delete_property(thng, 'thngs', property_name, timestamp_from=timestamp_from,
+                            timestamp_to=timestamp_to, **request_kwargs)
