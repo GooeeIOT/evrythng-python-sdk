@@ -1,4 +1,4 @@
-Python Everythng
+Python Evrythng
 ================
 
 A comprehensive pythonic wrapper around the Evrythng REST API.
