@@ -23,13 +23,15 @@ formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(messag
 ch.setFormatter(formatter)
 LOG.addHandler(ch)
 
-
 def request(request_type, resource_url, data=None, api_key=None, files=None,
-            base_url='https://api.evrythng.com', accept=False, debug=None,
+            base_url=None, accept=False, debug=None,
             query_params=None, pageNumber=None, perPage=None, timeout=30):
     """Send a request to the Evrythng API."""
     if debug is None:
         debug = os.getenv('PYEVT_DEBUG', '0') == '1'
+
+    if base_url is None:
+        base_url = os.getenv('PYEVT_BASE_URL', 'https://api.evrythng.com')
 
     if query_params:
         if type(query_params) != dict:
