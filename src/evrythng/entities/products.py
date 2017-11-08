@@ -27,8 +27,7 @@ field_specs = {
 
 def create_product_action(type_, product, timestamp=None, identifiers=None,
                           location=None, locationSource=None, context=None,
-                          customFields=None, api_key=None,
-                          **request_kwargs):
+                          customFields=None, api_key=None, **request_kwargs):
     """Create an Action for a Product."""
     kwargs = locals()
     kwargs['type'] = kwargs['type_']
