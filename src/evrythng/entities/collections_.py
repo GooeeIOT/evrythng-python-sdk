@@ -26,6 +26,7 @@ def create_collection_action(type_, collection, timestamp=None,
                              request_kwargs=None):
     """Create an Action for a Collection."""
     kwargs = locals()
+    del kwargs['request_kwargs']
     kwargs['type'] = kwargs['type_']
     del kwargs['type_']
     api_key = kwargs.pop('api_key', None)
@@ -68,6 +69,7 @@ def create_collection(name, description=None, customFields=None,
     :rtype
     """
     kwargs = locals()
+    del kwargs['request_kwargs']
     api_key = kwargs.pop('api_key')
     assertions.validate_field_specs(kwargs, field_specs)
     return utils.request('POST', '/collections', data=kwargs, api_key=api_key,
@@ -127,6 +129,7 @@ def update_collection(collection, name=None, description=None,
     :rtype
     """
     kwargs = locals()
+    del kwargs['request_kwargs']
     collection = kwargs.pop('collection')
     api_key = kwargs.pop('api_key')
     assertions.validate_field_specs(kwargs, field_specs)

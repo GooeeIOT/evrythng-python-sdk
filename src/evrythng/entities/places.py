@@ -25,6 +25,7 @@ def create_place(name, position=None, address=None, description=None,
                  icon=None, tags=None, customFields=None, api_key=None,
                  request_kwargs=None):
     kwargs = locals()
+    del kwargs['request_kwargs']
     api_key = kwargs.pop('api_key')
     assertions.validate_field_specs(kwargs, field_specs)
     return utils.request('POST', '/places', data=kwargs, api_key=api_key,
@@ -41,6 +42,7 @@ def update_place(place, name=None, position=None, address=None,
                  description=None, icon=None, tags=None, customFields=None,
                  api_key=None, request_kwargs=None):
     kwargs = locals()
+    del kwargs['request_kwargs']
     place = kwargs.pop('place')
     api_key = kwargs.pop('api_key')
     assertions.validate_field_specs(kwargs, field_specs)

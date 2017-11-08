@@ -48,6 +48,7 @@ def create_application(project, name, description=None, defaultUrl=None,
     if socialNetworks is None:
         socialNetworks = {}
     kwargs = locals()
+    del kwargs['request_kwargs']
     api_key = kwargs.pop('api_key', None)
     project = kwargs.pop('project')
     assertions.validate_field_specs(kwargs, field_specs)
@@ -83,6 +84,7 @@ def update_application(project, application_id, name=None, description=None,
     :return:
     """
     kwargs = locals()
+    del kwargs['request_kwargs']
     api_key = kwargs.pop('api_key', None)
     project = kwargs.pop('project')
     application_id = kwargs.pop('application_id')

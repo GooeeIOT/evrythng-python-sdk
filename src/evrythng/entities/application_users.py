@@ -31,6 +31,7 @@ def create_user(email, firstName=None, lastName=None, password=None,
                 request_kwargs=None):
     """Create an Application User."""
     kwargs = locals()
+    del kwargs['request_kwargs']
     api_key = kwargs.pop('api_key', None)
     assertions.validate_field_specs(kwargs, field_specs)
     return utils.request(
@@ -100,6 +101,7 @@ def logout_user(api_key=None, request_kwargs=None):
 def login_user(email, password, app_api_key, request_kwargs=None):
     """Login an Application User."""
     kwargs = locals()
+    del kwargs['request_kwargs']
     app_api_key = kwargs.pop('app_api_key', None)
     assertions.validate_field_specs(kwargs, field_specs)
     return utils.request('POST', '/auth/evrythng', data=kwargs,
@@ -126,6 +128,7 @@ def update_user(user, email=None, firstName=None, lastName=None,
                 api_key=None, request_kwargs=None):
     """Update an Application User."""
     kwargs = locals()
+    del kwargs['request_kwargs']
     user = kwargs.pop('user')
     api_key = kwargs.pop('api_key', None)
     assertions.validate_field_specs(kwargs, field_specs)

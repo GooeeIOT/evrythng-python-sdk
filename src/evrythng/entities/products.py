@@ -29,6 +29,7 @@ def create_product_action(type_, product, timestamp=None, identifiers=None,
                           customFields=None, api_key=None, request_kwargs=None):
     """Create an Action for a Product."""
     kwargs = locals()
+    del kwargs['request_kwargs']
     kwargs['type'] = kwargs['type_']
     del kwargs['type_']
     api_key = kwargs.pop('api_key', None)
@@ -50,6 +51,7 @@ def create_product(name, description=None, brand=None, categories=None,
                    tags=None, customFields=None, api_key=None,
                    request_kwargs=None):
     kwargs = locals()
+    del kwargs['request_kwargs']
     api_key = kwargs.pop('api_key')
     assertions.validate_field_specs(kwargs, field_specs)
     return utils.request('POST', '/products', data=kwargs, api_key=api_key,
@@ -73,6 +75,7 @@ def update_product(product, name=None, description=None, brand=None,
                    properties=None, tags=None, customFields=None, api_key=None,
                    request_kwargs=None):
     kwargs = locals()
+    del kwargs['request_kwargs']
     product = kwargs.pop('product')
     api_key = kwargs.pop('api_key')
     assertions.validate_field_specs(kwargs, field_specs)

@@ -22,6 +22,7 @@ def create_action_type(name, customFields=None, tags=None, scopes=None,
                        api_key=None, request_kwargs=None):
     """Create an Action Type"""
     kwargs = locals()
+    del kwargs['request_kwargs']
     api_key = kwargs.pop('api_key', None)
     assertions.validate_field_specs(kwargs, field_specs)
     return utils.request('POST', '/actions', data=kwargs, api_key=api_key,
@@ -39,6 +40,7 @@ def update_action_type(name, customFields=None, tags=None, scopes=None,
                        api_key=None, request_kwargs=None):
     """Update an Action Type"""
     kwargs = locals()
+    del kwargs['request_kwargs']
     api_key = kwargs.pop('api_key', None)
     assertions.validate_field_specs(kwargs, field_specs)
     url = '/actions/{}'.format(name)

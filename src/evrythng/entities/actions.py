@@ -31,6 +31,7 @@ def create_action(type_, thng=None, product=None, collection=None,
                   api_key=None, request_kwargs=None):
     """Create an Action"""
     kwargs = locals()
+    del kwargs['request_kwargs']
     kwargs['type'] = kwargs['type_']
     del kwargs['type_']
     api_key = kwargs.pop('api_key', None)

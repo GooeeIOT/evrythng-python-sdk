@@ -57,6 +57,7 @@ def update_reactor_bundle(project_id, application_id, bundle_bytes,
     :return:
     """
     kwargs = locals()
+    del kwargs['request_kwargs']
     api_key = kwargs.pop('api_key', None)
     project_id = kwargs.pop('project_id')
     assertions.datatype_str('project_id', project_id)
@@ -94,6 +95,7 @@ def update_reactor_script(project_id, application_id, script, manifest='',
     :return:
     """
     kwargs = locals()
+    del kwargs['request_kwargs']
     kwargs['type'] = kwargs.pop('type_')
     api_key = kwargs.pop('api_key', None)
     project_id = kwargs.pop('project_id')

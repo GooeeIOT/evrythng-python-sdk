@@ -49,6 +49,7 @@ def create_project(name, description=None, startsAt=None, endsAt=None,
     :rtype Response
     """
     kwargs = locals()
+    del kwargs['request_kwargs']
     api_key = kwargs.pop('api_key')
     assertions.validate_field_specs(kwargs, field_specs)
     logger.debug('Creating Project...')
@@ -80,6 +81,7 @@ def update_project(project, name=None, description=None, startsAt=None,
     :rtype Response
     """
     kwargs = locals()
+    del kwargs['request_kwargs']
     api_key = kwargs.pop('api_key')
     project = kwargs.pop('project')
     assertions.validate_field_specs(kwargs, field_specs)
