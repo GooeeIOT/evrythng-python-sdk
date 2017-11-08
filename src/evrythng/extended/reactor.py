@@ -39,7 +39,7 @@ reactor_log_field_specs = {
 
 
 def update_reactor_bundle(project_id, application_id, bundle_bytes,
-                          api_key=None):
+                          api_key=None, **request_kwargs):
     """
     Update a Reactor via a bundle of files; A zip file containing main.js,
     package.json, etc.
@@ -67,11 +67,12 @@ def update_reactor_bundle(project_id, application_id, bundle_bytes,
     url = '/projects/{}/applications/{}/reactorScript'.format(
         project_id, application_id)
     files = {'file': bundle_bytes}
-    return utils.request('PUT', url, files=files, api_key=api_key)
+    return utils.request('PUT', url, files=files, api_key=api_key,
+                         **request_kwargs)
 
 
 def update_reactor_script(project_id, application_id, script, manifest='',
-                          type_='simple', api_key=None):
+                          type_='simple', api_key=None, **request_kwargs):
     """
     Update the Reactor with a single script text file and an optional manifest.
 
@@ -103,10 +104,12 @@ def update_reactor_script(project_id, application_id, script, manifest='',
     assertions.validate_field_specs(kwargs, reactor_script_field_specs)
     url = '/projects/{}/applications/{}/reactorScript'.format(
         project_id, application_id)
-    return utils.request('PUT', url, data=kwargs, api_key=api_key)
+    return utils.request('PUT', url, data=kwargs, api_key=api_key,
+                         **request_kwargs)
 
 
-def update_local_reactor_script(collection_id, operator_key, reactor_url=None):
+def update_local_reactor_script(collection_id, operator_key, reactor_url=None,
+                                **request_kwargs):
     """
     Update a Reactor running in ThngHub
 
@@ -127,10 +130,11 @@ def update_local_reactor_script(collection_id, operator_key, reactor_url=None):
     if reactor_url:
         assertions.datatype_url('reactor_url', reactor_url)
         data['customFields']['hubrules'].append(reactor_url)
-    return utils.request('PUT', url, data=data, api_key=operator_key)
+    return utils.request('PUT', url, data=data, api_key=operator_key,
+                         **request_kwargs)
 
 
-def get_reactor(project_id, application_id, api_key=None):
+def get_reactor(project_id, application_id, api_key=None, **request_kwargs):
     """
     Get the Reactor script of the Project Application.
 
@@ -144,10 +148,12 @@ def get_reactor(project_id, application_id, api_key=None):
     """
     url = '/projects/{}/applications/{}/reactorScript'.format(
         project_id, application_id)
-    return utils.request('GET', url, api_key=api_key, accept=True)
+    return utils.request('GET', url, api_key=api_key, accept=True,
+                         **request_kwargs)
 
 
-def get_reactor_status(project_id, application_id, api_key=None):
+def get_reactor_status(project_id, application_id, api_key=None,
+                       **request_kwargs):
     """
     Read the reactor script status.
 
@@ -161,10 +167,12 @@ def get_reactor_status(project_id, application_id, api_key=None):
     """
     url = '/projects/{}/applications/{}/reactorScript/status'.format(
         project_id, application_id)
-    return utils.request('GET', url, api_key=api_key, accept=True)
+    return utils.request('GET', url, api_key=api_key, accept=True,
+                         **request_kwargs)
 
 
-def create_reactor_logs(project_id, application_id, logs, api_key=None):
+def create_reactor_logs(project_id, application_id, logs, api_key=None,
+                        **request_kwargs):
     """
     Create one or more Reactor script logs.
 
@@ -183,10 +191,12 @@ def create_reactor_logs(project_id, application_id, logs, api_key=None):
 
     url = '/projects/{}/applications/{}/reactorLogs/bulk'.format(
         project_id, application_id)
-    return utils.request('POST', url, api_key=api_key, accept=True, data=logs)
+    return utils.request('POST', url, api_key=api_key, accept=True, data=logs,
+                         **request_kwargs)
 
 
-def get_reactor_logs(project_id, application_id, api_key=None, **request_kwargs):
+def get_reactor_logs(project_id, application_id, api_key=None,
+                     **request_kwargs):
     """
     Get the logs of a Reactor script.
 
@@ -200,10 +210,12 @@ def get_reactor_logs(project_id, application_id, api_key=None, **request_kwargs)
     """
     url = '/projects/{}/applications/{}/reactorLogs'.format(
         project_id, application_id)
-    return utils.request('GET', url, api_key=api_key, accept=True, **request_kwargs)
+    return utils.request('GET', url, api_key=api_key, accept=True,
+                         **request_kwargs)
 
 
-def delete_reactor_logs(project_id, application_id, api_key=None):
+def delete_reactor_logs(project_id, application_id, api_key=None,
+                        **request_kwargs):
     """
     Delete the logs of a Reactor script.
 
@@ -217,4 +229,5 @@ def delete_reactor_logs(project_id, application_id, api_key=None):
     """
     url = '/projects/{}/applications/{}/reactorLogs'.format(
         project_id, application_id)
-    return utils.request('DELETE', url, api_key=api_key, accept=True)
+    return utils.request('DELETE', url, api_key=api_key, accept=True,
+                         **request_kwargs)

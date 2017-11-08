@@ -77,10 +77,12 @@ def upsert_thng_properties(thng, key_values, **request_kwargs):
     return _upsert_properties('thngs', thng, key_values, **request_kwargs)
 
 
-def _upsert_properties(entity_type, entity_id, key_values, api_key=None):
+def _upsert_properties(entity_type, entity_id, key_values, api_key=None,
+                       **request_kwargs):
     """A helper to wrap common property update functionality."""
     url = '/{}/{}/properties'.format(entity_type, entity_id)
-    return utils.request('POST', url, data=key_values, api_key=api_key)
+    return utils.request('POST', url, data=key_values, api_key=api_key,
+                         **request_kwargs)
 
 
 # Convenience functions.
@@ -91,14 +93,16 @@ update_thng_properties = upsert_thng_properties
 # List All Properties
 
 
-def list_product_properties(product, from_date=None, to_date=None, **request_kwargs):
+def list_product_properties(product, from_date=None, to_date=None,
+                            **request_kwargs):
     """List all Properties on a Product."""
     assertions.datatype_str('product', product)
     url = '/products/{}/properties'.format(product)
     return utils.request('GET', url, **request_kwargs)
 
 
-def list_thng_properties(thng, from_date=None, to_date=None, **request_kwargs):
+def list_thng_properties(thng, from_date=None, to_date=None,
+                         **request_kwargs):
     """List all Properties on a thng."""
     assertions.datatype_str('thng', thng)
     url = '/thngs/{}/properties'.format(thng)
@@ -127,19 +131,21 @@ def _read_property(evrythng, evrythng_type, property_name, timestamp_to=None,
     return utils.request('GET', url, **request_kwargs)
 
 
-def read_product_property(product, property_name, timestamp_from=None, timestamp_to=None,
-                          **request_kwargs):
+def read_product_property(product, property_name, timestamp_from=None,
+                          timestamp_to=None, **request_kwargs):
     """Read a Product Property."""
     assertions.datatype_str('product', product)
-    return _read_property(product, 'products', property_name, timestamp_from=timestamp_from,
+    return _read_property(product, 'products', property_name,
+                          timestamp_from=timestamp_from,
                           timestamp_to=timestamp_to, **request_kwargs)
 
 
-def read_thng_property(thng, property_name, timestamp_from=None, timestamp_to=None,
-                       **request_kwargs):
+def read_thng_property(thng, property_name, timestamp_from=None,
+                       timestamp_to=None, **request_kwargs):
     """Read a Thng Property."""
     assertions.datatype_str('thng', thng)
-    return _read_property(thng, 'thngs', property_name, timestamp_from=timestamp_from,
+    return _read_property(thng, 'thngs', property_name,
+                          timestamp_from=timestamp_from,
                           timestamp_to=timestamp_to, **request_kwargs)
 
 
@@ -153,8 +159,8 @@ def read_thng_property(thng, property_name, timestamp_from=None, timestamp_to=No
 # property will be deleted!
 
 
-def _delete_property(evrythng, evrythng_type, property_name, timestamp_from=None,
-                     timestamp_to=None, **request_kwargs):
+def _delete_property(evrythng, evrythng_type, property_name,
+                     timestamp_from=None, timestamp_to=None, **request_kwargs):
     """Helper for deleting properties."""
     assertions.datatype_str('property_name', property_name)
     query_params = {}
@@ -165,14 +171,16 @@ def _delete_property(evrythng, evrythng_type, property_name, timestamp_from=None
         assertions.datatype_time('timestamp', timestamp_to)
         query_params['to'] = timestamp_to
     url = '/{}/{}/properties/{}'.format(evrythng_type, evrythng, property_name)
-    return utils.request('DELETE', url, query_params=query_params, **request_kwargs)
+    return utils.request('DELETE', url, query_params=query_params,
+                         **request_kwargs)
 
 
-def delete_product_property(product, property_name, timestamp_from=None, timestamp_to=None,
-                            **request_kwargs):
+def delete_product_property(product, property_name, timestamp_from=None,
+                            timestamp_to=None, **request_kwargs):
     """Delete a Property on a Product."""
     assertions.datatype_str('product', product)
-    return _delete_property(product, 'products', property_name, timestamp_from=timestamp_from,
+    return _delete_property(product, 'products', property_name,
+                            timestamp_from=timestamp_from,
                             timestamp_to=timestamp_to, **request_kwargs)
 
 
@@ -180,5 +188,6 @@ def delete_thng_property(thng, property_name, timestamp_from=None,
                          timestamp_to=None, **request_kwargs):
     """Delete a Property on a Thng."""
     assertions.datatype_str('thng', thng)
-    return _delete_property(thng, 'thngs', property_name, timestamp_from=timestamp_from,
+    return _delete_property(thng, 'thngs', property_name,
+                            timestamp_from=timestamp_from,
                             timestamp_to=timestamp_to, **request_kwargs)

@@ -19,29 +19,31 @@ field_specs = {
 
 
 def create_action_type(name, customFields=None, tags=None, scopes=None,
-                       api_key=None):
+                       api_key=None, **request_kwargs):
     """Create an Action Type"""
     kwargs = locals()
     api_key = kwargs.pop('api_key', None)
     assertions.validate_field_specs(kwargs, field_specs)
-    return utils.request('POST', '/actions', data=kwargs, api_key=api_key)
+    return utils.request('POST', '/actions', data=kwargs, api_key=api_key,
+                         **request_kwargs)
 
 
-def delete_action_type(name, api_key=None):
+def delete_action_type(name, api_key=None, **request_kwargs):
     """Delete an Action Type"""
     assertions.datatype_str('name', name)
     url = '/actions/{}'.format(name)
-    return utils.request('DELETE', url, api_key=api_key)
+    return utils.request('DELETE', url, api_key=api_key, **request_kwargs)
 
 
 def update_action_type(name, customFields=None, tags=None, scopes=None,
-                       api_key=None):
+                       api_key=None, **request_kwargs):
     """Update an Action Type"""
     kwargs = locals()
     api_key = kwargs.pop('api_key', None)
     assertions.validate_field_specs(kwargs, field_specs)
     url = '/actions/{}'.format(name)
-    return utils.request('POST', '/actions', data=kwargs, api_key=api_key)
+    return utils.request('POST', '/actions', data=kwargs, api_key=api_key,
+                         **request_kwargs)
 
 
 def list_action_types(api_key=None, **request_kwargs):

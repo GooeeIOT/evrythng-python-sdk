@@ -25,8 +25,9 @@ field_specs = {
 }
 
 
-def create_thng_action(type_, thng, timestamp=None, identifiers=None, location=None,
-                       locationSource=None, context=None, customFields=None, api_key=None):
+def create_thng_action(type_, thng, timestamp=None, identifiers=None,
+                       location=None, locationSource=None, context=None,
+                       customFields=None, api_key=None, **request_kwargs):
     """Create an Action for a Thng."""
     kwargs = locals()
     kwargs['type'] = kwargs['type_']
@@ -34,69 +35,75 @@ def create_thng_action(type_, thng, timestamp=None, identifiers=None, location=N
     api_key = kwargs.pop('api_key', None)
     assertions.validate_field_specs(kwargs, action_field_specs)
     url = '/thngs/{}/actions/{}'.format(thng, type_)
-    return utils.request('POST', url, data=kwargs, api_key=api_key)
+    return utils.request('POST', url, data=kwargs, api_key=api_key,
+                         **request_kwargs)
 
 
-def read_thng_actions(thng, type_, api_key=None):
+def read_thng_actions(thng, type_, api_key=None, **request_kwargs):
     """Read Actions for a Thng."""
     assertions.datatype_str('thng', thng)
     assertions.datatype_str('type_', type_)
     url = '/thngs/{}/actions/{}'.format(thng, type_)
-    return utils.request('GET', url, api_key=api_key)
+    return utils.request('GET', url, api_key=api_key, **request_kwargs)
 
 
 def create_thng(name, description=None, product=None, location=None,
                 identifiers=None, properties=None, tags=None, collections=None,
-                customFields=None, api_key=None):
+                customFields=None, api_key=None, **request_kwargs):
     kwargs = locals()
     api_key = kwargs.pop('api_key')
     assertions.validate_field_specs(kwargs, field_specs)
-    return utils.request('POST', '/thngs', data=kwargs, api_key=api_key)
+    return utils.request('POST', '/thngs', data=kwargs, api_key=api_key,
+                         **request_kwargs)
 
 
 def list_thngs(api_key=None, **request_kwargs):
-    return utils.request('GET', '/thngs', api_key=api_key, accept=True, **request_kwargs)
+    return utils.request('GET', '/thngs', api_key=api_key, accept=True,
+                         **request_kwargs)
 
 
-def read_thng(thng, api_key=None):
+def read_thng(thng, api_key=None, **request_kwargs):
     assertions.datatype_str('thng', thng)
     url = '/thngs/{}'.format(thng)
-    return utils.request('GET', url, api_key=api_key, accept=True)
+    return utils.request('GET', url, api_key=api_key, accept=True,
+                         **request_kwargs)
 
 
 def update_thng(thng, name=None, description=None, product=None,
                 location=None, identifiers=None, properties=None, tags=None,
-                collections=None, customFields=None, api_key=None):
+                collections=None, customFields=None, api_key=None,
+                **request_kwargs):
     kwargs = locals()
     api_key = kwargs.pop('api_key')
     thng = kwargs.pop('thng')
     assertions.validate_field_specs(kwargs, field_specs)
     url = '/thngs/{}'.format(thng)
     return utils.request(
-        'PUT', url, data=kwargs, api_key=api_key)
+        'PUT', url, data=kwargs, api_key=api_key, **request_kwargs)
 
 
-def delete_thng(thng, api_key=None):
+def delete_thng(thng, api_key=None, **request_kwargs):
     assertions.datatype_str('thng', thng)
     url = '/thngs/{}'.format(thng)
-    return utils.request('DELETE', url, api_key=api_key)
+    return utils.request('DELETE', url, api_key=api_key, **request_kwargs)
 
 
-def create_device_thng(thng, thngApiKey, api_key=None):
+def create_device_thng(thng, thngApiKey, api_key=None, **request_kwargs):
     assertions.datatype_str('thng', thng)
     assertions.datatype_str('thngApiKey', thngApiKey)
     data = {'thng': thng, 'thngApiKey': thngApiKey}
     return utils.request(
-        'POST', '/auth/evrythng/thngs', data=data, api_key=api_key)
+        'POST', '/auth/evrythng/thngs', data=data, api_key=api_key,
+        **request_kwargs)
 
 
-def read_device_thng(thng, api_key=None):
+def read_device_thng(thng, api_key=None, **request_kwargs):
     assertions.datatype_str('thng', thng)
     url = '/auth/evrythng/thngs/{}'.format(thng)
-    return utils.request('GET', url, api_key=api_key)
+    return utils.request('GET', url, api_key=api_key, **request_kwargs)
 
 
-def delete_device_thng(thng, api_key=None):
+def delete_device_thng(thng, api_key=None, **request_kwargs):
     assertions.datatype_str('thng', thng)
     url = '/auth/evrythng/thngs/{}'.format(thng)
-    return utils.request('DELETE', url, api_key=api_key)
+    return utils.request('DELETE', url, api_key=api_key, **request_kwargs)
