@@ -6,7 +6,6 @@ import logging
 
 from evrythng import assertions, utils
 
-
 field_specs = {
     'datatypes': {
         'name': 'str',
@@ -28,7 +27,7 @@ logger = logging.getLogger(__name__)
 
 def create_project(name, description=None, startsAt=None, endsAt=None,
                    tags=None, shortDomains=None, customFields=None,
-                   api_key=None, **request_kwargs):
+                   api_key=None, request_kwargs=None):
     """
     Create a new Project.
 
@@ -50,16 +49,17 @@ def create_project(name, description=None, startsAt=None, endsAt=None,
     :rtype Response
     """
     kwargs = locals()
+    del kwargs['request_kwargs']
     api_key = kwargs.pop('api_key')
     assertions.validate_field_specs(kwargs, field_specs)
     logger.debug('Creating Project...')
     return utils.request('POST', '/projects', data=kwargs, api_key=api_key,
-                         **request_kwargs)
+                         **(request_kwargs or {}))
 
 
 def update_project(project, name=None, description=None, startsAt=None,
                    endsAt=None, tags=None, shortDomains=None,
-                   customFields=None, api_key=None, **request_kwargs):
+                   customFields=None, api_key=None, request_kwargs=None):
     """
     Update an existing Project.
 
@@ -81,16 +81,17 @@ def update_project(project, name=None, description=None, startsAt=None,
     :rtype Response
     """
     kwargs = locals()
+    del kwargs['request_kwargs']
     api_key = kwargs.pop('api_key')
     project = kwargs.pop('project')
     assertions.validate_field_specs(kwargs, field_specs)
     url = '/projects/{}'.format(project)
     logger.debug('Updating Project {}...'.format(project))
     return utils.request('PUT', url, data=kwargs, api_key=api_key, accept=True,
-                         **request_kwargs)
+                         **(request_kwargs or {}))
 
 
-def list_projects(api_key=None, **request_kwargs):
+def list_projects(api_key=None, request_kwargs=None):
     """
     List Projects.
 
@@ -101,10 +102,10 @@ def list_projects(api_key=None, **request_kwargs):
     """
     logger.debug('Listing Projects...')
     return utils.request('GET', '/projects', api_key=api_key, accept=True,
-                         **request_kwargs)
+                         **(request_kwargs or {}))
 
 
-def read_project(project, api_key=None, **request_kwargs):
+def read_project(project, api_key=None, request_kwargs=None):
     """
     Read a Project.
 
@@ -119,10 +120,10 @@ def read_project(project, api_key=None, **request_kwargs):
     url = '/projects/{}'.format(project)
     logger.debug('Reading Project {}'.format(project))
     return utils.request('GET', url, api_key=api_key, accept=True,
-                         **request_kwargs)
+                         **(request_kwargs or {}))
 
 
-def delete_project(project, api_key=None, **request_kwargs):
+def delete_project(project, api_key=None, request_kwargs=None):
     """
     Delete a Project.
 
@@ -137,10 +138,10 @@ def delete_project(project, api_key=None, **request_kwargs):
     url = '/projects/{}'.format(project)
     logger.debug('Deleting Project {}'.format(project))
     return utils.request('DELETE', url, api_key=api_key, accept=True,
-                         **request_kwargs)
+                         **(request_kwargs or {}))
 
 
-def delete_all_projects(api_key=None, **request_kwargs):
+def delete_all_projects(api_key=None, request_kwargs=None):
     """
     Delete all Projects.
 
@@ -150,4 +151,4 @@ def delete_all_projects(api_key=None, **request_kwargs):
     :type api_key: str
     """
     for project in list_projects(api_key=api_key).json():
-        delete_project(project['id'], api_key=api_key, **request_kwargs)
+        delete_project(project['id'], api_key=api_key, **(request_kwargs or {}))
