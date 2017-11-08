@@ -23,6 +23,7 @@ formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(messag
 ch.setFormatter(formatter)
 LOG.addHandler(ch)
 
+
 def request(request_type, resource_url, data=None, api_key=None, files=None,
             base_url=None, accept=False, debug=None,
             query_params=None, pageNumber=None, perPage=None, timeout=30):

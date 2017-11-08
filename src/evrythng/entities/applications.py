@@ -4,7 +4,6 @@ https://dashboard.evrythng.com/documentation/api/applications
 """
 from evrythng import assertions, utils
 
-
 field_specs = {
     'datatypes': {
         'name': 'str',
@@ -24,7 +23,7 @@ field_specs = {
 
 def create_application(project, name, description=None, defaultUrl=None,
                        socialNetworks=None, tags=None, customFields=None,
-                       api_key=None, **request_kwargs):
+                       api_key=None, request_kwargs=None):
     """
     Create an Application.
 
@@ -54,12 +53,12 @@ def create_application(project, name, description=None, defaultUrl=None,
     assertions.validate_field_specs(kwargs, field_specs)
     url = '/projects/{}/applications'.format(project)
     return utils.request('POST', url, data=kwargs, api_key=api_key,
-                         **request_kwargs)
+                         **(request_kwargs or {}))
 
 
 def update_application(project, application_id, name=None, description=None,
                        defaultUrl=None, socialNetworks=None, tags=None,
-                       customFields=None, api_key=None, **request_kwargs):
+                       customFields=None, api_key=None, request_kwargs=None):
     """
     Update an Application.
 
@@ -90,10 +89,10 @@ def update_application(project, application_id, name=None, description=None,
     assertions.validate_field_specs(kwargs, field_specs)
     url = '/projects/{}/applications/{}'.format(project, application_id)
     return utils.request('PUT', url, data=kwargs, api_key=api_key, accept=True,
-                         **request_kwargs)
+                         **(request_kwargs or {}))
 
 
-def list_applications(project, api_key=None, **request_kwargs):
+def list_applications(project, api_key=None, request_kwargs=None):
     """
     List Applications.
 
@@ -105,10 +104,11 @@ def list_applications(project, api_key=None, **request_kwargs):
     """
     url = '/projects/{}/applications'.format(project)
     return utils.request('GET', url, api_key=api_key, accept=True,
-                         **request_kwargs)
+                         **(request_kwargs or {}))
 
 
-def read_application(project, application_id, api_key=None, **request_kwargs):
+def read_application(project, application_id, api_key=None,
+                     request_kwargs=None):
     """
     Read an Application.
 
@@ -122,11 +122,11 @@ def read_application(project, application_id, api_key=None, **request_kwargs):
     """
     url = '/projects/{}/applications/{}'.format(project, application_id)
     return utils.request('GET', url, api_key=api_key, accept=True,
-                         **request_kwargs)
+                         **(request_kwargs or {}))
 
 
 def read_trusted_application_key(project, application_id, api_key=None,
-                                 **request_kwargs):
+                                 request_kwargs=None):
     """
     Read a Trusted Application Key.
 
@@ -138,13 +138,14 @@ def read_trusted_application_key(project, application_id, api_key=None,
     :type api_key: str
     :return:
     """
-    url = '/projects/{}/applications/{}/secretKey'\
+    url = '/projects/{}/applications/{}/secretKey' \
         .format(project, application_id)
     return utils.request('GET', url, api_key=api_key, accept=True,
-                         **request_kwargs)
+                         **(request_kwargs or {}))
 
 
-def delete_application(project, application_id, api_key=None, **request_kwargs):
+def delete_application(project, application_id, api_key=None,
+                       request_kwargs=None):
     """
     Delete an Application.
 
@@ -158,4 +159,4 @@ def delete_application(project, application_id, api_key=None, **request_kwargs):
     """
     url = '/projects/{}/applications/{}'.format(project, application_id)
     return utils.request('DELETE', url, api_key=api_key, accept=True,
-                         **request_kwargs)
+                         **(request_kwargs or {}))

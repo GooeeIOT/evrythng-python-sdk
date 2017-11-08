@@ -5,7 +5,6 @@ https://dashboard.evrythng.com/documentation/api/collections
 from evrythng import assertions, utils
 from evrythng.entities.actions import field_specs as action_field_specs
 
-
 field_specs = {
     'datatypes': {
         'name': 'str',
@@ -20,9 +19,11 @@ field_specs = {
 }
 
 
-def create_collection_action(type_, collection, timestamp=None, identifiers=None,
+def create_collection_action(type_, collection, timestamp=None,
+                             identifiers=None,
                              location=None, locationSource=None, context=None,
-                             customFields=None, api_key=None, **request_kwargs):
+                             customFields=None, api_key=None,
+                             request_kwargs=None):
     """Create an Action for a Collection."""
     kwargs = locals()
     kwargs['type'] = kwargs['type_']
@@ -33,20 +34,21 @@ def create_collection_action(type_, collection, timestamp=None, identifiers=None
     url = '/collections/{}/actions/{}'.format(collection, type_)
 
     return utils.request('POST', url, data=kwargs, api_key=api_key,
-                         **request_kwargs)
+                         **(request_kwargs or {}))
 
 
-def read_collection_actions(collection, type_, api_key=None, **request_kwargs):
+def read_collection_actions(collection, type_, api_key=None,
+                            request_kwargs=None):
     """Read Actions for a Collection."""
     assertions.datatype_str('collection', collection)
     assertions.datatype_str('type_', type_)
     url = '/collections/{}/actions/{}'.format(collection, type_)
-    return utils.request('GET', url, api_key=api_key, **request_kwargs)
+    return utils.request('GET', url, api_key=api_key, **(request_kwargs or {}))
 
 
 def create_collection(name, description=None, customFields=None,
                       collections=None, tags=None, api_key=None,
-                      **request_kwargs):
+                      request_kwargs=None):
     """
     Create a new Collection.
 
@@ -68,10 +70,11 @@ def create_collection(name, description=None, customFields=None,
     kwargs = locals()
     api_key = kwargs.pop('api_key')
     assertions.validate_field_specs(kwargs, field_specs)
-    return utils.request('POST', '/collections', data=kwargs, api_key=api_key, **request_kwargs)
+    return utils.request('POST', '/collections', data=kwargs, api_key=api_key,
+                         **(request_kwargs or {}))
 
 
-def list_collections(api_key=None, **request_kwargs):
+def list_collections(api_key=None, request_kwargs=None):
     """
     List Collections.
 
@@ -81,10 +84,10 @@ def list_collections(api_key=None, **request_kwargs):
     :rtype
     """
     return utils.request('GET', '/collections', api_key=api_key,
-                         **request_kwargs)
+                         **(request_kwargs or {}))
 
 
-def read_collection(collection, api_key=None, **request_kwargs):
+def read_collection(collection, api_key=None, request_kwargs=None):
     """
     Read a Collection.
 
@@ -97,12 +100,12 @@ def read_collection(collection, api_key=None, **request_kwargs):
     """
     assertions.datatype_str('collection', collection)
     url = '/collections/{}'.format(collection)
-    return utils.request('GET', url, api_key=api_key, **request_kwargs)
+    return utils.request('GET', url, api_key=api_key, **(request_kwargs or {}))
 
 
 def update_collection(collection, name=None, description=None,
                       customFields=None, collections=None, tags=None,
-                      api_key=None, **request_kwargs):
+                      api_key=None, request_kwargs=None):
     """
     Update an existing Collection.
 
@@ -129,10 +132,10 @@ def update_collection(collection, name=None, description=None,
     assertions.validate_field_specs(kwargs, field_specs)
     url = '/collections/{}'.format(collection)
     return utils.request(
-        'PUT', url, data=kwargs, api_key=api_key, **request_kwargs)
+        'PUT', url, data=kwargs, api_key=api_key, **(request_kwargs or {}))
 
 
-def delete_collection(collection, api_key=None, **request_kwargs):
+def delete_collection(collection, api_key=None, request_kwargs=None):
     """
     Delete an existing Collection.
 
@@ -146,10 +149,10 @@ def delete_collection(collection, api_key=None, **request_kwargs):
     assertions.datatype_str('collection', collection)
     url = '/collections/{}'.format(collection)
     return utils.request('DELETE', url, api_key=api_key,
-                         **request_kwargs)
+                         **(request_kwargs or {}))
 
 
-def list_collection_thngs(collection, api_key=None, **request_kwargs):
+def list_collection_thngs(collection, api_key=None, request_kwargs=None):
     """
     List a Collection's Thngs.
 
@@ -163,10 +166,10 @@ def list_collection_thngs(collection, api_key=None, **request_kwargs):
     assertions.datatype_str('collection', collection)
     url = '/collections/{}/thngs'.format(collection)
     return utils.request('GET', url, api_key=api_key, accept=True,
-                         **request_kwargs)
+                         **(request_kwargs or {}))
 
 
-def add_collection_thngs(collection, thngs, api_key=None, **request_kwargs):
+def add_collection_thngs(collection, thngs, api_key=None, request_kwargs=None):
     """
     Add Thngs to a Collection.
 
@@ -183,10 +186,10 @@ def add_collection_thngs(collection, thngs, api_key=None, **request_kwargs):
     assertions.datatype_list_of_str('thngs', thngs)
     url = '/collections/{}/thngs'.format(collection)
     return utils.request('PUT', url, data=thngs, api_key=api_key,
-                         **request_kwargs)
+                         **(request_kwargs or {}))
 
 
-def delete_collection_thng(collection, thng, api_key=None, **request_kwargs):
+def delete_collection_thng(collection, thng, api_key=None, request_kwargs=None):
     """
     Delete a Thng from a Collection.
 
@@ -202,10 +205,10 @@ def delete_collection_thng(collection, thng, api_key=None, **request_kwargs):
     assertions.datatype_str('collection', collection)
     url = '/collections/{}/thngs/{}'.format(collection, thng)
     return utils.request('DELETE', url, api_key=api_key, accept=True,
-                         **request_kwargs)
+                         **(request_kwargs or {}))
 
 
-def delete_all_collection_thngs(collection, api_key=None, **request_kwargs):
+def delete_all_collection_thngs(collection, api_key=None, request_kwargs=None):
     """
     Delete *ALL* Thngs from a Collection.
 
@@ -219,11 +222,11 @@ def delete_all_collection_thngs(collection, api_key=None, **request_kwargs):
     assertions.datatype_str('collection', collection)
     url = '/collections/{}/thngs'.format(collection)
     return utils.request('DELETE', url, api_key=api_key, accept=True,
-                         **request_kwargs)
+                         **(request_kwargs or {}))
 
 
 def add_collections_to_collection(collection, collections, api_key=None,
-                                  **request_kwargs):
+                                  request_kwargs=None):
     """
     Add Collection to a Collection.
 
@@ -240,11 +243,11 @@ def add_collections_to_collection(collection, collections, api_key=None,
     assertions.datatype_list_of_str('collections', collections)
     url = '/collections/{}/collections'.format(collection)
     return utils.request('POST', url, data=collections, api_key=api_key,
-                         **request_kwargs)
+                         **(request_kwargs or {}))
 
 
 def delete_collection_from_collection(collection, child_collection,
-                                      api_key=None, **request_kwargs):
+                                      api_key=None, request_kwargs=None):
     """
     Delete a Collection from a Collection.
 
@@ -262,11 +265,11 @@ def delete_collection_from_collection(collection, child_collection,
     url = '/collections/{}/collections/{}'.format(
         collection, child_collection)
     return utils.request('DELETE', url, api_key=api_key, accept=True,
-                         **request_kwargs)
+                         **(request_kwargs or {}))
 
 
 def delete_all_collections_from_collection(collection, api_key=None,
-                                           **request_kwargs):
+                                           request_kwargs=None):
     """
     Delete *ALL* Collections from a Collection.
 
@@ -280,11 +283,11 @@ def delete_all_collections_from_collection(collection, api_key=None,
     assertions.datatype_str('collection', collection)
     url = '/collections/{}/collections'.format(collection)
     return utils.request('DELETE', url, api_key=api_key, accept=True,
-                         **request_kwargs)
+                         **(request_kwargs or {}))
 
 
 def read_collections_from_collection(collection, api_key=None,
-                                     **request_kwargs):
+                                     request_kwargs=None):
     """
     Read the Collections of a Collection.
 
@@ -298,4 +301,4 @@ def read_collections_from_collection(collection, api_key=None,
     assertions.datatype_str('collection', collection)
     url = '/collections/{}/collections'.format(collection)
     return utils.request('GET', url, api_key=api_key, accept=True,
-                         **request_kwargs)
+                         **(request_kwargs or {}))
