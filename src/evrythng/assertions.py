@@ -17,7 +17,7 @@ def validate_field_specs(fields, field_specs):
     no_extras(
         fields,
         field_specs['required'] + field_specs['writable'] +
-            field_specs['readonly']
+        field_specs['readonly']
     )
     datatypes(fields, field_specs['datatypes'])
 

@@ -25,56 +25,64 @@ field_specs = {
 }
 
 
-def create_product_action(type_, product, timestamp=None, identifiers=None, location=None,
-                          locationSource=None, context=None, customFields=None, api_key=None):
+def create_product_action(type_, product, timestamp=None, identifiers=None,
+                          location=None, locationSource=None, context=None,
+                          customFields=None, api_key=None, **request_kwargs):
     """Create an Action for a Product."""
     kwargs = locals()
     kwargs['type'] = kwargs['type_']
     del kwargs['type_']
     api_key = kwargs.pop('api_key', None)
     url = '/products/{}/actions/{}'.format(product, type_)
-    return utils.request('POST', url, data=kwargs, api_key=api_key)
+    return utils.request('POST', url, data=kwargs, api_key=api_key,
+                         **request_kwargs)
 
 
-def read_product_actions(product, type_, api_key=None):
+def read_product_actions(product, type_, api_key=None, **request_kwargs):
     """Read Actions for a Collection."""
     assertions.datatype_str('product', product)
     assertions.datatype_str('type_', type_)
     url = '/products/{}/actions/{}'.format(product, type_)
-    return utils.request('GET', url, api_key=api_key)
+    return utils.request('GET', url, api_key=api_key, **request_kwargs)
 
 
 def create_product(name, description=None, brand=None, categories=None,
                    photos=None, url=None, identifiers=None, properties=None,
-                   tags=None, customFields=None, api_key=None):
+                   tags=None, customFields=None, api_key=None,
+                   **request_kwargs):
     kwargs = locals()
     api_key = kwargs.pop('api_key')
     assertions.validate_field_specs(kwargs, field_specs)
-    return utils.request('POST', '/products', data=kwargs, api_key=api_key)
+    return utils.request('POST', '/products', data=kwargs, api_key=api_key,
+                         **request_kwargs)
 
 
 def list_products(api_key=None, **request_kwargs):
     return utils.request('GET', '/products', api_key=api_key, **request_kwargs)
 
 
-def read_product(product, api_key=None):
+def read_product(product, api_key=None, **request_kwargs):
     assertions.datatype_str('product', product)
     url = '/products/{}'.format(product)
-    return utils.request('GET', url, api_key=api_key)
+    return utils.request('GET', url, api_key=api_key,
+                         **request_kwargs)
 
 
 def update_product(product, name=None, description=None, brand=None,
                    categories=None, photos=None, url=None, identifiers=None,
-                   properties=None, tags=None, customFields=None, api_key=None):
+                   properties=None, tags=None, customFields=None, api_key=None,
+                   **request_kwargs):
     kwargs = locals()
     product = kwargs.pop('product')
     api_key = kwargs.pop('api_key')
     assertions.validate_field_specs(kwargs, field_specs)
     url = '/products/{}'.format(product)
-    return utils.request('PUT', url, data=kwargs, api_key=api_key)
+    return utils.request('PUT', url, data=kwargs, api_key=api_key,
+                         **request_kwargs)
 
 
-def delete_product(product, api_key=None):
+def delete_product(product, api_key=None, **request_kwargs):
     assertions.datatype_str('product', product)
     url = '/products/{}'.format(product)
-    return utils.request('DELETE', url, api_key=api_key)
+    return utils.request('DELETE', url, api_key=api_key,
+                         **request_kwargs)

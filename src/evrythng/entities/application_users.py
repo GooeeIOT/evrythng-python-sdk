@@ -28,31 +28,35 @@ field_specs = {
 
 def create_user(email, firstName=None, lastName=None, password=None,
                 birthday=None, gender=None, timezone=None, locale=None,
-                photo=None, customFields=None, tags=None, api_key=None):
+                photo=None, customFields=None, tags=None, api_key=None,
+                **request_kwargs):
     """Create an Application User."""
     kwargs = locals()
     api_key = kwargs.pop('api_key', None)
     assertions.validate_field_specs(kwargs, field_specs)
     return utils.request(
-        'POST', '/auth/evrythng/users', data=kwargs, api_key=api_key)
+        'POST', '/auth/evrythng/users', data=kwargs, api_key=api_key,
+        **request_kwargs)
 
 
-def activate_user(user, activationCode, api_key=None):
+def activate_user(user, activationCode, api_key=None, **request_kwargs):
     """Activate an Application User."""
     assertions.datatype_str('user', user)
     assertions.datatype_str('activationCode', activationCode)
     url = '/auth/evrythng/users/{}/validate'.format(user)
     data = {'activationCode': activationCode}
-    return utils.request('POST', url, data=data, api_key=api_key)
+    return utils.request('POST', url, data=data, api_key=api_key,
+                         **request_kwargs)
 
 
-def create_anonymous_user(api_key=None):
+def create_anonymous_user(api_key=None, **request_kwargs):
     """Create an Anonymous Application User."""
     return utils.request(
-        'POST', '/auth/evrythng/users?anonymous=true', api_key=api_key)
+        'POST', '/auth/evrythng/users?anonymous=true', api_key=api_key,
+        **request_kwargs)
 
 
-def authenticate_user(email, password, api_key=None):
+def authenticate_user(email, password, api_key=None, **request_kwargs):
     """
     Bad HTTP response status meaning:
         401 = Wrong password.
@@ -62,10 +66,11 @@ def authenticate_user(email, password, api_key=None):
     assertions.datatype_str('email', email)
     assertions.datatype_str('password', password)
     data = {'email': email, 'password': password}
-    return utils.request('POST', '/auth/evrythng', data=data, api_key=api_key)
+    return utils.request('POST', '/auth/evrythng', data=data, api_key=api_key,
+                         **request_kwargs)
 
 
-def authenticate_facebook_user(expires, token, api_key=None):
+def authenticate_facebook_user(expires, token, api_key=None, **request_kwargs):
     """Authenticate a Facebook User."""
     assertions.datatype_str('token', token)
     data = {
@@ -74,27 +79,30 @@ def authenticate_facebook_user(expires, token, api_key=None):
             'token': token,
         }
     }
-    return utils.request('POST', '/auth/facebook', data=data, api_key=api_key)
+    return utils.request('POST', '/auth/facebook', data=data, api_key=api_key,
+                         **request_kwargs)
 
 
-def delete_user(user, api_key=None):
+def delete_user(user, api_key=None, **request_kwargs):
     """Delete a User."""
     assertions.datatype_str('user', user)
     url = '/users/{}'.format(user)
-    return utils.request('DELETE', url, api_key=api_key)
+    return utils.request('DELETE', url, api_key=api_key, **request_kwargs)
 
 
-def logout_user(api_key=None):
+def logout_user(api_key=None, **request_kwargs):
     """Logout an Application User."""
-    return utils.request('POST', '/auth/all/logout', api_key=api_key)
+    return utils.request('POST', '/auth/all/logout', api_key=api_key,
+                         **request_kwargs)
 
 
-def login_user(email, password, app_api_key):
+def login_user(email, password, app_api_key, **request_kwargs):
     """Login an Application User."""
     kwargs = locals()
     app_api_key = kwargs.pop('app_api_key', None)
     assertions.validate_field_specs(kwargs, field_specs)
-    return utils.request('POST', '/auth/evrythng', data=kwargs, api_key=app_api_key)
+    return utils.request('POST', '/auth/evrythng', data=kwargs,
+                         api_key=app_api_key, **request_kwargs)
 
 
 def list_users(project_id, api_key=None, **request_kwargs):
@@ -103,21 +111,22 @@ def list_users(project_id, api_key=None, **request_kwargs):
     return utils.request('GET', '/users', api_key=api_key, **request_kwargs)
 
 
-def read_user(user, api_key=None):
+def read_user(user, api_key=None, **request_kwargs):
     """Read an Application User."""
     assertions.datatype_str('user', user)
     url = '/users/{}'.format(user)
-    return utils.request('GET', url, api_key=api_key)
+    return utils.request('GET', url, api_key=api_key, **request_kwargs)
 
 
 def update_user(user, email=None, firstName=None, lastName=None,
                 password=None, birthday=None, gender=None, timezone=None,
                 locale=None, photo=None, customFields=None, tags=None,
-                api_key=None):
+                api_key=None, **request_kwargs):
     """Update an Application User."""
     kwargs = locals()
     user = kwargs.pop('user')
     api_key = kwargs.pop('api_key', None)
     assertions.validate_field_specs(kwargs, field_specs)
     url = '/users/{}'.format(user)
-    return utils.request('PUT', url, data=kwargs, api_key=api_key)
+    return utils.request('PUT', url, data=kwargs, api_key=api_key,
+                         **request_kwargs)

@@ -24,7 +24,7 @@ field_specs = {
 
 def create_application(project, name, description=None, defaultUrl=None,
                        socialNetworks=None, tags=None, customFields=None,
-                       api_key=None):
+                       api_key=None, **request_kwargs):
     """
     Create an Application.
 
@@ -53,12 +53,13 @@ def create_application(project, name, description=None, defaultUrl=None,
     project = kwargs.pop('project')
     assertions.validate_field_specs(kwargs, field_specs)
     url = '/projects/{}/applications'.format(project)
-    return utils.request('POST', url, data=kwargs, api_key=api_key)
+    return utils.request('POST', url, data=kwargs, api_key=api_key,
+                         **request_kwargs)
 
 
 def update_application(project, application_id, name=None, description=None,
                        defaultUrl=None, socialNetworks=None, tags=None,
-                       customFields=None, api_key=None):
+                       customFields=None, api_key=None, **request_kwargs):
     """
     Update an Application.
 
@@ -88,7 +89,8 @@ def update_application(project, application_id, name=None, description=None,
     application_id = kwargs.pop('application_id')
     assertions.validate_field_specs(kwargs, field_specs)
     url = '/projects/{}/applications/{}'.format(project, application_id)
-    return utils.request('PUT', url, data=kwargs, api_key=api_key, accept=True)
+    return utils.request('PUT', url, data=kwargs, api_key=api_key, accept=True,
+                         **request_kwargs)
 
 
 def list_applications(project, api_key=None, **request_kwargs):
@@ -102,10 +104,11 @@ def list_applications(project, api_key=None, **request_kwargs):
     :return:
     """
     url = '/projects/{}/applications'.format(project)
-    return utils.request('GET', url, api_key=api_key, accept=True)
+    return utils.request('GET', url, api_key=api_key, accept=True,
+                         **request_kwargs)
 
 
-def read_application(project, application_id, api_key=None):
+def read_application(project, application_id, api_key=None, **request_kwargs):
     """
     Read an Application.
 
@@ -118,10 +121,12 @@ def read_application(project, application_id, api_key=None):
     :return:
     """
     url = '/projects/{}/applications/{}'.format(project, application_id)
-    return utils.request('GET', url, api_key=api_key, accept=True)
+    return utils.request('GET', url, api_key=api_key, accept=True,
+                         **request_kwargs)
 
 
-def read_trusted_application_key(project, application_id, api_key=None):
+def read_trusted_application_key(project, application_id, api_key=None,
+                                 **request_kwargs):
     """
     Read a Trusted Application Key.
 
@@ -135,10 +140,11 @@ def read_trusted_application_key(project, application_id, api_key=None):
     """
     url = '/projects/{}/applications/{}/secretKey'\
         .format(project, application_id)
-    return utils.request('GET', url, api_key=api_key, accept=True)
+    return utils.request('GET', url, api_key=api_key, accept=True,
+                         **request_kwargs)
 
 
-def delete_application(project, application_id, api_key=None):
+def delete_application(project, application_id, api_key=None, **request_kwargs):
     """
     Delete an Application.
 
@@ -151,4 +157,5 @@ def delete_application(project, application_id, api_key=None):
     :return:
     """
     url = '/projects/{}/applications/{}'.format(project, application_id)
-    return utils.request('DELETE', url, api_key=api_key, accept=True)
+    return utils.request('DELETE', url, api_key=api_key, accept=True,
+                         **request_kwargs)
