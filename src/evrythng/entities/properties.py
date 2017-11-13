@@ -145,7 +145,7 @@ def read_product_property(product, property_name, timestamp_from=None,
     return _read_property(product, 'products', property_name,
                           timestamp_from=timestamp_from,
                           timestamp_to=timestamp_to, api_key=api_key,
-                          **(request_kwargs or {}))
+                          request_kwargs=request_kwargs)
 
 
 def read_thng_property(thng, property_name, timestamp_from=None,
@@ -155,7 +155,7 @@ def read_thng_property(thng, property_name, timestamp_from=None,
     return _read_property(thng, 'thngs', property_name,
                           timestamp_from=timestamp_from,
                           timestamp_to=timestamp_to, api_key=api_key,
-                          **(request_kwargs or {}))
+                          request_kwargs=request_kwargs)
 
 
 # Delete Properties
