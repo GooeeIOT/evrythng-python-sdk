@@ -28,7 +28,7 @@ def upsert_product_property(product, key, values, api_key=None,
     """
     assertions.datatype_str('product', product)
     return _upsert_property('products', product, key, values, api_key=api_key,
-                            **(request_kwargs or {}))
+                            request_kwargs=request_kwargs)
 
 
 def upsert_thng_property(thng, key, values, api_key=None, request_kwargs=None):
@@ -39,7 +39,7 @@ def upsert_thng_property(thng, key, values, api_key=None, request_kwargs=None):
     """
     assertions.datatype_str('thng', thng)
     return _upsert_property('thngs', thng, key, values, api_key=api_key,
-                            **(request_kwargs or {}))
+                            request_kwargs=request_kwargs)
 
 
 def _upsert_property(entity_type, entity_id, key, values, api_key=None,
@@ -69,7 +69,7 @@ def upsert_product_properties(product, key_values, api_key=None,
     for key_value in key_values:
         assertions.validate_field_specs(key_value, field_specs)
     return _upsert_properties('products', product, key_values, api_key=api_key,
-                              **(request_kwargs or {}))
+                              request_kwargs=request_kwargs)
 
 
 def upsert_thng_properties(thng, key_values, api_key=None, request_kwargs=None):
@@ -81,7 +81,7 @@ def upsert_thng_properties(thng, key_values, api_key=None, request_kwargs=None):
     for key_value in key_values:
         assertions.validate_field_specs(key_value, field_specs)
     return _upsert_properties('thngs', thng, key_values, api_key=api_key,
-                              **(request_kwargs or {}))
+                              request_kwargs=request_kwargs)
 
 
 def _upsert_properties(entity_type, entity_id, key_values, api_key=None,
@@ -193,7 +193,7 @@ def delete_product_property(product, property_name, timestamp_from=None,
     return _delete_property(product, 'products', property_name,
                             timestamp_from=timestamp_from,
                             timestamp_to=timestamp_to, api_key=api_key,
-                            **(request_kwargs or {}))
+                            request_kwargs=request_kwargs)
 
 
 def delete_thng_property(thng, property_name, timestamp_from=None,
@@ -204,4 +204,4 @@ def delete_thng_property(thng, property_name, timestamp_from=None,
     return _delete_property(thng, 'thngs', property_name,
                             timestamp_from=timestamp_from,
                             timestamp_to=timestamp_to, api_key=api_key,
-                            **(request_kwargs or {}))
+                            request_kwargs=request_kwargs)
