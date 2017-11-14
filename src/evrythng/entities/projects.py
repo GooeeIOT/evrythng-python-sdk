@@ -151,4 +151,4 @@ def delete_all_projects(api_key=None, request_kwargs=None):
     :type api_key: str
     """
     for project in list_projects(api_key=api_key).json():
-        delete_project(project['id'], api_key=api_key, **(request_kwargs or {}))
+        delete_project(project['id'], api_key=api_key, request_kwargs=request_kwargs)
