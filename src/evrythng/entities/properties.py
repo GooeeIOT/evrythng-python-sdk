@@ -124,7 +124,11 @@ def _read_property(evrythng, evrythng_type, property_name, timestamp_to=None,
     """Helper for reading properties."""
     assertions.datatype_str('property_name', property_name)
     url = '/{}/{}/properties/{}'.format(evrythng_type, evrythng, property_name)
-    query_params = (request_kwargs or {}).get('query_params', {})
+
+    if request_kwargs is None:
+        request_kwargs = {}
+
+    query_params = request_kwargs.get('query_params', {})
 
     if timestamp_from:
         assertions.datatype_time('timestamp', timestamp_from)
