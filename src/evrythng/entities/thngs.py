@@ -16,11 +16,13 @@ field_specs = {
         'tags': 'list_of_str',
         'collections': 'list_of_str',
         'customFields': 'dict',
+        'scopes': 'dict',
     },
     'required': ('name',),
     'readonly': ('id', 'createdAt', 'updatedAt', 'activatedAt'),
     'writable': ('description', 'product', 'location', 'identifiers',
-                 'properties', 'tags', 'collections', 'customFields'),
+                 'properties', 'tags', 'collections', 'customFields',
+                 'scopes'),
 }
 
 
@@ -49,7 +51,8 @@ def read_thng_actions(thng, type_, api_key=None, request_kwargs=None):
 
 def create_thng(name, description=None, product=None, location=None,
                 identifiers=None, properties=None, tags=None, collections=None,
-                customFields=None, api_key=None, request_kwargs=None):
+                customFields=None, scopes=None, api_key=None,
+                request_kwargs=None):
     kwargs = locals()
     del kwargs['request_kwargs']
     api_key = kwargs.pop('api_key')
@@ -72,7 +75,7 @@ def read_thng(thng, api_key=None, request_kwargs=None):
 
 def update_thng(thng, name=None, description=None, product=None,
                 location=None, identifiers=None, properties=None, tags=None,
-                collections=None, customFields=None, api_key=None,
+                collections=None, customFields=None, scopes=None, api_key=None,
                 request_kwargs=None):
     kwargs = locals()
     del kwargs['request_kwargs']
