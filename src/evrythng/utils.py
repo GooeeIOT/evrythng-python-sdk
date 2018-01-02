@@ -25,8 +25,8 @@ LOG.addHandler(ch)
 
 
 def request(request_type, resource_url, data=None, api_key=None, files=None,
-            base_url=None, accept=False, debug=None,
-            query_params=None, pageNumber=None, perPage=None, timeout=30):
+            base_url=None, accept=False, debug=None, query_params=None,
+            pageNumber=None, perPage=None, timeout=30, withScopes=False):
     """Send a request to the Evrythng API."""
     if debug is None:
         debug = os.getenv('PYEVT_DEBUG', '0') == '1'
@@ -74,6 +74,8 @@ def request(request_type, resource_url, data=None, api_key=None, files=None,
         query_params['perPage'] = perPage
     if pageNumber:
         query_params['page'] = pageNumber
+    if withScopes:
+        query_params['withScopes'] = 'true'
 
     if query_params:
         url += '?{}'.format(urlencode(query_params))
