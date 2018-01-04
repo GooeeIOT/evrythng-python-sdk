@@ -64,7 +64,7 @@ def update_reactor_bundle(project_id, application_id, bundle_bytes,
     application_id = kwargs.pop('application_id')
     assertions.datatype_str('application_id', application_id)
     assertions.validate_field_specs(kwargs, reactor_bundle_field_specs)
-    url = '/projects/{}/applications/{}/reactorScript'.format(
+    url = '/projects/{}/applications/{}/reactor/script'.format(
         project_id, application_id)
     files = {'file': bundle_bytes}
     return utils.request('PUT', url, files=files, api_key=api_key,
@@ -103,7 +103,7 @@ def update_reactor_script(project_id, application_id, script, manifest='',
     application_id = kwargs.pop('application_id')
     assertions.datatype_str('application_id', application_id)
     assertions.validate_field_specs(kwargs, reactor_script_field_specs)
-    url = '/projects/{}/applications/{}/reactorScript'.format(
+    url = '/projects/{}/applications/{}/reactor/script'.format(
         project_id, application_id)
     return utils.request('PUT', url, data=kwargs, api_key=api_key,
                          **(request_kwargs or {}))
@@ -147,7 +147,7 @@ def get_reactor(project_id, application_id, api_key=None, request_kwargs=None):
     :type api_key: str
     :return:
     """
-    url = '/projects/{}/applications/{}/reactorScript'.format(
+    url = '/projects/{}/applications/{}/reactor/script'.format(
         project_id, application_id)
     return utils.request('GET', url, api_key=api_key, accept=True,
                          **(request_kwargs or {}))
@@ -166,7 +166,7 @@ def get_reactor_status(project_id, application_id, api_key=None,
     :type api_key: str
     :return:
     """
-    url = '/projects/{}/applications/{}/reactorScript/status'.format(
+    url = '/projects/{}/applications/{}/reactor/status'.format(
         project_id, application_id)
     return utils.request('GET', url, api_key=api_key, accept=True,
                          **(request_kwargs or {}))
@@ -190,7 +190,7 @@ def create_reactor_logs(project_id, application_id, logs, api_key=None,
     for log in logs:
         assertions.validate_field_specs(log, reactor_log_field_specs)
 
-    url = '/projects/{}/applications/{}/reactorLogs/bulk'.format(
+    url = '/projects/{}/applications/{}/reactor/logs/bulk'.format(
         project_id, application_id)
     return utils.request('POST', url, api_key=api_key, accept=True, data=logs,
                          **(request_kwargs or {}))
@@ -209,7 +209,7 @@ def get_reactor_logs(project_id, application_id, api_key=None,
     :type api_key: str
     :return:
     """
-    url = '/projects/{}/applications/{}/reactorLogs'.format(
+    url = '/projects/{}/applications/{}/reactor/logs'.format(
         project_id, application_id)
     return utils.request('GET', url, api_key=api_key, accept=True,
                          **(request_kwargs or {}))
@@ -228,7 +228,7 @@ def delete_reactor_logs(project_id, application_id, api_key=None,
     :type api_key: str
     :return:
     """
-    url = '/projects/{}/applications/{}/reactorLogs'.format(
+    url = '/projects/{}/applications/{}/reactor/logs'.format(
         project_id, application_id)
     return utils.request('DELETE', url, api_key=api_key, accept=True,
                          **(request_kwargs or {}))
