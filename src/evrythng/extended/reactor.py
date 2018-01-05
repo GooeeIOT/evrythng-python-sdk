@@ -166,7 +166,7 @@ def get_reactor_status(project_id, application_id, api_key=None,
     :type api_key: str
     :return:
     """
-    url = '/projects/{}/applications/{}/reactor/status'.format(
+    url = '/projects/{}/applications/{}/reactor/script/status'.format(
         project_id, application_id)
     return utils.request('GET', url, api_key=api_key, accept=True,
                          **(request_kwargs or {}))
