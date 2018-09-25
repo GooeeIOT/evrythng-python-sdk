@@ -3,7 +3,6 @@ Evrything Docs
 https://dashboard.evrythng.com/documentation/api/actions
 """
 from evrythng import assertions, utils
-import logging
 
 field_specs = {
     'datatypes': {
@@ -61,7 +60,6 @@ def list_actions_by_project(type_, project, api_key=None, request_kwargs=None):
     project_actions = []
     assertions.datatype_str('type_', type_)
     actions = list_actions(type_, api_key, **(request_kwargs or {}))
-    logging.debug('Actions: ', actions.json())
     for action in actions.json():
         if action['createdByProject'] == project:
             project_actions.append(action)
