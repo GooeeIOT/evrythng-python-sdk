@@ -54,3 +54,14 @@ def list_actions(type_, api_key=None, request_kwargs=None):
     assertions.datatype_str('type_', type_)
     url = '/actions/{}'.format(type_)
     return utils.request('GET', url, api_key=api_key, **(request_kwargs or {}))
+
+
+def list_actions_by_project(type_, project, api_key=None, request_kwargs=None):
+    """List Actions belonging to Project"""
+    project_actions = []
+    assertions.datatype_str('type_', type_)
+    actions = list_actions(type_, api_key, **(request_kwargs or {}))
+    for action in actions:
+        if action['createdByProject'] == project:
+            project_actions.append(action)
+    return project_actions
