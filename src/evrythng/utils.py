@@ -88,6 +88,7 @@ def request(request_type, resource_url, data=None, api_key=None, files=None,
             request_type.upper(),
             str(response.status_code),
             url,
+            str(response.elapsed),
             str(requests_kwargs),
             response.text,
         )))
