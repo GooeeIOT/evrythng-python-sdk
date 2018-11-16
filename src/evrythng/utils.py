@@ -83,6 +83,17 @@ def request(request_type, resource_url, data=None, api_key=None, files=None,
     response = request_func(url, **requests_kwargs)
 
     if debug:
+        # Trim the key a little so we don't expose secrets.
+        try:
+            # Headers are case-insensitive so keep things lower.
+            for key in requests_kwargs['headers'].copy():
+                requests_kwargs['headers'][key.lower()] = requests_kwargs['headers'].pop(key)
+            authorization = requests_kwargs['headers']['authorization']
+            requests_kwargs['headers']['authorization'] = '...'.join((authorization[:12],
+                                                                      authorization[-5:]))
+        except KeyError:
+            pass
+
         LOG.debug('|'.join((
             'EVTDEBUG',
             request_type.upper(),
