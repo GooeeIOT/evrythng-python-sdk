@@ -14,14 +14,8 @@ except:
 import requests
 
 
-logging.getLogger('requests').setLevel(logging.WARNING)
 LOG = logging.getLogger()
-LOG.setLevel(logging.DEBUG)
-ch = logging.StreamHandler(sys.stdout)
-ch.setLevel(logging.DEBUG)
-formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-ch.setFormatter(formatter)
-LOG.addHandler(ch)
+logging.getLogger('requests').setLevel(logging.WARNING)
 
 
 def request(request_type, resource_url, data=None, api_key=None, files=None,
